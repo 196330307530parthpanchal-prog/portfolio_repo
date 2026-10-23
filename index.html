@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Parth Panchal · Python & Odoo Developer</title>
+<meta name="description" content="Parth Panchal, Python and Odoo developer from Ahmedabad. Custom Odoo modules, accounting reports, barcode scanning, Tally sync and ERP customization.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d10;--line:#ffffff1f;--text:#ece8dc;--mute:#9ba39e;--gold:#f2a900;--gold2:#ffd36b;--gold3:#c98400;--red:#d2482f;--px:0;--py:0}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font:400 16px/1.55 'Barlow',system-ui,sans-serif;overflow:hidden}
+h1,h2,h3,.btn,.nav button,.ph,.brand{font-family:'Rajdhani',system-ui,sans-serif;text-transform:uppercase;letter-spacing:.06em}
+a{color:inherit;text-decoration:none}
+/* ---------- scene ---------- */
+.scene{position:fixed;inset:0;z-index:0;overflow:hidden;background:var(--bg)}
+.l{position:absolute;inset:-5%;pointer-events:none}
+.sky{background:radial-gradient(60% 55% at 72% 22%,#d98a2a40,transparent 62%),radial-gradient(50% 50% at 15% 85%,#2c4a3a55,transparent 65%),linear-gradient(180deg,#10171d,#151d1f 55%,#0b0e10);transform:translate3d(calc(var(--px)*-8px),calc(var(--py)*-5px),0)}
+.rays{background:conic-gradient(from 195deg at 72% -8%,transparent 0 6deg,#ffcf7a18 9deg,transparent 13deg 20deg,#ffcf7a10 24deg,transparent 29deg 38deg,#ffcf7a14 42deg,transparent 48deg 60deg);mix-blend-mode:screen;animation:rays 9s ease-in-out infinite alternate}
+@keyframes rays{from{opacity:.4}to{opacity:1}}
+.hex{background:url("data:image/svg+xml,%3Csvg width='28' height='49' viewBox='0 0 28 49' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z' fill='%23fff' fill-opacity='.05'/%3E%3C/svg%3E");-webkit-mask-image:linear-gradient(180deg,#000,transparent 75%);mask-image:linear-gradient(180deg,#000,transparent 75%)}
+.ridge{inset:auto -5% 0;height:44%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 300' preserveAspectRatio='none'%3E%3Cpath fill='%2312191b' d='M0 300V170l120-40 90 30 140-70 110 60 160-50 130 70 150-90 120 60 140-30 130 50 110-40 100 40V300z'/%3E%3Cpath fill='%23080b0d' d='M0 300V230l140-30 100 30 180-50 120 40 200-30 140 40 170-50 130 40 120-20 100 30V300z'/%3E%3C/svg%3E") bottom/100% 100% no-repeat;transform:translate3d(calc(var(--px)*14px),calc(var(--py)*6px),0)}
+.fog{background:radial-gradient(40% 32% at 20% 70%,#9fb2a724,transparent 70%),radial-gradient(45% 30% at 75% 82%,#9fb2a71e,transparent 70%) no-repeat;background-size:130% 100%;animation:fog 38s ease-in-out infinite alternate}
+.fog.f2{animation-duration:57s;animation-direction:alternate-reverse;transform:scaleX(-1);opacity:.8}
+@keyframes fog{from{background-position:0 0}to{background-position:100% 4%}}
+.grain{opacity:.08;mix-blend-mode:overlay;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
+.vig{background:radial-gradient(ellipse at 50% 45%,transparent 38%,#000000c8 100%),repeating-linear-gradient(0deg,#0000 0 2px,#0000001a 2px 3px)}
+#dust{position:fixed;inset:0;z-index:1;pointer-events:none}
+/* ---------- boot ---------- */
+#boot{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 40%,#2a2211,#07090b 70%);transition:opacity .7s,visibility .7s}
+#boot.gone{opacity:0;visibility:hidden}
+.boot-in{width:min(460px,86vw);text-align:center}
+.boot-in h1{font-size:clamp(38px,9vw,64px);line-height:1;color:var(--text)}
+.boot-in h1 b{color:var(--gold);display:block}
+.boot-in p{color:var(--mute);margin:12px 0 22px;font-size:14px;min-height:22px}
+.bar{height:4px;background:#ffffff18}
+.bar i{display:block;height:100%;width:0;background:var(--gold);box-shadow:0 0 12px var(--gold);transition:width .3s}
+#bootbtn{margin-top:30px;opacity:0;pointer-events:none;transform:translateY(8px);transition:.4s}
+#bootbtn.show{opacity:1;pointer-events:auto;transform:none}
+/* ---------- buttons ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 32px;font-weight:700;font-size:19px;letter-spacing:.14em;color:#1a1305;border:0;cursor:pointer;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,var(--gold2),var(--gold) 52%,var(--gold3));box-shadow:inset 0 1px 0 #fffa,inset 0 -3px 0 #0003,inset 0 0 0 1px #fff3;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));transition:transform .12s,filter .2s}
+.btn::before{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;z-index:-1;background:linear-gradient(100deg,transparent,#fffb,transparent);transform:skewX(-20deg)}
+.btn:hover::before,.btn:focus-visible::before{left:130%;transition:left .65s ease}
+.btn:hover,.btn:focus-visible{filter:brightness(1.08);outline:none}
+.btn:active{transform:translateY(1px) scale(.97);filter:brightness(.92)}
+.btn.ghost{color:var(--text);background:linear-gradient(180deg,#ffffff16,#ffffff06);box-shadow:inset 0 0 0 1px #ffffff30,inset 0 1px 0 #ffffff25;transition:transform .12s,color .2s,box-shadow .2s}
+.btn.ghost::before{background:linear-gradient(100deg,transparent,#f2a90066,transparent)}
+.btn.ghost:hover,.btn.ghost:focus-visible{color:var(--gold2);box-shadow:inset 0 0 0 1px var(--gold),inset 0 0 18px #f2a9002e;filter:none}
+.btn.mini{padding:7px 16px;font-size:14px;letter-spacing:.1em}
+.glow{display:inline-block;filter:drop-shadow(0 0 0 #f2a90000);transition:filter .3s}
+.glow:hover,.glow:focus-within{filter:drop-shadow(0 0 12px #f2a900aa) drop-shadow(0 0 28px #f2a90055)}
+/* ---------- top bar ---------- */
+.app{position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:24px;padding:10px 28px;background:linear-gradient(180deg,#05080bf2,#05080b99);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:22px;white-space:nowrap}
+.brand em{font-style:normal;color:var(--gold);margin-left:6px}
+.hx{width:38px;height:42px;display:grid;place-items:center;font:700 16px 'Rajdhani';font-style:normal;letter-spacing:0;color:#1a1305;background:linear-gradient(160deg,var(--gold2),var(--gold3));clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.nav{display:flex;gap:2px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.nav button{position:relative;background:none;border:0;color:#c9cdc6;font-size:19px;font-weight:600;padding:12px 20px;cursor:pointer;transition:color .2s;white-space:nowrap}
+.nav button::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,#f2a9002b);opacity:0;transition:opacity .25s}
+.nav button::after{content:"";position:absolute;left:14px;right:14px;bottom:2px;height:3px;background:var(--gold);box-shadow:0 0 12px var(--gold);transform:scaleX(0);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.nav button:hover,.nav button:focus-visible{color:#fff;outline:none}
+.nav button:hover::before,.nav button.on::before{opacity:1}
+.nav button:hover::after,.nav button.on::after{transform:scaleX(1)}
+.nav button.on{color:var(--gold2)}
+.nav button:active{transform:scale(.96)}
+.srv{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mute);white-space:nowrap}
+.srv i{width:8px;height:8px;border-radius:50%;background:#7fae5c;box-shadow:0 0 8px #7fae5c;animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.4}}
+/* ---------- panels ---------- */
+.main{flex:1;min-height:0;overflow-y:auto;padding:26px 28px 50px;scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
+.pane{display:none}
+.pane.on{display:block;animation:in .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes in{from{clip-path:inset(0 100% 0 0);opacity:.2}to{clip-path:inset(0 0 0 0);opacity:1}}
+.panel,.frame{position:relative;background:linear-gradient(180deg,#141b20d9,#0c1216d9);border:1px solid var(--line);backdrop-filter:blur(8px);padding:22px}
+.panel::before,.frame::before,.panel::after,.frame::after{content:"";position:absolute;width:16px;height:16px;border:2px solid var(--gold)}
+.panel::before,.frame::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.panel::after,.frame::after{right:-1px;bottom:-1px;border-left:0;border-top:0}
+.frame{max-width:980px;margin:0 auto;padding:30px 32px}
+.ph{font-size:15px;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.ph::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,#f2a90066,transparent)}
+.sm{font-size:15px;color:#cfcbbf;margin-top:6px}
+/* home */
+.home{display:grid;grid-template-columns:minmax(260px,320px) 1fr minmax(260px,320px);gap:28px;max-width:1240px;min-height:100%;margin:0 auto;align-items:center}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.stat{padding:10px 12px;background:#0006;border-left:3px solid var(--gold)}
+.stat b{display:block;font:700 32px/1 'Rajdhani';color:var(--gold2)}
+.stat span{display:block;font-size:12px;color:var(--mute);line-height:1.3;margin-top:3px}
+.hero{text-align:center;position:relative}
+.plate{display:inline-flex;align-items:center;gap:12px;padding:6px 18px 6px 6px;background:linear-gradient(90deg,#0009,#0004);border:1px solid var(--line);margin-bottom:8px}
+.plate b{font:700 24px 'Rajdhani';letter-spacing:.1em;text-transform:uppercase}
+.lv{background:var(--gold);color:#1a1305;font:700 12px 'Rajdhani';letter-spacing:.12em;padding:4px 9px}
+.stage{position:relative;width:min(400px,80vw);aspect-ratio:1;margin:0 auto;transform:translate3d(calc(var(--px)*10px),calc(var(--py)*6px),0)}
+.ring{position:absolute;inset:3%;border-radius:50%;border:1px dashed #f2a9005a;animation:spin 40s linear infinite}
+.ring.r2{inset:11%;border:2px solid transparent;border-top-color:#f2a900aa;border-bottom-color:#f2a90044;animation-duration:14s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.me{position:relative;width:100%;height:100%;display:block;object-fit:cover;filter:contrast(1.06) saturate(1.05);-webkit-mask-image:radial-gradient(ellipse 60% 66% at 50% 46%,#000 60%,transparent 100%);mask-image:radial-gradient(ellipse 60% 66% at 50% 46%,#000 60%,transparent 100%)}
+.plat{width:72%;height:46px;margin:-34px auto 0;border-radius:50%;background:radial-gradient(ellipse,#f2a900aa,#f2a90033 45%,transparent 70%);animation:plat 3.5s ease-in-out infinite alternate}
+@keyframes plat{from{opacity:.6;transform:scaleX(.9)}to{opacity:1;transform:scaleX(1.05)}}
+.role{color:var(--mute);margin:14px 0 18px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+/* ---------- cards ---------- */
+h2{font-size:clamp(30px,5vw,46px);line-height:1}
+h2::after{content:"";display:block;width:70px;height:4px;background:var(--gold);box-shadow:0 0 14px #f2a90088;margin-top:10px}
+.sub{color:var(--mute);margin:14px 0 24px;max-width:62ch}
+.card{position:relative;background:linear-gradient(100deg,#1b2328e6,#12181cd9);padding:18px 22px 18px 26px;margin-bottom:14px;border:1px solid #ffffff12;overflow:hidden;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,0 100%);transition:transform .25s,border-color .25s,background .25s}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--gold),#c9840000)}
+.card::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:28%;background:linear-gradient(100deg,transparent,#ffffff10,transparent);transform:skewX(-20deg)}
+.card:hover{transform:translateX(5px);border-color:#f2a90066;background:linear-gradient(100deg,#232b30f2,#161d22e6)}
+.card:hover::after{left:130%;transition:left .8s ease}
+.card.hot{background:linear-gradient(100deg,#2c2411f2,#14181bd9);border-color:#f2a90055}
+.card h3{font-size:23px}
+.meta{font-size:14px;color:var(--gold2);margin-bottom:8px}
+.card ul{padding-left:18px;color:#cfcbbf;font-size:15px}
+.card li{margin:4px 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chip{font-size:12px;padding:2px 10px;background:#0004;border:1px solid var(--line);color:var(--mute)}
+.badge{display:inline-block;font:600 12px 'Rajdhani';letter-spacing:.1em;background:var(--red);color:#fff;padding:1px 8px;margin-left:8px;vertical-align:3px;animation:blink 2s infinite}
+.badge.gold{background:var(--gold);color:#1a1305;animation:none}
+.grp{font:600 15px 'Rajdhani';letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:26px 0 10px}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.slot{background:linear-gradient(180deg,#1b2328,#12181c);padding:14px 16px;border-top:2px solid #ffffff1a;border-bottom:3px solid #4d5b3f;transition:border-color .2s,transform .2s,box-shadow .2s}
+.slot:hover{border-bottom-color:var(--gold);transform:translateY(-3px);box-shadow:0 10px 24px #0008,0 0 18px #f2a90022}
+.slot span{display:block;font-size:12px;color:var(--mute)}
+.slot b{font:700 21px 'Rajdhani';letter-spacing:.03em}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+/* ---------- responsive ---------- */
+@media(max-width:980px){
+ .home{grid-template-columns:1fr;gap:20px;align-items:start}
+ .hero{order:-1}
+}
+@media(max-width:760px){
+ .top{flex-wrap:wrap;gap:8px 12px;padding:10px 12px}
+ .brand{font-size:19px}.srv{display:none}
+ .top .btn.mini{margin-left:auto}
+ .nav{order:3;width:100%;margin:0}
+ .nav button{padding:10px 14px;font-size:17px}
+ .main{padding:18px 14px 50px}
+ .frame{padding:22px 18px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="scene"><div class="l sky"></div><div class="l rays"></div><div class="l hex"></div><div class="l ridge"></div><div class="l fog"></div><div class="l fog f2"></div><div class="l grain"></div><div class="l vig"></div></div>
+<canvas id="dust"></canvas>
+
+<div id="boot"><div class="boot-in">
+ <h1>Parth <b>Panchal</b></h1>
+ <p id="bootmsg">Connecting to server...</p>
+ <div class="bar"><i id="bootbar"></i></div>
+ <span class="glow"><button class="btn" id="bootbtn">Deploy</button></span>
+</div></div>
+
+<div class="app">
+ <header class="top">
+  <div class="brand"><i class="hx">PP</i><span>Parth<em>Panchal</em></span></div>
+  <nav class="nav" id="menu">
+   <button data-t="profile" class="on">Home</button>
+   <button data-t="missions">Missions</button>
+   <button data-t="loot">Loot</button>
+   <button data-t="loadout">Loadout</button>
+   <button data-t="training">Training</button>
+   <button data-t="squad">Contact</button>
+  </nav>
+  <span class="srv"><i></i>Server: Ahmedabad, IN</span>
+  <button class="btn ghost mini" id="snd">Sound: on</button>
+ </header>
+
+ <main class="main" id="main">
+  <section class="pane on" id="profile"><div class="home">
+   <aside class="panel">
+    <div class="ph">Player profile</div>
+    <p class="sm" style="margin-top:0">I build custom Odoo modules, accounting reports and integrations in Python, Owl and QWeb. Odoo Community is my home ground, and I contribute modules back to the open-source community.</p>
+    <div class="stats">
+     <div class="stat"><b data-n="3">0</b><span>Odoo implementations delivered</span></div>
+     <div class="stat"><b data-n="9">0</b><span>Custom modules at Areterix</span></div>
+     <div class="stat"><b data-n="7">0</b><span>Reports merged into one suite</span></div>
+     <div class="stat"><b data-n="2">0</b><span>Odoo versions shipped, 17 and 19</span></div>
+    </div>
+   </aside>
+
+   <div class="hero">
+    <div class="plate"><span class="lv">Odoo Dev</span><b>Parth Panchal</b></div>
+    <div class="stage"><i class="ring"></i><i class="ring r2"></i><img class="me" src="photo.png" alt="Portrait of Parth Panchal" width="400" height="400"></div>
+    <div class="plat"></div>
+    <p class="role">Python &amp; Odoo Developer · Ahmedabad, Gujarat</p>
+    <div class="cta">
+     <span class="glow"><button class="btn" data-go="missions">View missions</button></span>
+     <button class="btn ghost" data-go="squad">Contact</button>
+    </div>
+   </div>
+
+   <aside class="panel">
+    <div class="ph">Current mission</div>
+    <h3>Odoo Developer <span class="badge">Active</span></h3>
+    <div class="meta">Areterix Technologies</div>
+    <p class="sm" style="margin-top:0">Accounting reports, TallyPrime sync, reconcile automation and warehouse tools on Odoo 17 and 19.</p>
+    <div class="ph" style="margin-top:22px">Flagship build</div>
+    <h3>Barcode Scanner App</h3>
+    <div class="meta">Odoo 19 Community</div>
+    <p class="sm" style="margin-top:0">A warehouse scanning app with the Enterprise experience, built without Enterprise.</p>
+    <div class="cta" style="justify-content:flex-start;margin-top:16px"><button class="btn ghost mini" data-go="missions">See details</button></div>
+   </aside>
+  </div></section>
+
+  <section class="pane frame" id="missions">
+   <h2>Missions</h2>
+   <p class="sub">Work history, newest first.</p>
+   <div class="card">
+    <h3>Odoo Developer <span class="badge">Active</span></h3>
+    <div class="meta">Areterix Technologies · Present</div>
+    <ul>
+     <li><b>Barcode Scanner App:</b> the flagship build, described in the next card.</li>
+     <li><b>Accounting reports suite:</b> General Ledger, Partner Ledger, Aged Receivable, Aged Payable, Profit &amp; Loss, Balance Sheet and GSTR-1, merged from 7 modules into one. Owl frontend, QWeb PDF and XLSX export, drill-down into the ledger.</li>
+     <li><b>Odoo to TallyPrime sync:</b> customers, vendors, products, invoices and bills pushed to Tally as vouchers, with a journal-level Tally mapping and sync status on list views.</li>
+     <li><b>Auto-reconcile:</b> open receivable and payable items reconcile per partner on post and on bank matching, oldest invoice first.</li>
+     <li><b>Outstanding reports:</b> partner-wise Aged Receivable and Payable XLSX wizards with cumulative balance.</li>
+     <li><b>Employee Self Service portal:</b> time off, leave allocation requests and attendance for portal users.</li>
+     <li><b>Warehouse tools:</b> Picking Operations v2 PDF, hidden prices on product labels and Dymo lot labels.</li>
+     <li><b>Sales:</b> SQM to PCS conversion for polycarbonate sheet orders, calculated server-side from variant dimensions.</li>
+     <li><b>Bank matching:</b> partner Cr/Dr balance shown in the quick-create row.</li>
+     <li>Ported the reporting suite from Odoo 19 down to Odoo 17 for a client handover.</li>
+    </ul>
+    <div class="chips"><span class="chip">Odoo 17</span><span class="chip">Odoo 19</span><span class="chip">Owl</span><span class="chip">QWeb</span><span class="chip">Python</span><span class="chip">PostgreSQL</span><span class="chip">TallyPrime</span><span class="chip">GST</span></div>
+   </div>
+   <div class="card hot">
+    <h3>Barcode Scanner App <span class="badge gold">Flagship</span></h3>
+    <div class="meta">Odoo 19 Community · Areterix Technologies</div>
+    <ul>
+     <li>A warehouse scanner that gives Community Edition the Enterprise barcode experience, with no Enterprise dependency.</li>
+     <li>Home and operations screens, picking lists, picking detail with edit and validate, and backorder handling.</li>
+     <li>Global barcode resolver, product locate, lot, serial and package scanning, and a camera scanner.</li>
+     <li>Delivery customization: scan a product, then a lot, and the whole lot registers in one scan. Pending products show under one header with their lot locations and scanned against demanded quantity.</li>
+     <li>One-tap DYMO lot-label print on each purchase receipt line, reusing the existing label module.</li>
+    </ul>
+    <div class="chips"><span class="chip">Odoo 19 CE</span><span class="chip">Owl</span><span class="chip">JavaScript</span><span class="chip">Python</span><span class="chip">QWeb</span><span class="chip">DYMO</span></div>
+   </div>
+   <div class="card">
+    <h3>Odoo Tech Intern</h3>
+    <div class="meta">Serpent Consulting Services Pvt. Ltd · Jan 2025 – Oct 2025</div>
+    <ul>
+     <li>Built and customized Odoo modules, using ORM methods, workflows and report actions.</li>
+     <li>Customized forms, reports and business workflows to client requirements.</li>
+     <li>Worked with cross-functional teams on 3 successful Odoo implementations.</li>
+    </ul>
+   </div>
+   <div class="card">
+    <h3>Data Science Intern</h3>
+    <div class="meta">Infividhya Pvt Ltd · Jun – Jul 2024</div>
+    <ul><li>Clustered athlete performance data with machine learning and visualized the results.</li></ul>
+   </div>
+   <div class="card">
+    <h3>Python Developer Intern</h3>
+    <div class="meta">Upskills Campus · Jun – Jul 2024</div>
+    <ul><li>Applied Pandas, NumPy and Scikit-learn to analyze athlete performance patterns.</li></ul>
+   </div>
+  </section>
+
+  <section class="pane frame" id="loot">
+   <h2>Loot</h2>
+   <p class="sub">Projects built outside the day job.</p>
+   <div class="card"><h3>Milk Production · Odoo 18</h3><div class="meta">Farm management</div>
+    <ul><li>Tracks animals, milk output and health records on top of the mail, stock, product and report modules.</li><li>Date-wizard PDF and XLSX milk reports.</li><li>Access rights: farm workers log milk and health data, admins keep full control.</li></ul></div>
+   <div class="card"><h3>Gym Management · Odoo 18</h3><div class="meta">Memberships and notifications</div>
+    <ul><li>Membership schemes linked to products, with automatic calculations on sales orders.</li><li>Staff manage members, trainers see only their assigned members.</li><li>Telegram Bot API sends a real-time alert for every new registration.</li></ul></div>
+   <div class="card"><h3>Athlete Clustering</h3><div class="meta">Machine learning</div>
+    <ul><li>Clusters athletes by performance attributes with Pandas, NumPy and Scikit-learn, plus charts to read the result.</li></ul></div>
+   <div class="card"><h3>Culturea</h3><div class="meta">Heritage showcase website</div>
+    <ul><li>Promotes cultural heritage and local history with multimedia and an interactive UI.</li></ul></div>
+   <div class="card"><h3>GrowPharma</h3><div class="meta">Online pharmacy store</div>
+    <ul><li>Product catalog, shopping cart, secure checkout and user accounts.</li></ul></div>
+  </section>
+
+  <section class="pane frame" id="loadout">
+   <h2>Loadout</h2>
+   <p class="sub">What I carry into every build.</p>
+   <div class="grp">Primary</div>
+   <div class="slots"><div class="slot"><span>Language</span><b>Python</b></div><div class="slot"><span>ERP</span><b>Odoo ERP</b></div><div class="slot"><span>Database</span><b>PostgreSQL · SQL</b></div></div>
+   <div class="grp">Secondary</div>
+   <div class="slots"><div class="slot"><span>Framework</span><b>Odoo ORM</b></div><div class="slot"><span>Frontend</span><b>JavaScript · Owl</b></div><div class="slot"><span>Templates</span><b>QWeb · XML</b></div><div class="slot"><span>Web</span><b>HTML · CSS</b></div></div>
+   <div class="grp">Utilities</div>
+   <div class="slots"><div class="slot"><span>Data</span><b>Pandas · NumPy</b></div><div class="slot"><span>Version control</span><b>Git</b></div><div class="slot"><span>Editors</span><b>PyCharm · VS Code</b></div><div class="slot"><span>Local stack</span><b>XAMPP</b></div></div>
+  </section>
+
+  <section class="pane frame" id="training">
+   <h2>Training</h2>
+   <p class="sub">Where I learned the basics.</p>
+   <div class="card"><h3>B.E. Computer Engineering</h3><div class="meta">Ahmedabad Institute of Technology · 2022 – 2025</div></div>
+   <div class="card"><h3>Diploma in Computer Engineering</h3><div class="meta">LJ Institute of Technology · 2019 – 2022</div></div>
+  </section>
+
+  <section class="pane frame" id="squad">
+   <h2>Contact</h2>
+   <p class="sub">Need an Odoo module, a report or an integration? Send an invite.</p>
+   <span class="glow"><a class="btn" href="http://www.linkedin.com/in/parth-panchal-7b2b0b294" target="_blank" rel="noopener">LinkedIn</a></span>
+   <p class="sub" style="margin-top:26px">Ahmedabad, Gujarat, India</p>
+  </section>
+ </main>
+</div>
+
+<script>
+(function(){
+ var AC=window.AudioContext||window.webkitAudioContext,A=null,M=null,NB=null,on=true;
+ var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,canHover=matchMedia('(hover:hover)').matches;
+ try{on=localStorage.getItem('snd')!=='off'}catch(e){}
+
+ /* ---------- sound engine (Web Audio, no files) ---------- */
+ function init(){if(A||!AC)return;A=new AC();
+  var comp=A.createDynamicsCompressor(),d=A.createDelay(),fb=A.createGain(),wet=A.createGain(),lp=A.createBiquadFilter();
+  M=A.createGain();M.gain.value=.8;d.delayTime.value=.11;fb.gain.value=.3;wet.gain.value=.22;lp.type='lowpass';lp.frequency.value=3200;
+  M.connect(comp);M.connect(d);d.connect(lp);lp.connect(fb);fb.connect(d);lp.connect(wet);wet.connect(comp);comp.connect(A.destination);
+  var n=A.sampleRate>>1,c;NB=A.createBuffer(1,n,A.sampleRate);c=NB.getChannelData(0);for(var i=0;i<n;i++)c[i]=Math.random()*2-1}
+ function ready(){if(!on||!A)return false;if(A.state==='suspended')A.resume();return true}
+ function osc(type,f0,f1,t,d,v){var o=A.createOscillator(),g=A.createGain(),s=A.currentTime+t;o.type=type;o.frequency.setValueAtTime(f0,s);
+  if(f1)o.frequency.exponentialRampToValueAtTime(f1,s+d);g.gain.setValueAtTime(.0001,s);g.gain.exponentialRampToValueAtTime(v,s+.004);
+  g.gain.exponentialRampToValueAtTime(.0001,s+d);o.connect(g);g.connect(M);o.start(s);o.stop(s+d+.02)}
+ function nz(ft,f0,f1,q,t,d,v){var s=A.currentTime+t,b=A.createBufferSource(),f=A.createBiquadFilter(),g=A.createGain();b.buffer=NB;f.type=ft;f.Q.value=q;
+  f.frequency.setValueAtTime(f0,s);if(f1)f.frequency.exponentialRampToValueAtTime(f1,s+d);g.gain.setValueAtTime(.0001,s);
+  g.gain.exponentialRampToValueAtTime(v,s+.006);g.gain.exponentialRampToValueAtTime(.0001,s+d);b.connect(f);f.connect(g);g.connect(M);b.start(s);b.stop(s+d+.02)}
+ var S={
+  hover:function(){if(!ready())return;nz('bandpass',2500,7000,3,0,.09,.07);osc('sine',1900,2600,0,.07,.025)},
+  click:function(){if(!ready())return;osc('sine',170,48,0,.16,.28);nz('highpass',2200,0,.7,0,.04,.16);osc('square',1180,0,.012,.05,.03);osc('square',1770,0,.05,.07,.025)},
+  go:function(){if(!ready())return;nz('bandpass',350,4200,1.2,0,.26,.12);osc('sine',220,520,0,.2,.06);osc('sine',150,50,0,.12,.2);osc('triangle',1320,0,.12,.14,.03)},
+  confirm:function(){if(!ready())return;osc('sine',150,40,0,.22,.34);nz('highpass',1800,0,.7,0,.05,.18);
+   [392,523,659,784].forEach(function(f,i){osc('triangle',f,0,.05+i*.07,.28,.07);osc('square',f*2,0,.05+i*.07,.1,.015)});nz('bandpass',500,5000,1,0,.3,.07)},
+  boot:function(){if(!ready())return;osc('sawtooth',60,240,0,.8,.04);nz('bandpass',200,6000,1,0,.7,.1);osc('sine',140,35,0,.5,.4);
+   [523,784,1047].forEach(function(f,i){osc('triangle',f,0,.35+i*.12,.5,.06)})},
+  tog:function(){if(!ready())return;osc('triangle',660,0,0,.1,.06);osc('triangle',990,0,.08,.16,.06)}
+ };
+ /* hover sound: once per entry. mouseover bubbles from children, so ignore moves that start inside the same control */
+ var SEL='.nav button,.btn';
+ if(canHover)document.addEventListener('mouseover',function(e){var el=e.target.closest(SEL);
+  if(!el||(e.relatedTarget&&el.contains(e.relatedTarget)))return;S.hover()});
+ document.addEventListener('pointerdown',function(e){var el=e.target.closest(SEL);if(!el||el.id==='bootbtn'||el.closest('.nav'))return;
+  if(el.classList.contains('ghost'))S.click();else S.confirm()});
+ var sb=document.getElementById('snd');
+ function paint(){sb.textContent='Sound: '+(on?'on':'off')}paint();
+ sb.addEventListener('click',function(){on=!on;try{localStorage.setItem('snd',on?'on':'off')}catch(e){}paint();S.tog()});
+
+ /* ---------- boot ---------- */
+ var msgs=['Connecting to server...','Loading assets...','Checking loadout...','Matchmaking...','Ready'],bar=document.getElementById('bootbar'),bm=document.getElementById('bootmsg'),bb=document.getElementById('bootbtn'),i=0;
+ bar.style.width='10%';
+ var iv=setInterval(function(){i++;bar.style.width=Math.min(i*25,100)+'%';bm.textContent=msgs[Math.min(i,4)];
+  if(i>=4){clearInterval(iv);bb.classList.add('show');bb.focus({preventScroll:true})}},420);
+ bb.addEventListener('click',function(){init();S.boot();document.getElementById('boot').classList.add('gone');counters()});
+
+ /* ---------- tabs ---------- */
+ var btns=[].slice.call(document.querySelectorAll('#menu button')),main=document.getElementById('main');
+ function go(id,quiet){var cur=btns.filter(function(b){return b.classList.contains('on')})[0];if(cur&&cur.dataset.t===id)return;
+  if(!quiet)S.go();
+  btns.forEach(function(b){b.classList.toggle('on',b.dataset.t===id)});
+  document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('on',p.id===id)});
+  main.scrollTop=0;if(id==='profile')counters();
+  try{history.replaceState(null,'','#'+id)}catch(e){}}
+ btns.forEach(function(b){b.addEventListener('click',function(){go(b.dataset.t)})});
+ document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.go,true);S.go()})});
+ document.addEventListener('keydown',function(e){if(document.getElementById('boot').className.indexOf('gone')<0)return;
+  var cur=btns.findIndex(function(b){return b.classList.contains('on')}),n=cur;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')n=(cur+1)%btns.length;
+  else if(e.key==='ArrowLeft'||e.key==='ArrowUp')n=(cur-1+btns.length)%btns.length;
+  else if(/^[1-6]$/.test(e.key))n=+e.key-1;else return;
+  if(n!==cur){e.preventDefault();go(btns[n].dataset.t)}});
+ var h=location.hash.slice(1);if(h&&document.getElementById(h))go(h,true);
+
+ /* ---------- counters ---------- */
+ function counters(){document.querySelectorAll('[data-n]').forEach(function(el){var t=+el.dataset.n,s=null;
+  function step(ts){if(!s)s=ts;var p=Math.min((ts-s)/900,1);el.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)})}
+
+ /* ---------- mouse parallax ---------- */
+ var rs=document.documentElement.style,q=0;
+ if(canHover&&!reduce)addEventListener('mousemove',function(e){if(q)return;q=1;requestAnimationFrame(function(){q=0;
+  rs.setProperty('--px',(e.clientX/innerWidth*2-1).toFixed(3));rs.setProperty('--py',(e.clientY/innerHeight*2-1).toFixed(3))})});
+
+ /* ---------- embers ---------- */
+ var c=document.getElementById('dust'),x=c.getContext('2d'),P=[],W,H;
+ function size(){W=c.width=innerWidth;H=c.height=innerHeight}size();addEventListener('resize',size);
+ for(var k=0;k<50;k++)P.push({x:Math.random()*2400,y:Math.random()*1400,r:Math.random()*1.8+.5,s:Math.random()*.35+.12,a:Math.random()*.5+.15});
+ if(!reduce)(function f(){x.clearRect(0,0,W,H);
+  P.forEach(function(p){p.x+=p.s*.6;p.y-=p.s;if(p.x>W)p.x=0;if(p.y<0){p.y=H;p.x=Math.random()*W}
+   x.fillStyle='rgba(255,196,96,'+p.a+')';x.fillRect(p.x,p.y,p.r,p.r)});requestAnimationFrame(f)})();
+})();
+</script>
+</body>
+</html>
