@@ -7,370 +7,365 @@
 <meta name="description" content="Parth Panchal, Software Developer in Ahmedabad. Custom Odoo modules, accounting reports, barcode scanning and system integrations.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#060a11;--ink:#eaf1f8;--mute:#8d9bb0;--line:#ffffff17;--acc:#3fd0ff;--acc2:#4a7bff}
+:root{--bg:#04070d;--ink:#e9f1f9;--mute:#8696ac;--line:#ffffff18;--cy:#39d0ff;--bl:#3a6bff;--am:#ffb938}
 *{box-sizing:border-box;margin:0}
 html,body{height:100%}
-body{background:var(--bg);color:var(--ink);font:400 16px/1.6 'Manrope',system-ui,sans-serif;overflow:hidden}
-h1,h2,h3,h4,.btn,.nav button,.brand{font-family:'Sora',system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 'Barlow',system-ui,sans-serif;overflow:hidden}
+h1,h2,h3,h4,.btn,.nav button,.role,.nm,.sec{font-family:'Rajdhani',system-ui,sans-serif;text-transform:uppercase}
 a{color:inherit;text-decoration:none}
-/* ---------- background (static, no scroll or pointer movement) ---------- */
+/* ---------- background ---------- */
 .scene{position:fixed;inset:0;z-index:0;background:
- radial-gradient(60% 50% at 82% 0%,#1fb6ff2b,transparent 62%),
- radial-gradient(50% 45% at 0% 28%,#6a5cff24,transparent 62%),
- radial-gradient(45% 40% at 60% 105%,#00e5c01c,transparent 62%),var(--bg)}
-.scene::before{content:"";position:absolute;inset:0;background:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000,transparent 75%);mask-image:radial-gradient(ellipse at 50% 20%,#000,transparent 75%)}
-.scene::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 50%,#000000a0 100%);animation:amb 12s ease-in-out infinite alternate}
-@keyframes amb{to{opacity:.7}}
+ radial-gradient(55% 45% at 85% 5%,#1fb6ff30,transparent 62%),
+ radial-gradient(45% 40% at 0% 40%,#4a3cff26,transparent 62%),
+ radial-gradient(40% 35% at 55% 110%,#ffb93820,transparent 62%),var(--bg)}
+.scene::before{content:"";position:absolute;inset:0;background:linear-gradient(#ffffff07 1px,transparent 1px),linear-gradient(90deg,#ffffff07 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000,transparent 75%);mask-image:radial-gradient(ellipse at 50% 30%,#000,transparent 75%)}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.fx{position:fixed;inset:0;z-index:3;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 45%,#000000b0 100%),repeating-linear-gradient(0deg,#0000 0 2px,#00000020 2px 3px)}
 /* ---------- boot ---------- */
-#boot{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 35%,#0f1d33,#050810 70%);transition:opacity .6s,visibility .6s}
+#boot{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 38%,#0f1d33,#04060b 70%);transition:opacity .6s,visibility .6s}
 #boot.gone{opacity:0;visibility:hidden}
-.boot-in{width:min(420px,86vw);text-align:center}
-.boot-in .logo{margin:0 auto 22px;width:64px;height:64px;font-size:26px;border-radius:16px}
-.boot-in h1{font-size:clamp(28px,6vw,40px);font-weight:600;letter-spacing:-.01em}
-.boot-in p{color:var(--mute);margin:8px 0 26px;font-size:14px;min-height:22px}
-.bar{height:3px;background:#ffffff18;border-radius:3px;overflow:hidden}
-.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));box-shadow:0 0 12px var(--acc);transition:width .35s}
-#bootbtn{margin-top:30px;opacity:0;pointer-events:none;transform:translateY(8px);transition:.4s}
-#bootbtn.show{opacity:1;pointer-events:auto;transform:none}
+.boot-in{width:min(460px,86vw);text-align:center}
+.boot-in h1{font-size:clamp(34px,8vw,58px);font-weight:700;letter-spacing:.14em;line-height:1;text-shadow:0 0 24px #39d0ff66;animation:flick 1.2s steps(1) 1}
+.boot-in h1 b{display:block;color:var(--cy)}
+.boot-in p{color:var(--mute);margin:16px 0 22px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;min-height:22px}
+.bar{height:3px;background:#ffffff18;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cy),var(--bl));box-shadow:0 0 12px var(--cy);transition:width .35s}
+#bootbtn{margin-top:30px;opacity:0;pointer-events:none;transition:opacity .4s}
+#bootbtn.show{opacity:1;pointer-events:auto}
+#bootbtn.show .bt{animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+@keyframes flick{0%,18%,22%,60%,64%,100%{opacity:1}20%,62%{opacity:.12}24%{opacity:.6}}
 /* ---------- buttons ---------- */
-.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 28px;font-weight:600;font-size:15px;letter-spacing:.02em;color:#03111f;border:0;cursor:pointer;overflow:hidden;isolation:isolate;background:linear-gradient(135deg,#5ee0ff,var(--acc) 40%,var(--acc2));box-shadow:inset 0 1px 0 #fff8,inset 0 -2px 0 #0002;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));transition:transform .12s,filter .2s}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 30px;font-weight:700;font-size:17px;letter-spacing:.16em;color:#03111f;border:0;cursor:pointer;overflow:hidden;isolation:isolate;background:linear-gradient(135deg,#6ae4ff,var(--cy) 40%,var(--bl));box-shadow:inset 0 1px 0 #fff9,inset 0 -3px 0 #0003;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));transition:transform .12s,filter .2s}
 .btn::before{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;z-index:-1;background:linear-gradient(100deg,transparent,#ffffffaa,transparent);transform:skewX(-20deg)}
 .btn:hover::before,.btn:focus-visible::before{left:130%;transition:left .65s ease}
 .btn:hover,.btn:focus-visible{filter:brightness(1.1);outline:none}
 .btn:active{transform:translateY(1px) scale(.97)}
-.btn.ghost{color:var(--ink);background:linear-gradient(180deg,#ffffff14,#ffffff05);box-shadow:inset 0 0 0 1px #ffffff2a;transition:transform .12s,color .2s,box-shadow .2s}
-.btn.ghost::before{background:linear-gradient(100deg,transparent,#3fd0ff55,transparent)}
-.btn.ghost:hover,.btn.ghost:focus-visible{color:#fff;box-shadow:inset 0 0 0 1px var(--acc),inset 0 0 20px #3fd0ff22;filter:none}
-.btn.mini{padding:7px 16px;font-size:13px}
-.glow{display:inline-block;filter:drop-shadow(0 0 0 #3fd0ff00);transition:filter .3s}
-.glow:hover,.glow:focus-within{filter:drop-shadow(0 0 12px #3fd0ffaa) drop-shadow(0 0 28px #3fd0ff55)}
+.btn.ghost{color:var(--ink);background:linear-gradient(180deg,#ffffff14,#ffffff05);box-shadow:inset 0 0 0 1px #ffffff2e;transition:transform .12s,color .2s,box-shadow .2s}
+.btn.ghost::before{background:linear-gradient(100deg,transparent,#ffb93855,transparent)}
+.btn.ghost:hover,.btn.ghost:focus-visible{color:var(--am);box-shadow:inset 0 0 0 1px var(--am),inset 0 0 20px #ffb93822;filter:none}
+.btn.mini{padding:7px 16px;font-size:13px;letter-spacing:.14em}
+.glow{display:inline-block;filter:drop-shadow(0 0 0 #39d0ff00);transition:filter .3s}
+.glow:hover,.glow:focus-within{filter:drop-shadow(0 0 12px #39d0ffaa) drop-shadow(0 0 28px #39d0ff55)}
+#snd{position:fixed;left:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:30}
 /* ---------- header ---------- */
-.app{position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
-.top{display:flex;align-items:center;gap:24px;padding:12px 32px;background:#060a11cc;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
-.brand{display:flex;align-items:center;gap:12px;font-weight:600;font-size:17px;white-space:nowrap}
-.logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font:700 15px 'Sora';color:#03111f;background:linear-gradient(135deg,#5ee0ff,var(--acc2));flex:none}
-.nav{display:flex;gap:4px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
-.nav button{position:relative;background:none;border:0;color:#b4c0d0;font-size:14px;font-weight:500;padding:10px 16px;cursor:pointer;border-radius:8px;transition:color .2s,background .2s;white-space:nowrap}
-.nav button::after{content:"";position:absolute;left:16px;right:16px;bottom:2px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--acc),var(--acc2));box-shadow:0 0 10px var(--acc);transform:scaleX(0);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
-.nav button:hover,.nav button:focus-visible{color:#fff;background:#ffffff0c;outline:none}
+.app{position:relative;z-index:4;height:100%;display:flex;flex-direction:column}
+.top{display:flex;justify-content:center;align-items:center;padding:6px 16px 0;background:linear-gradient(180deg,#04070df5,#04070d99);border-bottom:1px solid var(--line);backdrop-filter:blur(12px);position:relative;z-index:6}
+.nav{display:flex;align-items:center;gap:2px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;max-width:100%}
+.nav button{position:relative;background:none;border:0;color:#b4c0d0;font-size:17px;font-weight:600;letter-spacing:.14em;padding:18px 16px;cursor:pointer;transition:color .2s,background .2s;white-space:nowrap}
+.nav button::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,#39d0ff22);opacity:0;transition:opacity .25s}
+.nav button::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:3px;background:var(--am);box-shadow:0 0 12px var(--am);transform:scaleX(0);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.nav button:hover,.nav button:focus-visible{color:#fff;outline:none}
+.nav button:hover::before,.nav button.on::before{opacity:1}
 .nav button:hover::after,.nav button.on::after{transform:scaleX(1)}
 .nav button.on{color:#fff}
 .nav button:active{transform:scale(.96)}
-.main{flex:1;min-height:0;overflow-y:auto;padding:30px 32px 90px;scrollbar-width:thin;scrollbar-color:#3fd0ff55 transparent}
-.pane{display:none;max-width:1180px;margin:0 auto}
-.pane.on{display:block;animation:in .5s cubic-bezier(.2,.8,.2,1)}
-@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* helmet emblem */
+.hel{position:relative;flex:none;width:78px;height:78px;margin:0 20px -16px;padding:0;border:0;background:none;cursor:pointer;z-index:2}
+.hel::before,.hel::after{content:"";position:absolute;clip-path:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0 50%)}
+.hel::before{inset:0;background:linear-gradient(160deg,var(--cy),var(--bl) 60%,var(--am))}
+.hel::after{inset:2px;background:radial-gradient(circle at 50% 35%,#16253d,#070c16)}
+.hel svg{position:absolute;inset:9px;width:calc(100% - 18px);height:calc(100% - 18px);z-index:1;overflow:visible;will-change:transform}
+.hel:hover::before{filter:brightness(1.3)}
+.hel.pop{animation:pop .4s}
+@keyframes pop{40%{transform:scale(1.12)}}
+.hel.flash #vis{filter:brightness(1.8)}
+/* ---------- panes ---------- */
+.main{flex:1;min-height:0;overflow-y:auto;padding:36px 32px 120px;scrollbar-width:thin;scrollbar-color:#39d0ff55 transparent}
+.pane{display:none;max-width:1120px;margin:0 auto}
+.pane.on{display:block}
+.rv{opacity:0;transform:translateY(26px);filter:blur(6px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1),filter .8s;transition-delay:calc(var(--i,0)*90ms)}
+.rv.in{opacity:1;transform:none;filter:none}
+.ttl{font-size:clamp(34px,6vw,64px);font-weight:700;letter-spacing:.22em;text-align:center;line-height:1;text-shadow:0 0 26px #39d0ff66;margin-bottom:10px}
+.ttl::after{content:"_";color:var(--am);margin-left:.06em;animation:bl .9s steps(1) infinite}
+.pane.on .ttl{animation:flick 1s steps(1) 1}
+.tsub{text-align:center;color:var(--mute);letter-spacing:.3em;font-size:12px;text-transform:uppercase;margin-bottom:46px}
+/* credits typography */
+.cr{text-align:center;margin:0 auto 46px;max-width:780px}
+.role{font-weight:600;font-size:13px;letter-spacing:.38em;color:var(--am)}
+.nm{font-weight:700;font-size:clamp(24px,3.4vw,38px);letter-spacing:.08em;line-height:1.1;margin:8px 0 6px}
+.dt{color:var(--mute);letter-spacing:.14em;font-size:13px;text-transform:uppercase}
+.ln{color:#b9c6d6;font-size:15px;max-width:62ch;margin:7px auto}
+.tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:14px}
+.tg{font-size:12px;letter-spacing:.06em;padding:2px 11px;border:1px solid var(--line);background:#ffffff08;color:#a8b6c8}
+.sep{width:70px;height:2px;margin:10px auto 44px;background:linear-gradient(90deg,transparent,var(--cy),transparent)}
+.sec{font-weight:600;font-size:14px;letter-spacing:.4em;color:var(--cy);text-align:center;margin:44px 0 24px}
+.sec::before{content:"\25B6\00a0";color:var(--am);animation:bl 1.2s steps(1) infinite}
 /* ---------- home ---------- */
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:28px 0 34px}
-.name{font-size:clamp(40px,6vw,76px);font-weight:700;line-height:1.02;letter-spacing:-.025em;background:linear-gradient(180deg,#fff,#a9d9f5);-webkit-background-clip:text;background-clip:text;color:transparent}
-.role{font:600 clamp(18px,2.2vw,24px) 'Sora';color:var(--acc);margin:12px 0 18px}
-.lead{color:#b4c1d2;max-width:56ch}
-.now{display:inline-flex;align-items:center;gap:10px;margin:22px 0 26px;padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:14px;color:var(--mute);background:#ffffff08}
-.now i,.dot{width:8px;height:8px;border-radius:50%;background:#2ee6b6;box-shadow:0 0 10px #2ee6b6;animation:blink 2.4s infinite}
-@keyframes blink{50%{opacity:.4}}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:center;padding:20px 0 34px}
+.name{font-size:clamp(46px,8vw,104px);font-weight:700;line-height:.95;letter-spacing:.05em;background:linear-gradient(180deg,#fff,#9fd8f6);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 22px #39d0ff44);animation:flick 1.1s steps(1) 1}
+.hrole{font:600 clamp(16px,2.2vw,24px) 'Rajdhani';letter-spacing:.42em;text-transform:uppercase;color:var(--am);margin:14px 0 20px}
+.hrole::after{content:"";display:inline-block;width:.6em;height:1em;margin-left:.5em;vertical-align:-.12em;background:var(--am);animation:bl .9s steps(1) infinite}
+.lead{color:#b4c1d2;max-width:54ch}
+.now{display:inline-flex;align-items:center;gap:10px;margin:22px 0 26px;padding:8px 16px;border:1px solid var(--line);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);background:#ffffff08}
+.dot{width:8px;height:8px;border-radius:50%;background:#2ee6b6;box-shadow:0 0 10px #2ee6b6;animation:bl 1.6s steps(1) infinite}
 .cta{display:flex;flex-wrap:wrap;gap:12px}
-.pf{position:relative;isolation:isolate;max-width:420px;margin:0 auto;border-radius:24px;padding:1px;background:linear-gradient(145deg,#3fd0ff99,#ffffff10 40%,#4a7bff99)}
-.pf::before{content:"";position:absolute;inset:-34px;z-index:-1;background:radial-gradient(closest-side,#3fd0ff30,transparent);filter:blur(22px)}
-.pf img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:23px}
-.fl{position:absolute;padding:9px 15px;border-radius:12px;background:#0a1220d9;backdrop-filter:blur(10px);border:1px solid var(--line);font-size:13px;font-weight:500;display:flex;align-items:center;gap:9px}
-.fl.a{left:-22px;bottom:30px}.fl.b{right:-16px;top:28px}
+.hint2{margin-top:22px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--mute);animation:bl 1.6s steps(1) infinite}
+.pf{position:relative;max-width:410px;margin:0 auto;padding:8px;background:linear-gradient(145deg,#39d0ff33,#ffffff08 40%,#ffb93833);clip-path:polygon(0 0,calc(100% - 26px) 0,100% 26px,100% 100%,26px 100%,0 calc(100% - 26px))}
+.pf img{display:block;width:100%;aspect-ratio:1;object-fit:cover;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px))}
+.pf::after{content:"";position:absolute;left:8px;right:8px;height:2px;top:8px;background:linear-gradient(90deg,transparent,var(--cy),transparent);box-shadow:0 0 14px var(--cy);animation:scan 4.5s linear infinite}
+@keyframes scan{0%{top:8px;opacity:0}10%,90%{opacity:.8}100%{top:calc(100% - 10px);opacity:0}}
+.cap{position:absolute;left:8px;right:8px;bottom:8px;padding:8px 14px;background:linear-gradient(0deg,#04070dee,transparent);font:600 12px 'Rajdhani';letter-spacing:.3em;text-transform:uppercase;display:flex;justify-content:space-between;color:var(--cy)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.stat{padding:18px 20px;border-radius:14px;border:1px solid var(--line);background:#ffffff06;transition:border-color .25s,transform .25s}
-.stat:hover{border-color:#3fd0ff55;transform:translateY(-3px)}
-.stat b{display:block;font:700 34px/1.1 'Sora';background:linear-gradient(135deg,#5ee0ff,var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
-.stat span{display:block;font-size:13px;color:var(--mute);margin-top:4px;line-height:1.4}
-/* ---------- sections ---------- */
-h2{font-size:clamp(28px,4vw,40px);font-weight:600;letter-spacing:-.02em;line-height:1.1}
-.sub{color:var(--mute);margin:10px 0 28px;max-width:62ch}
-.sec{font:600 12px 'Sora';letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin:26px 0 12px}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-.chip{font-size:12px;padding:3px 11px;border-radius:999px;border:1px solid var(--line);background:#ffffff08;color:#a8b6c8}
-/* company accordion */
-.co{border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,#0f1725,#0b111c);margin-bottom:14px;overflow:hidden;transition:border-color .25s,box-shadow .25s}
-.co:hover{border-color:#3fd0ff44}
-.co.open{box-shadow:0 20px 60px #00000055}
-.co-h{display:flex;align-items:center;gap:16px;width:100%;padding:18px 22px;background:none;border:0;color:inherit;text-align:left;cursor:pointer;font:inherit}
-.co-h .logo{width:46px;height:46px;border-radius:12px;font-size:19px}
-.logo.alt{background:#ffffff12;color:var(--ink)}
-.co-h h3{font-size:19px;font-weight:600}
-.rl{color:var(--mute);font-size:14px}
-.tag{margin-left:auto;font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;background:#2ee6b61f;color:#2ee6b6}
-.tag.q{background:#ffffff10;color:var(--mute)}
-.chev{width:9px;height:9px;border-right:2px solid var(--mute);border-bottom:2px solid var(--mute);transform:rotate(45deg);transition:transform .3s;margin:0 4px 4px 12px;flex:none}
-.co.open .chev{transform:rotate(-135deg);margin-bottom:-2px}
-.co-b{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.8,.2,1)}
+.stat{padding:14px 18px;background:#ffffff07;border-left:3px solid var(--am);clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%);transition:background .25s,transform .25s}
+.stat:hover{background:#39d0ff14;transform:translateY(-3px)}
+.stat b{display:block;font:700 42px/1 'Rajdhani';color:var(--cy);text-shadow:0 0 16px #39d0ff66}
+.stat span{display:block;font-size:12px;color:var(--mute);margin-top:4px;line-height:1.35;letter-spacing:.1em;text-transform:uppercase}
+/* ---------- company logs ---------- */
+.co{position:relative;margin:0 auto 18px;max-width:900px;background:linear-gradient(180deg,#0e1624d9,#080d16d9);border:1px solid var(--line);backdrop-filter:blur(6px);transition:border-color .25s,box-shadow .25s}
+.co::before,.co::after{content:"";position:absolute;width:16px;height:16px;border:2px solid var(--am);pointer-events:none}
+.co::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.co::after{right:-1px;bottom:-1px;border-left:0;border-top:0}
+.co:hover{border-color:#39d0ff55}
+.co.open{box-shadow:0 24px 70px #000a,0 0 40px #39d0ff12}
+.co-h{display:block;width:100%;padding:26px 22px 20px;background:none;border:0;color:inherit;text-align:center;cursor:pointer;font:inherit}
+.hint{display:block;margin-top:12px;font:600 12px 'Rajdhani';letter-spacing:.34em;text-transform:uppercase;color:var(--cy);animation:bl 1.4s steps(1) infinite}
+.hint::after{content:"[ open mission log ]"}
+.co.open .hint{animation:none;color:var(--mute)}
+.co.open .hint::after{content:"[ close ]"}
+.co-b{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.2,.8,.2,1)}
 .co.open .co-b{grid-template-rows:1fr}
-.co-i{overflow:hidden;min-height:0;visibility:hidden;transition:visibility .45s}
+.co-i{overflow:hidden;min-height:0;visibility:hidden;transition:visibility .5s}
 .co.open .co-i{visibility:visible}
-.co-p{padding:2px 22px 24px}
-.co-p ul{padding-left:18px;color:#c3cfdd;font-size:15px}
-.co-p li{margin:5px 0}
-.proj{position:relative;padding:20px 22px;border-radius:14px;border:1px solid var(--line);background:#0a101a;transition:transform .25s,border-color .25s,box-shadow .25s}
-.proj:hover{transform:translateY(-3px);border-color:#3fd0ff55}
-.proj h4{font-size:16px;font-weight:600}
-.proj p,.proj li{font-size:14px;color:#b4c1d2}
-.proj ul{padding-left:18px;margin-top:8px}
-.proj.major{margin-bottom:14px;padding:22px 24px;border:1px solid transparent;background:linear-gradient(#0e1828,#0b1320) padding-box,linear-gradient(135deg,var(--acc),var(--acc2) 55%,#3fd0ff33) border-box;box-shadow:0 12px 40px #3fd0ff14}
-.proj.major h4{font-size:19px;display:flex;align-items:center;flex-wrap:wrap;gap:10px}
-.proj.major li{font-size:15px;color:#c3cfdd}
-.mt{font:600 11px 'Sora';letter-spacing:.12em;text-transform:uppercase;color:#03111f;background:linear-gradient(135deg,#5ee0ff,var(--acc));padding:3px 10px;border-radius:999px}
-.minors,.grid2,.skills{display:grid;gap:12px}
+.co-p{padding:0 22px 30px}
+.proj{position:relative;padding:22px 22px;margin:0 auto 14px;text-align:center;background:#0a111c;border:1px solid var(--line);clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%);transition:transform .25s,border-color .25s}
+.proj:hover{transform:translateY(-3px);border-color:#39d0ff55}
+.proj h4{font-size:19px;font-weight:700;letter-spacing:.1em}
+.proj .ln{font-size:14px}
+.proj.major{padding:28px 24px;border:1px solid transparent;background:linear-gradient(#0e1828,#0a121e) padding-box,linear-gradient(135deg,var(--am),var(--cy) 60%,#39d0ff33) border-box;box-shadow:0 0 40px #ffb93812}
+.proj.major h4{font-size:clamp(22px,3vw,30px);margin:6px 0 4px}
+.proj.major .ln{font-size:15px;color:#c6d2e0}
+.mt{display:inline-block;font:700 11px 'Rajdhani';letter-spacing:.3em;color:#1a1000;background:var(--am);padding:2px 10px;animation:bl 1.4s steps(1) infinite}
+.minors,.grid2,.skills{display:grid;gap:14px}
 .minors{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
-.grid2{grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.grid2{grid-template-columns:repeat(auto-fill,minmax(340px,1fr))}
 .skills{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
-.sk{padding:16px 18px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(180deg,#0f1725,#0b111c);transition:transform .25s,border-color .25s,box-shadow .25s}
-.sk:hover{transform:translateY(-3px);border-color:#3fd0ff66;box-shadow:0 10px 30px #3fd0ff14}
-.sk b{display:block;font:600 16px 'Sora'}
+.sk{padding:16px 18px;text-align:center;background:linear-gradient(180deg,#0e1624d9,#080d16d9);border:1px solid var(--line);transition:transform .25s,border-color .25s,box-shadow .25s}
+.sk:hover{transform:translateY(-3px);border-color:var(--am);box-shadow:0 10px 30px #ffb93814}
+.sk b{display:block;font:700 18px 'Rajdhani';letter-spacing:.1em;text-transform:uppercase}
 .sk span{display:block;font-size:13px;color:var(--mute);margin-top:4px;line-height:1.45}
-.edu{padding:20px 24px;margin-bottom:12px}
-/* ---------- mascot ---------- */
-.mascot{position:fixed;right:24px;bottom:calc(22px + env(safe-area-inset-bottom));z-index:30;width:86px;height:86px;padding:6px;border-radius:50%;border:1px solid #3fd0ff55;background:radial-gradient(circle at 50% 35%,#16253d,#0a1220);box-shadow:0 8px 30px #000a,0 0 24px #3fd0ff22;cursor:pointer;opacity:0;transform:scale(.6);transition:opacity .5s .3s,transform .5s .3s cubic-bezier(.2,1.4,.4,1),box-shadow .25s}
-body.live .mascot{opacity:1;transform:none}
-body.live .mascot:hover{transform:scale(1.07);box-shadow:0 8px 30px #000a,0 0 32px #3fd0ff55}
-.mascot svg{display:block;width:100%;height:100%;overflow:visible}
-.mascot.pop{animation:pop .45s}
-@keyframes pop{40%{transform:scale(1.14) rotate(-4deg)}}
-.eye{transform-box:fill-box;transform-origin:center;transition:transform .08s}
-.blink .eye{transform:scaleY(.08)}
-.wink #er{transform:scaleY(.08)}
-:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+:focus-visible{outline:2px solid var(--am);outline-offset:2px}
 /* ---------- responsive ---------- */
-@media(max-width:980px){
- .hero{grid-template-columns:1fr;gap:34px}
- .pf{order:-1;max-width:340px}
- .stats{grid-template-columns:1fr 1fr}
-}
+@media(max-width:980px){.hero{grid-template-columns:1fr;gap:34px}.pf{order:-1;max-width:320px}.stats{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){
- .top{flex-wrap:wrap;gap:8px 12px;padding:10px 14px}
- .top .btn.mini{margin-left:auto}
- .nav{order:3;width:100%;margin:0}
- .main{padding:20px 14px 100px}
- .fl.a{left:8px}.fl.b{right:8px}
- .co-h{padding:16px;gap:12px}.co-p{padding:2px 14px 20px}
- .tag{display:none}
- .mascot{width:64px;height:64px;right:14px}
+ .top{padding:4px 6px 0}
+ .nav button{padding:16px 10px;font-size:15px;letter-spacing:.08em}
+ .hel{width:62px;height:62px;margin:0 8px}
+ .main{padding:26px 14px 110px}
  .grid2{grid-template-columns:1fr}
+ .co-h{padding:22px 14px 16px}.co-p{padding:0 12px 24px}
 }
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media(min-width:761px){.nav{overflow:visible}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none;filter:none}}
 </style>
 </head>
 <body>
 <div class="scene"></div>
+<canvas id="gl"></canvas>
+<div class="fx"></div>
 
 <div id="boot"><div class="boot-in">
- <div class="logo">PP</div>
- <h1>Parth Panchal</h1>
- <p id="bootmsg">Initializing...</p>
+ <h1>Parth<b>Panchal</b></h1>
+ <p id="bootmsg">Connecting to server...</p>
  <div class="bar"><i id="bootbar"></i></div>
- <span class="glow"><button class="btn" id="bootbtn">Enter portfolio</button></span>
+ <span class="glow"><button class="btn" id="bootbtn"><span class="bt">Press to start</span></button></span>
 </div></div>
 
 <div class="app">
  <header class="top">
-  <div class="brand"><i class="logo">PP</i><span>Parth Panchal</span></div>
   <nav class="nav" id="menu">
    <button data-t="profile" class="on">Home</button>
-   <button data-t="experience">Experience</button>
-   <button data-t="projects">Projects</button>
-   <button data-t="skills">Skills</button>
-   <button data-t="education">Education</button>
+   <button data-t="missions">Missions</button>
+   <button data-t="quests">Side Quests</button>
+   <button class="hel" id="hel" aria-label="Spartan-style helmet that follows the cursor">
+    <svg id="hsvg" viewBox="0 0 100 100" aria-hidden="true">
+     <defs>
+      <linearGradient id="ar" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b7394"/><stop offset=".55" stop-color="#26344d"/><stop offset="1" stop-color="#121a2b"/></linearGradient>
+      <linearGradient id="vs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset=".5" stop-color="#e59a12"/><stop offset="1" stop-color="#8a4d00"/></linearGradient>
+      <clipPath id="vc"><path d="M20 42C20 35 30 32 50 32s30 3 30 10l-2 13c-2 7-12 11-28 11S24 62 22 55z"/></clipPath>
+     </defs>
+     <path d="M7 46h8v22H7zM85 46h8v22h-8z" fill="#26344d" stroke="#39d0ff" stroke-opacity=".6"/>
+     <circle cx="11" cy="52" r="1.6" fill="#39d0ff"/><circle cx="89" cy="52" r="1.6" fill="#39d0ff"/>
+     <path d="M50 5C71 5 85 19 87 41v22c0 12-6 21-17 27l-9 5H39l-9-5c-11-6-17-15-17-27V41C15 19 29 5 50 5z" fill="url(#ar)" stroke="#39d0ff" stroke-opacity=".5" stroke-width="1.2"/>
+     <path d="M41 7h18l-2 22H43z" fill="#1b2840" stroke="#39d0ff" stroke-opacity=".5"/>
+     <path d="M19 38L50 28l31 10-2 4-29-9-29 9z" fill="#18233a"/>
+     <g id="vis"><path d="M20 42C20 35 30 32 50 32s30 3 30 10l-2 13c-2 7-12 11-28 11S24 62 22 55z" fill="url(#vs)" stroke="#1a1000" stroke-width="1.4"/>
+      <g clip-path="url(#vc)"><g id="gl2"><path d="M30 28l14-2-12 44-14 2z" fill="#fff" fill-opacity=".38"/><path d="M50 28l5-1-12 44-5 1z" fill="#fff" fill-opacity=".18"/></g></g></g>
+     <path d="M31 72h38l-5 18H36z" fill="#141e31" stroke="#39d0ff" stroke-opacity=".4"/>
+     <path d="M40 76v10M50 76v10M60 76v10" stroke="#39d0ff" stroke-opacity=".6" stroke-width="1.6"/>
+    </svg>
+   </button>
+   <button data-t="loadout">Loadout</button>
+   <button data-t="training">Training</button>
    <button data-t="contact">Contact</button>
   </nav>
-  <button class="btn ghost mini" id="snd">Sound: on</button>
  </header>
 
  <main class="main" id="main">
   <section class="pane on" id="profile">
    <div class="hero">
     <div>
-     <h1 class="name">Parth Panchal</h1>
-     <div class="role">Software Developer</div>
+     <h1 class="name">Parth<br>Panchal</h1>
+     <div class="hrole">Software Developer</div>
      <p class="lead">Software developer focused on ERP customization and backend engineering with Python. Experience in building custom modules, financial reporting and system integrations on Odoo Community.</p>
-     <div class="now"><i></i>Software Developer at Areterix Technologies, Ahmedabad</div>
+     <div class="now"><i class="dot"></i>Currently at Areterix Technologies, Ahmedabad</div>
      <div class="cta">
-      <span class="glow"><button class="btn" data-go="experience">View experience</button></span>
+      <span class="glow"><button class="btn" data-go="missions">View missions</button></span>
       <button class="btn ghost" data-go="contact">Contact</button>
      </div>
+     <div class="hint2">Use ← → or keys 1–6 to navigate</div>
     </div>
-    <div class="pf">
-     <img src="photo.png" alt="Portrait of Parth Panchal" width="400" height="400">
-     <div class="fl a"><span class="dot"></span>Software Developer</div>
-     <div class="fl b">Ahmedabad, India</div>
-    </div>
+    <div class="pf"><img src="data:image/jpeg;base64,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" alt="Portrait of Parth Panchal" width="400" height="400"><div class="cap"><span>Player 01</span><span>Ahmedabad, IN</span></div></div>
    </div>
    <div class="stats">
     <div class="stat"><b data-n="3">0</b><span>Odoo implementations delivered</span></div>
     <div class="stat"><b data-n="9">0</b><span>Custom modules built at Areterix</span></div>
-    <div class="stat"><b data-n="7">0</b><span>Reports consolidated into one suite</span></div>
+    <div class="stat"><b data-n="7">0</b><span>Reports merged into one suite</span></div>
     <div class="stat"><b data-n="2">0</b><span>Odoo versions delivered: 17 and 19</span></div>
    </div>
   </section>
 
-  <section class="pane" id="experience">
-   <h2>Experience</h2>
-   <p class="sub">Employers listed newest first. Expand a company to see the projects delivered there.</p>
+  <section class="pane" id="missions">
+   <h2 class="ttl rv">Missions</h2>
+   <p class="tsub rv">Career log · newest first</p>
 
-   <article class="co open">
-    <button class="co-h" aria-expanded="true"><span class="logo">A</span><span><h3>Areterix Technologies</h3><span class="rl">Software Developer · Present</span></span><span class="tag">Current</span><i class="chev"></i></button>
+   <article class="co open rv">
+    <button class="co-h" aria-expanded="true"><div class="role">Software Developer · Present</div><h3 class="nm">Areterix Technologies</h3><div class="dt">Custom Odoo modules · Odoo 17 and 19</div><span class="hint"></span></button>
     <div class="co-b"><div class="co-i"><div class="co-p">
-     <p class="rl" style="margin-bottom:6px">Custom Odoo modules for accounting, inventory, sales and HR across Odoo 17 and 19.</p>
-     <div class="sec">Major projects</div>
-     <div class="proj major">
-      <h4>Barcode Scanner App <span class="mt">Major</span></h4>
-      <p>Odoo 19 Community</p>
-      <ul>
-       <li>Warehouse scanning application that provides the Enterprise barcode experience on Community Edition, with no Enterprise dependency.</li>
-       <li>Operations home, picking lists, picking detail with edit and validate, backorder handling, global barcode resolver, product locate, lot, serial and package scanning, and a camera scanner.</li>
-       <li>Delivery customization where a product scan followed by a lot scan registers the whole lot in one step, with pending products grouped by lot location.</li>
-       <li>Per-line DYMO lot-label printing on purchase receipts.</li>
-      </ul>
-      <div class="chips"><span class="chip">Odoo 19 CE</span><span class="chip">Owl</span><span class="chip">JavaScript</span><span class="chip">Python</span><span class="chip">QWeb</span><span class="chip">DYMO</span></div>
+     <div class="sec rv">Major operations</div>
+     <div class="proj major rv">
+      <span class="mt">Major</span>
+      <h4>Barcode Scanner App</h4>
+      <div class="dt">Odoo 19 Community</div>
+      <p class="ln">A warehouse scanning application that brings the Enterprise barcode experience to Community Edition, with no Enterprise dependency.</p>
+      <p class="ln">Operations home, picking lists, picking detail with edit and validate, backorders, global barcode resolver, product locate, lot, serial and package scanning, and a camera scanner.</p>
+      <p class="ln">Delivery flow where a product scan followed by a lot scan registers the whole lot in one step, with pending products grouped by lot location.</p>
+      <p class="ln">Per-line DYMO lot-label printing on purchase receipts.</p>
+      <div class="tags"><span class="tg">Odoo 19 CE</span><span class="tg">Owl</span><span class="tg">JavaScript</span><span class="tg">Python</span><span class="tg">QWeb</span><span class="tg">DYMO</span></div>
      </div>
-     <div class="proj major">
-      <h4>Accounting Reports Suite <span class="mt">Major</span></h4>
-      <p>Odoo Community · Odoo 17 and 19</p>
-      <ul>
-       <li>General Ledger, Partner Ledger, Aged Receivable, Aged Payable, Profit and Loss, Balance Sheet and GSTR-1 consolidated from seven modules into one.</li>
-       <li>Owl interface with date and comparison filters, ledger drill-down, and PDF and XLSX export.</li>
-       <li>Ported from Odoo 19 to Odoo 17 for a client handover.</li>
-      </ul>
-      <div class="chips"><span class="chip">Owl</span><span class="chip">QWeb PDF</span><span class="chip">XLSX</span><span class="chip">GST</span><span class="chip">Python</span></div>
+     <div class="proj major rv">
+      <span class="mt">Major</span>
+      <h4>Accounting Reports Suite</h4>
+      <div class="dt">Odoo Community · 17 and 19</div>
+      <p class="ln">General Ledger, Partner Ledger, Aged Receivable, Aged Payable, Profit and Loss, Balance Sheet and GSTR-1, consolidated from seven modules into one.</p>
+      <p class="ln">Owl interface with date and comparison filters, ledger drill-down, and PDF and XLSX export. Ported from Odoo 19 to 17 for a client handover.</p>
+      <div class="tags"><span class="tg">Owl</span><span class="tg">QWeb PDF</span><span class="tg">XLSX</span><span class="tg">GST</span><span class="tg">Python</span></div>
      </div>
-     <div class="proj major">
-      <h4>Odoo to TallyPrime Integration <span class="mt">Major</span></h4>
-      <p>Odoo 19 · TallyPrime</p>
-      <ul>
-       <li>Customers, vendors and products synchronized to Tally, with sync status on list views.</li>
-       <li>Customer invoices and vendor bills posted as vouchers through TallyPrime’s HTTP and XML interface, with voucher types mapped per journal.</li>
-      </ul>
-      <div class="chips"><span class="chip">Python</span><span class="chip">REST / XML</span><span class="chip">TallyPrime</span><span class="chip">AWS Linux</span></div>
+     <div class="proj major rv">
+      <span class="mt">Major</span>
+      <h4>Odoo to TallyPrime Integration</h4>
+      <div class="dt">Odoo 19 · TallyPrime</div>
+      <p class="ln">Customers, vendors and products synchronized to Tally, with sync status on list views.</p>
+      <p class="ln">Customer invoices and vendor bills posted as vouchers through TallyPrime’s HTTP and XML interface, with voucher types mapped per journal.</p>
+      <div class="tags"><span class="tg">Python</span><span class="tg">REST / XML</span><span class="tg">TallyPrime</span><span class="tg">AWS Linux</span></div>
      </div>
-     <div class="sec">Additional projects</div>
+     <div class="sec rv">Supporting operations</div>
      <div class="minors">
-      <div class="proj"><h4>Auto-reconcile</h4><p>Reconciles a partner’s open receivable and payable items on posting and bank matching, oldest invoice first.</p></div>
-      <div class="proj"><h4>Outstanding Reports</h4><p>Partner-wise Aged Receivable and Payable XLSX wizards with cumulative balance.</p></div>
-      <div class="proj"><h4>Employee Self Service Portal</h4><p>Time off, leave allocation requests and attendance for portal users.</p></div>
-      <div class="proj"><h4>Picking Operations v2</h4><p>Custom picking PDF, hidden prices on product labels and DYMO lot labels.</p></div>
-      <div class="proj"><h4>SQM to PCS Conversion</h4><p>Server-side area-to-piece quantity conversion for polycarbonate sheet sales.</p></div>
-      <div class="proj"><h4>Bank Matching Balance</h4><p>Shows a partner’s Cr/Dr balance in the bank matching quick-create row.</p></div>
+      <div class="proj rv"><h4>Auto-reconcile</h4><p class="ln">Reconciles a partner’s open receivable and payable items on posting and bank matching, oldest invoice first.</p></div>
+      <div class="proj rv"><h4>Outstanding Reports</h4><p class="ln">Partner-wise Aged Receivable and Payable XLSX wizards with cumulative balance.</p></div>
+      <div class="proj rv"><h4>Self Service Portal</h4><p class="ln">Time off, leave allocation requests and attendance for portal users.</p></div>
+      <div class="proj rv"><h4>Picking Operations v2</h4><p class="ln">Custom picking PDF, hidden prices on product labels and DYMO lot labels.</p></div>
+      <div class="proj rv"><h4>SQM to PCS</h4><p class="ln">Server-side area-to-piece quantity conversion for polycarbonate sheet sales.</p></div>
+      <div class="proj rv"><h4>Bank Matching Balance</h4><p class="ln">Shows a partner’s Cr/Dr balance in the bank matching quick-create row.</p></div>
      </div>
     </div></div></div>
    </article>
 
-   <article class="co">
-    <button class="co-h" aria-expanded="false"><span class="logo alt">S</span><span><h3>Serpent Consulting Services Pvt. Ltd</h3><span class="rl">Odoo Tech Intern · Jan 2025 – Oct 2025</span></span><span class="tag q">Odoo consulting</span><i class="chev"></i></button>
-    <div class="co-b"><div class="co-i"><div class="co-p"><ul>
-     <li>Built and customized Odoo modules using ORM methods, workflows and report actions.</li>
-     <li>Customized forms, reports and business workflows to client requirements.</li>
-     <li>Worked with cross-functional teams on three Odoo implementations.</li>
-    </ul></div></div></div>
+   <article class="co rv">
+    <button class="co-h" aria-expanded="false"><div class="role">Odoo Tech Intern · Jan 2025 – Oct 2025</div><h3 class="nm">Serpent Consulting Services</h3><div class="dt">Odoo ERP consulting</div><span class="hint"></span></button>
+    <div class="co-b"><div class="co-i"><div class="co-p">
+     <p class="ln">Built and customized Odoo modules using ORM methods, workflows and report actions.</p>
+     <p class="ln">Customized forms, reports and business workflows to client requirements.</p>
+     <p class="ln">Worked with cross-functional teams on three Odoo implementations.</p>
+    </div></div></div>
    </article>
-
-   <article class="co">
-    <button class="co-h" aria-expanded="false"><span class="logo alt">I</span><span><h3>Infividhya Pvt Ltd</h3><span class="rl">Data Science Intern · Jun 2024 – Jul 2024</span></span><i class="chev"></i></button>
-    <div class="co-b"><div class="co-i"><div class="co-p"><ul>
-     <li>Built a clustering model for athlete performance data, covering preprocessing, training and visualization.</li>
-    </ul></div></div></div>
+   <article class="co rv">
+    <button class="co-h" aria-expanded="false"><div class="role">Data Science Intern · Jun – Jul 2024</div><h3 class="nm">Infividhya Pvt Ltd</h3><span class="hint"></span></button>
+    <div class="co-b"><div class="co-i"><div class="co-p"><p class="ln">Built a clustering model for athlete performance data, covering preprocessing, training and visualization.</p></div></div></div>
    </article>
-
-   <article class="co">
-    <button class="co-h" aria-expanded="false"><span class="logo alt">U</span><span><h3>Upskills Campus</h3><span class="rl">Python Developer Intern · Jun 2024 – Jul 2024</span></span><i class="chev"></i></button>
-    <div class="co-b"><div class="co-i"><div class="co-p"><ul>
-     <li>Applied Pandas, NumPy and Scikit-learn to analyze athlete performance patterns.</li>
-    </ul></div></div></div>
+   <article class="co rv">
+    <button class="co-h" aria-expanded="false"><div class="role">Python Developer Intern · Jun – Jul 2024</div><h3 class="nm">Upskills Campus</h3><span class="hint"></span></button>
+    <div class="co-b"><div class="co-i"><div class="co-p"><p class="ln">Applied Pandas, NumPy and Scikit-learn to analyze athlete performance patterns.</p></div></div></div>
    </article>
   </section>
 
-  <section class="pane" id="projects">
-   <h2>Projects</h2>
-   <p class="sub">Independent and academic work.</p>
-   <div class="grid2">
-    <div class="proj"><h4>Milk Production · Odoo 18</h4><ul><li>Tracks animals, milk output and health records on the mail, stock, product and report modules.</li><li>Date-wizard PDF and XLSX milk reports.</li><li>Role-based access: farm workers record data, administrators retain full control.</li></ul><div class="chips"><span class="chip">Odoo 18</span><span class="chip">Wizards</span><span class="chip">Access rights</span></div></div>
-    <div class="proj"><h4>Gym Management · Odoo 18</h4><ul><li>Membership schemes linked to products, with automatic calculations on sales orders.</li><li>Staff manage members; trainers see only their assigned members.</li><li>Telegram Bot API sends a notification for every new registration.</li></ul><div class="chips"><span class="chip">Odoo 18</span><span class="chip">PostgreSQL</span><span class="chip">Telegram API</span></div></div>
-    <div class="proj"><h4>Athlete Clustering</h4><ul><li>Clusters athletes by performance attributes and visualizes the result.</li></ul><div class="chips"><span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Scikit-learn</span></div></div>
-    <div class="proj"><h4>Culturea</h4><ul><li>Heritage showcase website with multimedia content and an interactive interface.</li></ul><div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span></div></div>
-    <div class="proj"><h4>GrowPharma</h4><ul><li>Online pharmacy store with product catalog, cart, secure checkout and user accounts.</li></ul><div class="chips"><span class="chip">Web</span><span class="chip">E-commerce</span></div></div>
+  <section class="pane" id="quests">
+   <h2 class="ttl rv">Side Quests</h2>
+   <p class="tsub rv">Independent and academic work</p>
+   <div class="cr rv"><div class="role">Odoo 18</div><h3 class="nm">Milk Production</h3><p class="ln">Tracks animals, milk output and health records on the mail, stock, product and report modules.</p><p class="ln">Date-wizard PDF and XLSX milk reports. Role-based access: farm workers record data, administrators keep full control.</p><div class="tags"><span class="tg">Wizards</span><span class="tg">Access rights</span><span class="tg">Reports</span></div></div>
+   <div class="sep rv"></div>
+   <div class="cr rv"><div class="role">Odoo 18</div><h3 class="nm">Gym Management</h3><p class="ln">Membership schemes linked to products, with automatic calculations on sales orders.</p><p class="ln">Staff manage members while trainers see only their assigned members. Telegram Bot API sends a notification for every new registration.</p><div class="tags"><span class="tg">PostgreSQL</span><span class="tg">Telegram API</span><span class="tg">Access rights</span></div></div>
+   <div class="sep rv"></div>
+   <div class="cr rv"><div class="role">Machine Learning</div><h3 class="nm">Athlete Clustering</h3><p class="ln">Clusters athletes by performance attributes and visualizes the result.</p><div class="tags"><span class="tg">Python</span><span class="tg">Pandas</span><span class="tg">NumPy</span><span class="tg">Scikit-learn</span></div></div>
+   <div class="sep rv"></div>
+   <div class="cr rv"><div class="role">Web</div><h3 class="nm">Culturea</h3><p class="ln">Heritage showcase website with multimedia content and an interactive interface.</p><div class="tags"><span class="tg">HTML</span><span class="tg">CSS</span><span class="tg">JavaScript</span></div></div>
+   <div class="sep rv"></div>
+   <div class="cr rv"><div class="role">Web</div><h3 class="nm">GrowPharma</h3><p class="ln">Online pharmacy store with product catalog, cart, secure checkout and user accounts.</p><div class="tags"><span class="tg">E-commerce</span><span class="tg">Web</span></div></div>
+  </section>
+
+  <section class="pane" id="loadout">
+   <h2 class="ttl rv">Loadout</h2>
+   <p class="tsub rv">Technologies and where they were used</p>
+   <div class="sec rv">Backend and ERP</div>
+   <div class="skills">
+    <div class="sk rv"><b>Python</b><span>Odoo modules, the Tally connector, clustering projects</span></div>
+    <div class="sk rv"><b>Odoo ORM and models</b><span>All custom modules, Odoo 17, 18 and 19, Community and Enterprise compatibility</span></div>
+    <div class="sk rv"><b>Wizards and report actions</b><span>Outstanding reports, milk production reports</span></div>
+    <div class="sk rv"><b>Access rights and groups</b><span>Gym Management, Milk Production</span></div>
+    <div class="sk rv"><b>PostgreSQL and SQL</b><span>Gym Management and report modules</span></div>
+   </div>
+   <div class="sec rv">Frontend</div>
+   <div class="skills">
+    <div class="sk rv"><b>JavaScript and Owl</b><span>Barcode Scanner App, Accounting Reports Suite</span></div>
+    <div class="sk rv"><b>QWeb templates</b><span>PDF reports, portal pages, picking documents</span></div>
+    <div class="sk rv"><b>Camera scanning UI</b><span>Barcode Scanner App</span></div>
+    <div class="sk rv"><b>HTML and CSS</b><span>Culturea, GrowPharma, report styling</span></div>
+   </div>
+   <div class="sec rv">Reporting and domain</div>
+   <div class="skills">
+    <div class="sk rv"><b>PDF and XLSX output</b><span>Accounting Reports Suite, Outstanding Reports</span></div>
+    <div class="sk rv"><b>Accounting workflows</b><span>Ledgers, financial statements, reconciliation</span></div>
+    <div class="sk rv"><b>GST reporting</b><span>GSTR-1 in the Accounting Reports Suite</span></div>
+    <div class="sk rv"><b>Inventory tracking</b><span>Lots, serials and packages in the Barcode Scanner App</span></div>
+   </div>
+   <div class="sec rv">Integrations and platforms</div>
+   <div class="skills">
+    <div class="sk rv"><b>TallyPrime integration</b><span>HTTP and XML voucher sync from Odoo</span></div>
+    <div class="sk rv"><b>Telegram Bot API</b><span>REST notifications in Gym Management</span></div>
+    <div class="sk rv"><b>DYMO label printing</b><span>Barcode Scanner App, Picking Operations v2</span></div>
+    <div class="sk rv"><b>Version migration</b><span>Reporting suite ported from Odoo 19 to 17</span></div>
+    <div class="sk rv"><b>Linux and AWS hosting</b><span>Integration testing environment for the Tally sync</span></div>
+   </div>
+   <div class="sec rv">Data and tools</div>
+   <div class="skills">
+    <div class="sk rv"><b>Pandas, NumPy, Scikit-learn</b><span>Athlete Clustering, Infividhya internship</span></div>
+    <div class="sk rv"><b>Git</b><span>Version control across projects</span></div>
+    <div class="sk rv"><b>PyCharm, VS Code, XAMPP</b><span>Development environment</span></div>
    </div>
   </section>
 
-  <section class="pane" id="skills">
-   <h2>Skills</h2>
-   <p class="sub">Technologies and where they were applied.</p>
-   <div class="sec">Backend and ERP</div>
-   <div class="skills">
-    <div class="sk"><b>Python</b><span>Odoo modules, the Tally connector, clustering projects</span></div>
-    <div class="sk"><b>Odoo ORM and models</b><span>All custom modules, Odoo 17, 18 and 19, Community and Enterprise compatibility</span></div>
-    <div class="sk"><b>Wizards and report actions</b><span>Outstanding reports, milk production reports</span></div>
-    <div class="sk"><b>Access rights and security groups</b><span>Gym Management, Milk Production</span></div>
-    <div class="sk"><b>PostgreSQL and SQL</b><span>Gym Management and report modules</span></div>
-   </div>
-   <div class="sec">Frontend</div>
-   <div class="skills">
-    <div class="sk"><b>JavaScript and Owl</b><span>Barcode Scanner App, Accounting Reports Suite</span></div>
-    <div class="sk"><b>QWeb templates</b><span>PDF reports, portal pages, picking documents</span></div>
-    <div class="sk"><b>Camera and barcode scanning UI</b><span>Barcode Scanner App</span></div>
-    <div class="sk"><b>HTML and CSS</b><span>Culturea, GrowPharma, report styling</span></div>
-   </div>
-   <div class="sec">Reporting and domain</div>
-   <div class="skills">
-    <div class="sk"><b>PDF and XLSX generation</b><span>Accounting Reports Suite, Outstanding Reports</span></div>
-    <div class="sk"><b>Accounting workflows</b><span>Ledgers, financial statements, reconciliation</span></div>
-    <div class="sk"><b>GST reporting</b><span>GSTR-1 in the Accounting Reports Suite</span></div>
-    <div class="sk"><b>Inventory tracking</b><span>Lots, serials and packages in the Barcode Scanner App</span></div>
-   </div>
-   <div class="sec">Integrations and platforms</div>
-   <div class="skills">
-    <div class="sk"><b>TallyPrime integration</b><span>HTTP and XML voucher sync from Odoo</span></div>
-    <div class="sk"><b>Telegram Bot API</b><span>REST notifications in Gym Management</span></div>
-    <div class="sk"><b>DYMO label printing</b><span>Barcode Scanner App, Picking Operations v2</span></div>
-    <div class="sk"><b>Version migration</b><span>Reporting suite ported from Odoo 19 to 17</span></div>
-    <div class="sk"><b>Linux and AWS hosting</b><span>Integration testing environment for the Tally sync</span></div>
-   </div>
-   <div class="sec">Data and tools</div>
-   <div class="skills">
-    <div class="sk"><b>Pandas, NumPy, Scikit-learn</b><span>Athlete Clustering, Infividhya internship</span></div>
-    <div class="sk"><b>Git</b><span>Version control across projects</span></div>
-    <div class="sk"><b>PyCharm, VS Code, XAMPP</b><span>Development environment</span></div>
-   </div>
-  </section>
-
-  <section class="pane" id="education">
-   <h2>Education</h2>
-   <p class="sub">Academic background.</p>
-   <div class="proj edu"><h4>Bachelor of Engineering in Computer Engineering</h4><p>Ahmedabad Institute of Technology · 2022 – 2025</p></div>
-   <div class="proj edu"><h4>Diploma in Computer Engineering</h4><p>LJ Institute of Technology · 2019 – 2022</p></div>
+  <section class="pane" id="training">
+   <h2 class="ttl rv">Training</h2>
+   <p class="tsub rv">Academic record</p>
+   <div class="cr rv"><div class="role">Bachelor of Engineering</div><h3 class="nm">Ahmedabad Institute of Technology</h3><div class="dt">Computer Engineering · 2022 – 2025</div></div>
+   <div class="sep rv"></div>
+   <div class="cr rv"><div class="role">Diploma</div><h3 class="nm">LJ Institute of Technology</h3><div class="dt">Computer Engineering · 2019 – 2022</div></div>
   </section>
 
   <section class="pane" id="contact">
-   <h2>Contact</h2>
-   <p class="sub">For professional enquiries and collaboration, please connect on LinkedIn.</p>
-   <span class="glow"><a class="btn" href="http://www.linkedin.com/in/parth-panchal-7b2b0b294" target="_blank" rel="noopener">LinkedIn</a></span>
-   <p class="sub" style="margin-top:26px">Ahmedabad, Gujarat, India</p>
+   <h2 class="ttl rv">Contact</h2>
+   <p class="tsub rv">Open channel</p>
+   <div class="cr rv"><p class="ln">For professional enquiries and collaboration, connect on LinkedIn.</p></div>
+   <div class="cr rv"><span class="glow"><a class="btn" href="http://www.linkedin.com/in/parth-panchal-7b2b0b294" target="_blank" rel="noopener">LinkedIn</a></span></div>
+   <div class="cr rv"><div class="dt">Ahmedabad, Gujarat, India</div><div class="hint2" style="margin-top:34px">Thank you for visiting</div></div>
   </section>
  </main>
 </div>
+<button class="btn ghost mini" id="snd">Sound: on</button>
 
-<button class="mascot" id="mascot" aria-label="Game character companion">
-<svg viewBox="0 0 100 100" aria-hidden="true">
- <defs>
-  <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2d4570"/><stop offset="1" stop-color="#101a2f"/></linearGradient>
-  <radialGradient id="fg" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#f6cfa6"/><stop offset="1" stop-color="#d49b6d"/></radialGradient>
- </defs>
- <g id="head">
-  <ellipse cx="50" cy="62" rx="30" ry="27" fill="url(#fg)"/>
-  <rect x="16" y="54" width="8" height="15" rx="3" fill="#3fd0ff"/><rect x="76" y="54" width="8" height="15" rx="3" fill="#3fd0ff"/>
-  <path d="M16 54C16 28 32 12 50 12s34 16 34 42z" fill="url(#hg)" stroke="#3fd0ff" stroke-opacity=".6" stroke-width="1.5"/>
-  <path d="M50 12v20" stroke="#3fd0ff" stroke-width="3" stroke-linecap="round"/>
-  <rect x="21" y="40" width="58" height="22" rx="11" fill="#070d18" stroke="#3fd0ff" stroke-opacity=".7" stroke-width="1.5"/>
-  <g class="eye" id="el"><ellipse cx="38" cy="51" rx="9" ry="8" fill="#eaf6ff"/><g id="pl"><circle cx="38" cy="51" r="4.2" fill="#0b2a4a"/><circle cx="39.4" cy="49.4" r="1.4" fill="#fff"/></g></g>
-  <g class="eye" id="er"><ellipse cx="62" cy="51" rx="9" ry="8" fill="#eaf6ff"/><g id="pr"><circle cx="62" cy="51" r="4.2" fill="#0b2a4a"/><circle cx="63.4" cy="49.4" r="1.4" fill="#fff"/></g></g>
-  <path d="M42 74q8 6 16 0" fill="none" stroke="#7a4a2c" stroke-width="2.4" stroke-linecap="round"/>
- </g>
-</svg>
-</button>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
  var AC=window.AudioContext||window.webkitAudioContext,A=null,M=null,NB=null,on=true;
@@ -391,12 +386,12 @@ body.live .mascot:hover{transform:scale(1.07);box-shadow:0 8px 30px #000a,0 0 32
   f.frequency.setValueAtTime(f0,s);if(f1)f.frequency.exponentialRampToValueAtTime(f1,s+d);g.gain.setValueAtTime(.0001,s);
   g.gain.exponentialRampToValueAtTime(v,s+.006);g.gain.exponentialRampToValueAtTime(.0001,s+d);b.connect(f);f.connect(g);g.connect(M);b.start(s);b.stop(s+d+.02)}
  var S={
-  hover:function(){if(!ready())return;nz('bandpass',2500,7000,3,0,.09,.06);osc('sine',1900,2600,0,.07,.022)},
-  click:function(){if(!ready())return;osc('sine',170,48,0,.16,.26);nz('highpass',2200,0,.7,0,.04,.14);osc('square',1180,0,.012,.05,.026);osc('square',1770,0,.05,.07,.022)},
-  go:function(){if(!ready())return;nz('bandpass',350,4200,1.2,0,.26,.1);osc('sine',220,520,0,.2,.05);osc('sine',150,50,0,.12,.18);osc('triangle',1320,0,.12,.14,.03)},
-  confirm:function(){if(!ready())return;osc('sine',150,40,0,.22,.3);nz('highpass',1800,0,.7,0,.05,.16);
-   [392,523,659,784].forEach(function(f,i){osc('triangle',f,0,.05+i*.07,.28,.07);osc('square',f*2,0,.05+i*.07,.1,.014)});nz('bandpass',500,5000,1,0,.3,.06)},
-  boot:function(){if(!ready())return;osc('sawtooth',60,240,0,.8,.04);nz('bandpass',200,6000,1,0,.7,.09);osc('sine',140,35,0,.5,.36);
+  hover:function(){if(!ready())return;nz('bandpass',2500,7000,3,0,.09,.07);osc('sine',1900,2600,0,.07,.025)},
+  click:function(){if(!ready())return;osc('sine',170,48,0,.16,.28);nz('highpass',2200,0,.7,0,.04,.16);osc('square',1180,0,.012,.05,.03);osc('square',1770,0,.05,.07,.025)},
+  go:function(){if(!ready())return;nz('bandpass',350,4200,1.2,0,.26,.12);osc('sine',220,520,0,.2,.06);osc('sine',150,50,0,.12,.2);osc('triangle',1320,0,.12,.14,.03)},
+  confirm:function(){if(!ready())return;osc('sine',150,40,0,.22,.34);nz('highpass',1800,0,.7,0,.05,.18);
+   [392,523,659,784].forEach(function(f,i){osc('triangle',f,0,.05+i*.07,.28,.07);osc('square',f*2,0,.05+i*.07,.1,.015)});nz('bandpass',500,5000,1,0,.3,.07)},
+  boot:function(){if(!ready())return;osc('sawtooth',60,240,0,.8,.045);nz('bandpass',200,6000,1,0,.7,.1);osc('sine',140,35,0,.5,.4);
    [523,784,1047].forEach(function(f,i){osc('triangle',f,0,.35+i*.12,.5,.06)})},
   tog:function(){if(!ready())return;osc('triangle',660,0,0,.1,.06);osc('triangle',990,0,.08,.16,.06)}
  };
@@ -411,19 +406,26 @@ body.live .mascot:hover{transform:scale(1.07);box-shadow:0 8px 30px #000a,0 0 32
  sb.addEventListener('click',function(){on=!on;try{localStorage.setItem('snd',on?'on':'off')}catch(e){}paint();S.tog()});
 
  /* ---------- boot ---------- */
- var msgs=['Initializing...','Loading portfolio...','Almost ready...','Ready'],bar=document.getElementById('bootbar'),bm=document.getElementById('bootmsg'),bb=document.getElementById('bootbtn'),i=0;
+ var msgs=['Connecting to server...','Loading assets...','Preparing mission log...','Ready'],bar=document.getElementById('bootbar'),bm=document.getElementById('bootmsg'),bb=document.getElementById('bootbtn'),i=0;
  bar.style.width='12%';
  var iv=setInterval(function(){i++;bar.style.width=Math.min(i*33,100)+'%';bm.textContent=msgs[Math.min(i,3)];
-  if(i>=3){clearInterval(iv);bb.classList.add('show');bb.focus({preventScroll:true})}},380);
- bb.addEventListener('click',function(){init();S.boot();document.getElementById('boot').classList.add('gone');document.body.classList.add('live');counters()});
+  if(i>=3){clearInterval(iv);bb.classList.add('show');bb.focus({preventScroll:true})}},400);
+ bb.addEventListener('click',function(){init();S.boot();document.getElementById('boot').classList.add('gone');counters();arm(document.getElementById('profile'))});
+
+ /* ---------- credits-style reveal ---------- */
+ var main=document.getElementById('main'),io=null;
+ if('IntersectionObserver' in window)io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{root:main,threshold:.12});
+ function arm(p){var k=0;p.querySelectorAll('.rv').forEach(function(el){el.classList.remove('in');el.style.setProperty('--i',(k++)%5);if(io)io.observe(el);else el.classList.add('in')})}
+ arm(document.getElementById('missions'));
 
  /* ---------- tabs ---------- */
- var btns=[].slice.call(document.querySelectorAll('#menu button')),main=document.getElementById('main');
+ var btns=[].slice.call(document.querySelectorAll('#menu button[data-t]'));
  function go(id,quiet){var cur=btns.filter(function(b){return b.classList.contains('on')})[0];if(cur&&cur.dataset.t===id)return;
   if(!quiet)S.go();
   btns.forEach(function(b){b.classList.toggle('on',b.dataset.t===id)});
-  document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('on',p.id===id)});
-  main.scrollTop=0;if(id==='profile')counters();
+  var p=document.getElementById(id);
+  document.querySelectorAll('.pane').forEach(function(q){q.classList.toggle('on',q===p)});
+  main.scrollTop=0;if(id==='profile')counters();arm(p);if(window.__kick)window.__kick();
   try{history.replaceState(null,'','#'+id)}catch(e){}}
  btns.forEach(function(b){b.addEventListener('click',function(){go(b.dataset.t)})});
  document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.go,true);S.go()})});
@@ -432,9 +434,9 @@ body.live .mascot:hover{transform:scale(1.07);box-shadow:0 8px 30px #000a,0 0 32
   if(e.key==='ArrowRight')n=(cur+1)%btns.length;else if(e.key==='ArrowLeft')n=(cur-1+btns.length)%btns.length;
   else if(/^[1-6]$/.test(e.key))n=+e.key-1;else return;
   if(n!==cur){e.preventDefault();go(btns[n].dataset.t)}});
- var h=location.hash.slice(1);if(h&&document.getElementById(h))go(h,true);
+ var h=location.hash.slice(1);if(h&&document.getElementById(h)&&document.querySelector('[data-t="'+h+'"]'))go(h,true);
 
- /* ---------- company accordions ---------- */
+ /* ---------- company logs ---------- */
  document.querySelectorAll('.co-h').forEach(function(b){b.addEventListener('click',function(){
   var co=b.parentNode,o=!co.classList.contains('open');co.classList.toggle('open',o);b.setAttribute('aria-expanded',o)})});
 
@@ -442,18 +444,58 @@ body.live .mascot:hover{transform:scale(1.07);box-shadow:0 8px 30px #000a,0 0 32
  function counters(){document.querySelectorAll('[data-n]').forEach(function(el){var t=+el.dataset.n,s=null;
   function step(ts){if(!s)s=ts;var p=Math.min((ts-s)/900,1);el.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)})}
 
- /* ---------- mascot: head and eyes follow the cursor ---------- */
- var mc=document.getElementById('mascot'),hd=document.getElementById('head'),pl=document.getElementById('pl'),pr=document.getElementById('pr'),tx=0,ty=0,cx=0,cy=0;
- function look(x,y){var r=mc.getBoundingClientRect(),dx=x-(r.left+r.width/2),dy=y-(r.top+r.height/2),d=Math.hypot(dx,dy)||1,k=Math.min(1,d/240);tx=dx/d*k;ty=dy/d*k}
+ /* ---------- helmet emblem: head turns toward the cursor ---------- */
+ var hel=document.getElementById('hel'),hs=document.getElementById('hsvg'),g2=document.getElementById('gl2'),tx=0,ty=0,cx=0,cy=0;
  if(!reduce){
-  addEventListener('pointermove',function(e){look(e.clientX,e.clientY)});
-  (function tick(){cx+=(tx-cx)*.16;cy+=(ty-cy)*.16;
-   hd.setAttribute('transform','translate('+(cx*3).toFixed(2)+' '+(cy*2.5).toFixed(2)+') rotate('+(cx*9).toFixed(2)+' 50 70)');
-   var p='translate('+(cx*3.6).toFixed(2)+' '+(cy*3).toFixed(2)+')';pl.setAttribute('transform',p);pr.setAttribute('transform',p);
-   requestAnimationFrame(tick)})();
-  (function blink(){setTimeout(function(){mc.classList.add('blink');setTimeout(function(){mc.classList.remove('blink');blink()},120)},2400+Math.random()*3200)})();
+  addEventListener('pointermove',function(e){var r=hel.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2),d=Math.hypot(dx,dy)||1,k=Math.min(1,d/300);tx=dx/d*k;ty=dy/d*k});
+  (function tick(){cx+=(tx-cx)*.14;cy+=(ty-cy)*.14;
+   hs.style.transform='perspective(280px) rotateY('+(cx*30).toFixed(2)+'deg) rotateX('+(-cy*20).toFixed(2)+'deg)';
+   g2.setAttribute('transform','translate('+(cx*16).toFixed(2)+' 0)');requestAnimationFrame(tick)})();
  }
- mc.addEventListener('click',function(){mc.classList.add('wink','pop');S.tog();setTimeout(function(){mc.classList.remove('wink','pop')},520)});
+ hel.addEventListener('click',function(){hel.classList.add('pop','flash');S.tog();setTimeout(function(){hel.classList.remove('pop','flash')},420)});
+
+ /* ---------- 3D background: orbital ring megastructure (Three.js) ---------- */
+ (function gl(){
+  if(!window.THREE||reduce)return;
+  var cv=document.getElementById('gl'),R,k;
+  try{R=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true})}catch(e){return}
+  R.setPixelRatio(Math.min(devicePixelRatio||1,1.75));
+  var S3=new THREE.Scene(),C=new THREE.PerspectiveCamera(50,1,.1,400),R0=8;
+  S3.add(new THREE.AmbientLight(0x7090b8,.75));
+  var dl=new THREE.DirectionalLight(0xbfe6ff,1.2);dl.position.set(6,9,10);S3.add(dl);
+  var pt=new THREE.PointLight(0xffb938,1.8,70);pt.position.set(-10,-2,4);S3.add(pt);
+  var T=new THREE.Group(),G=new THREE.Group();T.add(G);
+  var band=new THREE.Mesh(new THREE.CylinderGeometry(R0,R0,2.4,160,1,true),new THREE.MeshStandardMaterial({color:0x16233a,metalness:.7,roughness:.4,side:THREE.DoubleSide,emissive:0x07101c}));
+  var bw=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.CylinderGeometry(R0+.03,R0+.03,2.4,72,3,true)),new THREE.LineBasicMaterial({color:0x39d0ff,transparent:true,opacity:.3}));
+  G.add(band,bw);
+  [-1,1].forEach(function(s){var r=new THREE.Mesh(new THREE.TorusGeometry(R0,.15,8,160),new THREE.MeshStandardMaterial({color:0x2c4468,metalness:.9,roughness:.3,emissive:0x0c1a2e}));r.rotation.x=Math.PI/2;r.position.y=s*1.2;G.add(r)});
+  var bp=[],a;for(k=0;k<72;k++){a=k/72*Math.PI*2;bp.push(Math.cos(a)*(R0+.25),1.2,Math.sin(a)*(R0+.25))}
+  var bg=new THREE.BufferGeometry();bg.setAttribute('position',new THREE.Float32BufferAttribute(bp,3));
+  G.add(new THREE.Points(bg,new THREE.PointsMaterial({color:0xffb938,size:.24,transparent:true,opacity:.95})));
+  S3.add(T);
+  var sun=new THREE.Mesh(new THREE.IcosahedronGeometry(2.4,2),new THREE.MeshBasicMaterial({color:0xffb938,wireframe:true,transparent:true,opacity:.4}));
+  sun.position.set(-10,5,-30);S3.add(sun);
+  var sp=[],u,v,rr;for(k=0;k<900;k++){u=Math.random()*Math.PI*2;v=Math.acos(2*Math.random()-1);rr=70+Math.random()*90;sp.push(rr*Math.sin(v)*Math.cos(u),rr*Math.sin(v)*Math.sin(u),rr*Math.cos(v)-50)}
+  var sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.Float32BufferAttribute(sp,3));
+  var stars=new THREE.Points(sg,new THREE.PointsMaterial({color:0xcfe9ff,size:.4,transparent:true,opacity:.7}));S3.add(stars);
+  var sc=0,sv=0,mx=0,my=0,kick=0,last=0,ry=0,py=0,pz=16,cxp=0,cyp=0;
+  function clampv(){sv=Math.max(-160,Math.min(160,sv))}
+  main.addEventListener('scroll',function(){var t=main.scrollTop;sv+=t-last;last=t;sc=t;clampv()},{passive:true});
+  addEventListener('wheel',function(e){sv+=e.deltaY*.25;clampv()},{passive:true});
+  addEventListener('pointermove',function(e){mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1});
+  window.__kick=function(){kick=1};
+  function size(){var w=innerWidth,h=innerHeight;R.setSize(w,h,false);C.aspect=w/h;C.updateProjectionMatrix();T.position.x=w<900?1.5:3.5}
+  size();addEventListener('resize',size);
+  (function loop(){
+   sv*=.9;kick*=.95;
+   ry+=.0016+sv*.0007+kick*.05;G.rotation.y=ry;
+   py+=(-sc*.003-py)*.06;pz+=(16-Math.min(sc*.004,4)-pz)*.06;
+   cxp+=(mx*1.6-cxp)*.05;cyp+=(-my*1-cyp)*.05;
+   T.position.y=-.5+py;T.position.z=-5;T.rotation.x=1.15+Math.sin(sc*.002)*.18+sv*.0008;T.rotation.z=.35;
+   C.position.set(cxp,cyp,pz);C.lookAt(0,0,-4);
+   sun.rotation.y+=.004;stars.rotation.y+=.0003+sv*.00002;
+   R.render(S3,C);requestAnimationFrame(loop)})();
+ })();
 })();
 </script>
 </body>
