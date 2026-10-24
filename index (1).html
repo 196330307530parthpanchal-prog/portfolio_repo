@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Parth Panchal · Software Developer</title>
+<meta name="description" content="Parth Panchal, Software Developer in Ahmedabad. Custom Odoo modules, accounting reports, barcode scanning and system integrations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060a11;--ink:#eaf1f8;--mute:#8d9bb0;--line:#ffffff17;--acc:#3fd0ff;--acc2:#4a7bff}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 'Manrope',system-ui,sans-serif;overflow:hidden}
+h1,h2,h3,h4,.btn,.nav button,.brand{font-family:'Sora',system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+/* ---------- background (static, no scroll or pointer movement) ---------- */
+.scene{position:fixed;inset:0;z-index:0;background:
+ radial-gradient(60% 50% at 82% 0%,#1fb6ff2b,transparent 62%),
+ radial-gradient(50% 45% at 0% 28%,#6a5cff24,transparent 62%),
+ radial-gradient(45% 40% at 60% 105%,#00e5c01c,transparent 62%),var(--bg)}
+.scene::before{content:"";position:absolute;inset:0;background:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000,transparent 75%);mask-image:radial-gradient(ellipse at 50% 20%,#000,transparent 75%)}
+.scene::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 50%,#000000a0 100%);animation:amb 12s ease-in-out infinite alternate}
+@keyframes amb{to{opacity:.7}}
+/* ---------- boot ---------- */
+#boot{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 35%,#0f1d33,#050810 70%);transition:opacity .6s,visibility .6s}
+#boot.gone{opacity:0;visibility:hidden}
+.boot-in{width:min(420px,86vw);text-align:center}
+.boot-in .logo{margin:0 auto 22px;width:64px;height:64px;font-size:26px;border-radius:16px}
+.boot-in h1{font-size:clamp(28px,6vw,40px);font-weight:600;letter-spacing:-.01em}
+.boot-in p{color:var(--mute);margin:8px 0 26px;font-size:14px;min-height:22px}
+.bar{height:3px;background:#ffffff18;border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));box-shadow:0 0 12px var(--acc);transition:width .35s}
+#bootbtn{margin-top:30px;opacity:0;pointer-events:none;transform:translateY(8px);transition:.4s}
+#bootbtn.show{opacity:1;pointer-events:auto;transform:none}
+/* ---------- buttons ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 28px;font-weight:600;font-size:15px;letter-spacing:.02em;color:#03111f;border:0;cursor:pointer;overflow:hidden;isolation:isolate;background:linear-gradient(135deg,#5ee0ff,var(--acc) 40%,var(--acc2));box-shadow:inset 0 1px 0 #fff8,inset 0 -2px 0 #0002;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));transition:transform .12s,filter .2s}
+.btn::before{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;z-index:-1;background:linear-gradient(100deg,transparent,#ffffffaa,transparent);transform:skewX(-20deg)}
+.btn:hover::before,.btn:focus-visible::before{left:130%;transition:left .65s ease}
+.btn:hover,.btn:focus-visible{filter:brightness(1.1);outline:none}
+.btn:active{transform:translateY(1px) scale(.97)}
+.btn.ghost{color:var(--ink);background:linear-gradient(180deg,#ffffff14,#ffffff05);box-shadow:inset 0 0 0 1px #ffffff2a;transition:transform .12s,color .2s,box-shadow .2s}
+.btn.ghost::before{background:linear-gradient(100deg,transparent,#3fd0ff55,transparent)}
+.btn.ghost:hover,.btn.ghost:focus-visible{color:#fff;box-shadow:inset 0 0 0 1px var(--acc),inset 0 0 20px #3fd0ff22;filter:none}
+.btn.mini{padding:7px 16px;font-size:13px}
+.glow{display:inline-block;filter:drop-shadow(0 0 0 #3fd0ff00);transition:filter .3s}
+.glow:hover,.glow:focus-within{filter:drop-shadow(0 0 12px #3fd0ffaa) drop-shadow(0 0 28px #3fd0ff55)}
+/* ---------- header ---------- */
+.app{position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
+.top{display:flex;align-items:center;gap:24px;padding:12px 32px;background:#060a11cc;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:600;font-size:17px;white-space:nowrap}
+.logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font:700 15px 'Sora';color:#03111f;background:linear-gradient(135deg,#5ee0ff,var(--acc2));flex:none}
+.nav{display:flex;gap:4px;margin:0 auto;overflow-x:auto;scrollbar-width:none}
+.nav button{position:relative;background:none;border:0;color:#b4c0d0;font-size:14px;font-weight:500;padding:10px 16px;cursor:pointer;border-radius:8px;transition:color .2s,background .2s;white-space:nowrap}
+.nav button::after{content:"";position:absolute;left:16px;right:16px;bottom:2px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--acc),var(--acc2));box-shadow:0 0 10px var(--acc);transform:scaleX(0);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.nav button:hover,.nav button:focus-visible{color:#fff;background:#ffffff0c;outline:none}
+.nav button:hover::after,.nav button.on::after{transform:scaleX(1)}
+.nav button.on{color:#fff}
+.nav button:active{transform:scale(.96)}
+.main{flex:1;min-height:0;overflow-y:auto;padding:30px 32px 90px;scrollbar-width:thin;scrollbar-color:#3fd0ff55 transparent}
+.pane{display:none;max-width:1180px;margin:0 auto}
+.pane.on{display:block;animation:in .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* ---------- home ---------- */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:28px 0 34px}
+.name{font-size:clamp(40px,6vw,76px);font-weight:700;line-height:1.02;letter-spacing:-.025em;background:linear-gradient(180deg,#fff,#a9d9f5);-webkit-background-clip:text;background-clip:text;color:transparent}
+.role{font:600 clamp(18px,2.2vw,24px) 'Sora';color:var(--acc);margin:12px 0 18px}
+.lead{color:#b4c1d2;max-width:56ch}
+.now{display:inline-flex;align-items:center;gap:10px;margin:22px 0 26px;padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:14px;color:var(--mute);background:#ffffff08}
+.now i,.dot{width:8px;height:8px;border-radius:50%;background:#2ee6b6;box-shadow:0 0 10px #2ee6b6;animation:blink 2.4s infinite}
+@keyframes blink{50%{opacity:.4}}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.pf{position:relative;isolation:isolate;max-width:420px;margin:0 auto;border-radius:24px;padding:1px;background:linear-gradient(145deg,#3fd0ff99,#ffffff10 40%,#4a7bff99)}
+.pf::before{content:"";position:absolute;inset:-34px;z-index:-1;background:radial-gradient(closest-side,#3fd0ff30,transparent);filter:blur(22px)}
+.pf img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:23px}
+.fl{position:absolute;padding:9px 15px;border-radius:12px;background:#0a1220d9;backdrop-filter:blur(10px);border:1px solid var(--line);font-size:13px;font-weight:500;display:flex;align-items:center;gap:9px}
+.fl.a{left:-22px;bottom:30px}.fl.b{right:-16px;top:28px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{padding:18px 20px;border-radius:14px;border:1px solid var(--line);background:#ffffff06;transition:border-color .25s,transform .25s}
+.stat:hover{border-color:#3fd0ff55;transform:translateY(-3px)}
+.stat b{display:block;font:700 34px/1.1 'Sora';background:linear-gradient(135deg,#5ee0ff,var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{display:block;font-size:13px;color:var(--mute);margin-top:4px;line-height:1.4}
+/* ---------- sections ---------- */
+h2{font-size:clamp(28px,4vw,40px);font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.sub{color:var(--mute);margin:10px 0 28px;max-width:62ch}
+.sec{font:600 12px 'Sora';letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin:26px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chip{font-size:12px;padding:3px 11px;border-radius:999px;border:1px solid var(--line);background:#ffffff08;color:#a8b6c8}
+/* company accordion */
+.co{border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,#0f1725,#0b111c);margin-bottom:14px;overflow:hidden;transition:border-color .25s,box-shadow .25s}
+.co:hover{border-color:#3fd0ff44}
+.co.open{box-shadow:0 20px 60px #00000055}
+.co-h{display:flex;align-items:center;gap:16px;width:100%;padding:18px 22px;background:none;border:0;color:inherit;text-align:left;cursor:pointer;font:inherit}
+.co-h .logo{width:46px;height:46px;border-radius:12px;font-size:19px}
+.logo.alt{background:#ffffff12;color:var(--ink)}
+.co-h h3{font-size:19px;font-weight:600}
+.rl{color:var(--mute);font-size:14px}
+.tag{margin-left:auto;font-size:12px;font-weight:600;padding:4px 12px;border-radius:999px;background:#2ee6b61f;color:#2ee6b6}
+.tag.q{background:#ffffff10;color:var(--mute)}
+.chev{width:9px;height:9px;border-right:2px solid var(--mute);border-bottom:2px solid var(--mute);transform:rotate(45deg);transition:transform .3s;margin:0 4px 4px 12px;flex:none}
+.co.open .chev{transform:rotate(-135deg);margin-bottom:-2px}
+.co-b{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.8,.2,1)}
+.co.open .co-b{grid-template-rows:1fr}
+.co-i{overflow:hidden;min-height:0;visibility:hidden;transition:visibility .45s}
+.co.open .co-i{visibility:visible}
+.co-p{padding:2px 22px 24px}
+.co-p ul{padding-left:18px;color:#c3cfdd;font-size:15px}
+.co-p li{margin:5px 0}
+.proj{position:relative;padding:20px 22px;border-radius:14px;border:1px solid var(--line);background:#0a101a;transition:transform .25s,border-color .25s,box-shadow .25s}
+.proj:hover{transform:translateY(-3px);border-color:#3fd0ff55}
+.proj h4{font-size:16px;font-weight:600}
+.proj p,.proj li{font-size:14px;color:#b4c1d2}
+.proj ul{padding-left:18px;margin-top:8px}
+.proj.major{margin-bottom:14px;padding:22px 24px;border:1px solid transparent;background:linear-gradient(#0e1828,#0b1320) padding-box,linear-gradient(135deg,var(--acc),var(--acc2) 55%,#3fd0ff33) border-box;box-shadow:0 12px 40px #3fd0ff14}
+.proj.major h4{font-size:19px;display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.proj.major li{font-size:15px;color:#c3cfdd}
+.mt{font:600 11px 'Sora';letter-spacing:.12em;text-transform:uppercase;color:#03111f;background:linear-gradient(135deg,#5ee0ff,var(--acc));padding:3px 10px;border-radius:999px}
+.minors,.grid2,.skills{display:grid;gap:12px}
+.minors{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.grid2{grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.skills{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.sk{padding:16px 18px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(180deg,#0f1725,#0b111c);transition:transform .25s,border-color .25s,box-shadow .25s}
+.sk:hover{transform:translateY(-3px);border-color:#3fd0ff66;box-shadow:0 10px 30px #3fd0ff14}
+.sk b{display:block;font:600 16px 'Sora'}
+.sk span{display:block;font-size:13px;color:var(--mute);margin-top:4px;line-height:1.45}
+.edu{padding:20px 24px;margin-bottom:12px}
+/* ---------- mascot ---------- */
+.mascot{position:fixed;right:24px;bottom:calc(22px + env(safe-area-inset-bottom));z-index:30;width:86px;height:86px;padding:6px;border-radius:50%;border:1px solid #3fd0ff55;background:radial-gradient(circle at 50% 35%,#16253d,#0a1220);box-shadow:0 8px 30px #000a,0 0 24px #3fd0ff22;cursor:pointer;opacity:0;transform:scale(.6);transition:opacity .5s .3s,transform .5s .3s cubic-bezier(.2,1.4,.4,1),box-shadow .25s}
+body.live .mascot{opacity:1;transform:none}
+body.live .mascot:hover{transform:scale(1.07);box-shadow:0 8px 30px #000a,0 0 32px #3fd0ff55}
+.mascot svg{display:block;width:100%;height:100%;overflow:visible}
+.mascot.pop{animation:pop .45s}
+@keyframes pop{40%{transform:scale(1.14) rotate(-4deg)}}
+.eye{transform-box:fill-box;transform-origin:center;transition:transform .08s}
+.blink .eye{transform:scaleY(.08)}
+.wink #er{transform:scaleY(.08)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+/* ---------- responsive ---------- */
+@media(max-width:980px){
+ .hero{grid-template-columns:1fr;gap:34px}
+ .pf{order:-1;max-width:340px}
+ .stats{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+ .top{flex-wrap:wrap;gap:8px 12px;padding:10px 14px}
+ .top .btn.mini{margin-left:auto}
+ .nav{order:3;width:100%;margin:0}
+ .main{padding:20px 14px 100px}
+ .fl.a{left:8px}.fl.b{right:8px}
+ .co-h{padding:16px;gap:12px}.co-p{padding:2px 14px 20px}
+ .tag{display:none}
+ .mascot{width:64px;height:64px;right:14px}
+ .grid2{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="scene"></div>
+
+<div id="boot"><div class="boot-in">
+ <div class="logo">PP</div>
+ <h1>Parth Panchal</h1>
+ <p id="bootmsg">Initializing...</p>
+ <div class="bar"><i id="bootbar"></i></div>
+ <span class="glow"><button class="btn" id="bootbtn">Enter portfolio</button></span>
+</div></div>
+
+<div class="app">
+ <header class="top">
+  <div class="brand"><i class="logo">PP</i><span>Parth Panchal</span></div>
+  <nav class="nav" id="menu">
+   <button data-t="profile" class="on">Home</button>
+   <button data-t="experience">Experience</button>
+   <button data-t="projects">Projects</button>
+   <button data-t="skills">Skills</button>
+   <button data-t="education">Education</button>
+   <button data-t="contact">Contact</button>
+  </nav>
+  <button class="btn ghost mini" id="snd">Sound: on</button>
+ </header>
+
+ <main class="main" id="main">
+  <section class="pane on" id="profile">
+   <div class="hero">
+    <div>
+     <h1 class="name">Parth Panchal</h1>
+     <div class="role">Software Developer</div>
+     <p class="lead">Software developer focused on ERP customization and backend engineering with Python. Experience in building custom modules, financial reporting and system integrations on Odoo Community.</p>
+     <div class="now"><i></i>Software Developer at Areterix Technologies, Ahmedabad</div>
+     <div class="cta">
+      <span class="glow"><button class="btn" data-go="experience">View experience</button></span>
+      <button class="btn ghost" data-go="contact">Contact</button>
+     </div>
+    </div>
+    <div class="pf">
+     <img src="photo.png" alt="Portrait of Parth Panchal" width="400" height="400">
+     <div class="fl a"><span class="dot"></span>Software Developer</div>
+     <div class="fl b">Ahmedabad, India</div>
+    </div>
+   </div>
+   <div class="stats">
+    <div class="stat"><b data-n="3">0</b><span>Odoo implementations delivered</span></div>
+    <div class="stat"><b data-n="9">0</b><span>Custom modules built at Areterix</span></div>
+    <div class="stat"><b data-n="7">0</b><span>Reports consolidated into one suite</span></div>
+    <div class="stat"><b data-n="2">0</b><span>Odoo versions delivered: 17 and 19</span></div>
+   </div>
+  </section>
+
+  <section class="pane" id="experience">
+   <h2>Experience</h2>
+   <p class="sub">Employers listed newest first. Expand a company to see the projects delivered there.</p>
+
+   <article class="co open">
+    <button class="co-h" aria-expanded="true"><span class="logo">A</span><span><h3>Areterix Technologies</h3><span class="rl">Software Developer · Present</span></span><span class="tag">Current</span><i class="chev"></i></button>
+    <div class="co-b"><div class="co-i"><div class="co-p">
+     <p class="rl" style="margin-bottom:6px">Custom Odoo modules for accounting, inventory, sales and HR across Odoo 17 and 19.</p>
+     <div class="sec">Major projects</div>
+     <div class="proj major">
+      <h4>Barcode Scanner App <span class="mt">Major</span></h4>
+      <p>Odoo 19 Community</p>
+      <ul>
+       <li>Warehouse scanning application that provides the Enterprise barcode experience on Community Edition, with no Enterprise dependency.</li>
+       <li>Operations home, picking lists, picking detail with edit and validate, backorder handling, global barcode resolver, product locate, lot, serial and package scanning, and a camera scanner.</li>
+       <li>Delivery customization where a product scan followed by a lot scan registers the whole lot in one step, with pending products grouped by lot location.</li>
+       <li>Per-line DYMO lot-label printing on purchase receipts.</li>
+      </ul>
+      <div class="chips"><span class="chip">Odoo 19 CE</span><span class="chip">Owl</span><span class="chip">JavaScript</span><span class="chip">Python</span><span class="chip">QWeb</span><span class="chip">DYMO</span></div>
+     </div>
+     <div class="proj major">
+      <h4>Accounting Reports Suite <span class="mt">Major</span></h4>
+      <p>Odoo Community · Odoo 17 and 19</p>
+      <ul>
+       <li>General Ledger, Partner Ledger, Aged Receivable, Aged Payable, Profit and Loss, Balance Sheet and GSTR-1 consolidated from seven modules into one.</li>
+       <li>Owl interface with date and comparison filters, ledger drill-down, and PDF and XLSX export.</li>
+       <li>Ported from Odoo 19 to Odoo 17 for a client handover.</li>
+      </ul>
+      <div class="chips"><span class="chip">Owl</span><span class="chip">QWeb PDF</span><span class="chip">XLSX</span><span class="chip">GST</span><span class="chip">Python</span></div>
+     </div>
+     <div class="proj major">
+      <h4>Odoo to TallyPrime Integration <span class="mt">Major</span></h4>
+      <p>Odoo 19 · TallyPrime</p>
+      <ul>
+       <li>Customers, vendors and products synchronized to Tally, with sync status on list views.</li>
+       <li>Customer invoices and vendor bills posted as vouchers through TallyPrime’s HTTP and XML interface, with voucher types mapped per journal.</li>
+      </ul>
+      <div class="chips"><span class="chip">Python</span><span class="chip">REST / XML</span><span class="chip">TallyPrime</span><span class="chip">AWS Linux</span></div>
+     </div>
+     <div class="sec">Additional projects</div>
+     <div class="minors">
+      <div class="proj"><h4>Auto-reconcile</h4><p>Reconciles a partner’s open receivable and payable items on posting and bank matching, oldest invoice first.</p></div>
+      <div class="proj"><h4>Outstanding Reports</h4><p>Partner-wise Aged Receivable and Payable XLSX wizards with cumulative balance.</p></div>
+      <div class="proj"><h4>Employee Self Service Portal</h4><p>Time off, leave allocation requests and attendance for portal users.</p></div>
+      <div class="proj"><h4>Picking Operations v2</h4><p>Custom picking PDF, hidden prices on product labels and DYMO lot labels.</p></div>
+      <div class="proj"><h4>SQM to PCS Conversion</h4><p>Server-side area-to-piece quantity conversion for polycarbonate sheet sales.</p></div>
+      <div class="proj"><h4>Bank Matching Balance</h4><p>Shows a partner’s Cr/Dr balance in the bank matching quick-create row.</p></div>
+     </div>
+    </div></div></div>
+   </article>
+
+   <article class="co">
+    <button class="co-h" aria-expanded="false"><span class="logo alt">S</span><span><h3>Serpent Consulting Services Pvt. Ltd</h3><span class="rl">Odoo Tech Intern · Jan 2025 – Oct 2025</span></span><span class="tag q">Odoo consulting</span><i class="chev"></i></button>
+    <div class="co-b"><div class="co-i"><div class="co-p"><ul>
+     <li>Built and customized Odoo modules using ORM methods, workflows and report actions.</li>
+     <li>Customized forms, reports and business workflows to client requirements.</li>
+     <li>Worked with cross-functional teams on three Odoo implementations.</li>
+    </ul></div></div></div>
+   </article>
+
+   <article class="co">
+    <button class="co-h" aria-expanded="false"><span class="logo alt">I</span><span><h3>Infividhya Pvt Ltd</h3><span class="rl">Data Science Intern · Jun 2024 – Jul 2024</span></span><i class="chev"></i></button>
+    <div class="co-b"><div class="co-i"><div class="co-p"><ul>
+     <li>Built a clustering model for athlete performance data, covering preprocessing, training and visualization.</li>
+    </ul></div></div></div>
+   </article>
+
+   <article class="co">
+    <button class="co-h" aria-expanded="false"><span class="logo alt">U</span><span><h3>Upskills Campus</h3><span class="rl">Python Developer Intern · Jun 2024 – Jul 2024</span></span><i class="chev"></i></button>
+    <div class="co-b"><div class="co-i"><div class="co-p"><ul>
+     <li>Applied Pandas, NumPy and Scikit-learn to analyze athlete performance patterns.</li>
+    </ul></div></div></div>
+   </article>
+  </section>
+
+  <section class="pane" id="projects">
+   <h2>Projects</h2>
+   <p class="sub">Independent and academic work.</p>
+   <div class="grid2">
+    <div class="proj"><h4>Milk Production · Odoo 18</h4><ul><li>Tracks animals, milk output and health records on the mail, stock, product and report modules.</li><li>Date-wizard PDF and XLSX milk reports.</li><li>Role-based access: farm workers record data, administrators retain full control.</li></ul><div class="chips"><span class="chip">Odoo 18</span><span class="chip">Wizards</span><span class="chip">Access rights</span></div></div>
+    <div class="proj"><h4>Gym Management · Odoo 18</h4><ul><li>Membership schemes linked to products, with automatic calculations on sales orders.</li><li>Staff manage members; trainers see only their assigned members.</li><li>Telegram Bot API sends a notification for every new registration.</li></ul><div class="chips"><span class="chip">Odoo 18</span><span class="chip">PostgreSQL</span><span class="chip">Telegram API</span></div></div>
+    <div class="proj"><h4>Athlete Clustering</h4><ul><li>Clusters athletes by performance attributes and visualizes the result.</li></ul><div class="chips"><span class="chip">Python</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">Scikit-learn</span></div></div>
+    <div class="proj"><h4>Culturea</h4><ul><li>Heritage showcase website with multimedia content and an interactive interface.</li></ul><div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span></div></div>
+    <div class="proj"><h4>GrowPharma</h4><ul><li>Online pharmacy store with product catalog, cart, secure checkout and user accounts.</li></ul><div class="chips"><span class="chip">Web</span><span class="chip">E-commerce</span></div></div>
+   </div>
+  </section>
+
+  <section class="pane" id="skills">
+   <h2>Skills</h2>
+   <p class="sub">Technologies and where they were applied.</p>
+   <div class="sec">Backend and ERP</div>
+   <div class="skills">
+    <div class="sk"><b>Python</b><span>Odoo modules, the Tally connector, clustering projects</span></div>
+    <div class="sk"><b>Odoo ORM and models</b><span>All custom modules, Odoo 17, 18 and 19, Community and Enterprise compatibility</span></div>
+    <div class="sk"><b>Wizards and report actions</b><span>Outstanding reports, milk production reports</span></div>
+    <div class="sk"><b>Access rights and security groups</b><span>Gym Management, Milk Production</span></div>
+    <div class="sk"><b>PostgreSQL and SQL</b><span>Gym Management and report modules</span></div>
+   </div>
+   <div class="sec">Frontend</div>
+   <div class="skills">
+    <div class="sk"><b>JavaScript and Owl</b><span>Barcode Scanner App, Accounting Reports Suite</span></div>
+    <div class="sk"><b>QWeb templates</b><span>PDF reports, portal pages, picking documents</span></div>
+    <div class="sk"><b>Camera and barcode scanning UI</b><span>Barcode Scanner App</span></div>
+    <div class="sk"><b>HTML and CSS</b><span>Culturea, GrowPharma, report styling</span></div>
+   </div>
+   <div class="sec">Reporting and domain</div>
+   <div class="skills">
+    <div class="sk"><b>PDF and XLSX generation</b><span>Accounting Reports Suite, Outstanding Reports</span></div>
+    <div class="sk"><b>Accounting workflows</b><span>Ledgers, financial statements, reconciliation</span></div>
+    <div class="sk"><b>GST reporting</b><span>GSTR-1 in the Accounting Reports Suite</span></div>
+    <div class="sk"><b>Inventory tracking</b><span>Lots, serials and packages in the Barcode Scanner App</span></div>
+   </div>
+   <div class="sec">Integrations and platforms</div>
+   <div class="skills">
+    <div class="sk"><b>TallyPrime integration</b><span>HTTP and XML voucher sync from Odoo</span></div>
+    <div class="sk"><b>Telegram Bot API</b><span>REST notifications in Gym Management</span></div>
+    <div class="sk"><b>DYMO label printing</b><span>Barcode Scanner App, Picking Operations v2</span></div>
+    <div class="sk"><b>Version migration</b><span>Reporting suite ported from Odoo 19 to 17</span></div>
+    <div class="sk"><b>Linux and AWS hosting</b><span>Integration testing environment for the Tally sync</span></div>
+   </div>
+   <div class="sec">Data and tools</div>
+   <div class="skills">
+    <div class="sk"><b>Pandas, NumPy, Scikit-learn</b><span>Athlete Clustering, Infividhya internship</span></div>
+    <div class="sk"><b>Git</b><span>Version control across projects</span></div>
+    <div class="sk"><b>PyCharm, VS Code, XAMPP</b><span>Development environment</span></div>
+   </div>
+  </section>
+
+  <section class="pane" id="education">
+   <h2>Education</h2>
+   <p class="sub">Academic background.</p>
+   <div class="proj edu"><h4>Bachelor of Engineering in Computer Engineering</h4><p>Ahmedabad Institute of Technology · 2022 – 2025</p></div>
+   <div class="proj edu"><h4>Diploma in Computer Engineering</h4><p>LJ Institute of Technology · 2019 – 2022</p></div>
+  </section>
+
+  <section class="pane" id="contact">
+   <h2>Contact</h2>
+   <p class="sub">For professional enquiries and collaboration, please connect on LinkedIn.</p>
+   <span class="glow"><a class="btn" href="http://www.linkedin.com/in/parth-panchal-7b2b0b294" target="_blank" rel="noopener">LinkedIn</a></span>
+   <p class="sub" style="margin-top:26px">Ahmedabad, Gujarat, India</p>
+  </section>
+ </main>
+</div>
+
+<button class="mascot" id="mascot" aria-label="Game character companion">
+<svg viewBox="0 0 100 100" aria-hidden="true">
+ <defs>
+  <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2d4570"/><stop offset="1" stop-color="#101a2f"/></linearGradient>
+  <radialGradient id="fg" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#f6cfa6"/><stop offset="1" stop-color="#d49b6d"/></radialGradient>
+ </defs>
+ <g id="head">
+  <ellipse cx="50" cy="62" rx="30" ry="27" fill="url(#fg)"/>
+  <rect x="16" y="54" width="8" height="15" rx="3" fill="#3fd0ff"/><rect x="76" y="54" width="8" height="15" rx="3" fill="#3fd0ff"/>
+  <path d="M16 54C16 28 32 12 50 12s34 16 34 42z" fill="url(#hg)" stroke="#3fd0ff" stroke-opacity=".6" stroke-width="1.5"/>
+  <path d="M50 12v20" stroke="#3fd0ff" stroke-width="3" stroke-linecap="round"/>
+  <rect x="21" y="40" width="58" height="22" rx="11" fill="#070d18" stroke="#3fd0ff" stroke-opacity=".7" stroke-width="1.5"/>
+  <g class="eye" id="el"><ellipse cx="38" cy="51" rx="9" ry="8" fill="#eaf6ff"/><g id="pl"><circle cx="38" cy="51" r="4.2" fill="#0b2a4a"/><circle cx="39.4" cy="49.4" r="1.4" fill="#fff"/></g></g>
+  <g class="eye" id="er"><ellipse cx="62" cy="51" rx="9" ry="8" fill="#eaf6ff"/><g id="pr"><circle cx="62" cy="51" r="4.2" fill="#0b2a4a"/><circle cx="63.4" cy="49.4" r="1.4" fill="#fff"/></g></g>
+  <path d="M42 74q8 6 16 0" fill="none" stroke="#7a4a2c" stroke-width="2.4" stroke-linecap="round"/>
+ </g>
+</svg>
+</button>
+
+<script>
+(function(){
+ var AC=window.AudioContext||window.webkitAudioContext,A=null,M=null,NB=null,on=true;
+ var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,canHover=matchMedia('(hover:hover)').matches;
+ try{on=localStorage.getItem('snd')!=='off'}catch(e){}
+
+ /* ---------- sound engine (Web Audio, no files) ---------- */
+ function init(){if(A||!AC)return;A=new AC();
+  var comp=A.createDynamicsCompressor(),d=A.createDelay(),fb=A.createGain(),wet=A.createGain(),lp=A.createBiquadFilter();
+  M=A.createGain();M.gain.value=.8;d.delayTime.value=.11;fb.gain.value=.3;wet.gain.value=.22;lp.type='lowpass';lp.frequency.value=3200;
+  M.connect(comp);M.connect(d);d.connect(lp);lp.connect(fb);fb.connect(d);lp.connect(wet);wet.connect(comp);comp.connect(A.destination);
+  var n=A.sampleRate>>1,c;NB=A.createBuffer(1,n,A.sampleRate);c=NB.getChannelData(0);for(var i=0;i<n;i++)c[i]=Math.random()*2-1}
+ function ready(){if(!on||!A)return false;if(A.state==='suspended')A.resume();return true}
+ function osc(type,f0,f1,t,d,v){var o=A.createOscillator(),g=A.createGain(),s=A.currentTime+t;o.type=type;o.frequency.setValueAtTime(f0,s);
+  if(f1)o.frequency.exponentialRampToValueAtTime(f1,s+d);g.gain.setValueAtTime(.0001,s);g.gain.exponentialRampToValueAtTime(v,s+.004);
+  g.gain.exponentialRampToValueAtTime(.0001,s+d);o.connect(g);g.connect(M);o.start(s);o.stop(s+d+.02)}
+ function nz(ft,f0,f1,q,t,d,v){var s=A.currentTime+t,b=A.createBufferSource(),f=A.createBiquadFilter(),g=A.createGain();b.buffer=NB;f.type=ft;f.Q.value=q;
+  f.frequency.setValueAtTime(f0,s);if(f1)f.frequency.exponentialRampToValueAtTime(f1,s+d);g.gain.setValueAtTime(.0001,s);
+  g.gain.exponentialRampToValueAtTime(v,s+.006);g.gain.exponentialRampToValueAtTime(.0001,s+d);b.connect(f);f.connect(g);g.connect(M);b.start(s);b.stop(s+d+.02)}
+ var S={
+  hover:function(){if(!ready())return;nz('bandpass',2500,7000,3,0,.09,.06);osc('sine',1900,2600,0,.07,.022)},
+  click:function(){if(!ready())return;osc('sine',170,48,0,.16,.26);nz('highpass',2200,0,.7,0,.04,.14);osc('square',1180,0,.012,.05,.026);osc('square',1770,0,.05,.07,.022)},
+  go:function(){if(!ready())return;nz('bandpass',350,4200,1.2,0,.26,.1);osc('sine',220,520,0,.2,.05);osc('sine',150,50,0,.12,.18);osc('triangle',1320,0,.12,.14,.03)},
+  confirm:function(){if(!ready())return;osc('sine',150,40,0,.22,.3);nz('highpass',1800,0,.7,0,.05,.16);
+   [392,523,659,784].forEach(function(f,i){osc('triangle',f,0,.05+i*.07,.28,.07);osc('square',f*2,0,.05+i*.07,.1,.014)});nz('bandpass',500,5000,1,0,.3,.06)},
+  boot:function(){if(!ready())return;osc('sawtooth',60,240,0,.8,.04);nz('bandpass',200,6000,1,0,.7,.09);osc('sine',140,35,0,.5,.36);
+   [523,784,1047].forEach(function(f,i){osc('triangle',f,0,.35+i*.12,.5,.06)})},
+  tog:function(){if(!ready())return;osc('triangle',660,0,0,.1,.06);osc('triangle',990,0,.08,.16,.06)}
+ };
+ /* hover sound plays once per entry: mouseover bubbles from children, so moves that start inside the same control are ignored */
+ var SEL='.nav button,.btn,.co-h';
+ if(canHover)document.addEventListener('mouseover',function(e){var el=e.target.closest(SEL);
+  if(!el||(e.relatedTarget&&el.contains(e.relatedTarget)))return;S.hover()});
+ document.addEventListener('pointerdown',function(e){var el=e.target.closest(SEL);if(!el||el.id==='bootbtn'||el.closest('.nav'))return;
+  if(el.classList.contains('btn')&&!el.classList.contains('ghost'))S.confirm();else S.click()});
+ var sb=document.getElementById('snd');
+ function paint(){sb.textContent='Sound: '+(on?'on':'off')}paint();
+ sb.addEventListener('click',function(){on=!on;try{localStorage.setItem('snd',on?'on':'off')}catch(e){}paint();S.tog()});
+
+ /* ---------- boot ---------- */
+ var msgs=['Initializing...','Loading portfolio...','Almost ready...','Ready'],bar=document.getElementById('bootbar'),bm=document.getElementById('bootmsg'),bb=document.getElementById('bootbtn'),i=0;
+ bar.style.width='12%';
+ var iv=setInterval(function(){i++;bar.style.width=Math.min(i*33,100)+'%';bm.textContent=msgs[Math.min(i,3)];
+  if(i>=3){clearInterval(iv);bb.classList.add('show');bb.focus({preventScroll:true})}},380);
+ bb.addEventListener('click',function(){init();S.boot();document.getElementById('boot').classList.add('gone');document.body.classList.add('live');counters()});
+
+ /* ---------- tabs ---------- */
+ var btns=[].slice.call(document.querySelectorAll('#menu button')),main=document.getElementById('main');
+ function go(id,quiet){var cur=btns.filter(function(b){return b.classList.contains('on')})[0];if(cur&&cur.dataset.t===id)return;
+  if(!quiet)S.go();
+  btns.forEach(function(b){b.classList.toggle('on',b.dataset.t===id)});
+  document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('on',p.id===id)});
+  main.scrollTop=0;if(id==='profile')counters();
+  try{history.replaceState(null,'','#'+id)}catch(e){}}
+ btns.forEach(function(b){b.addEventListener('click',function(){go(b.dataset.t)})});
+ document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.go,true);S.go()})});
+ document.addEventListener('keydown',function(e){if(document.getElementById('boot').className.indexOf('gone')<0)return;
+  var cur=btns.findIndex(function(b){return b.classList.contains('on')}),n=cur;
+  if(e.key==='ArrowRight')n=(cur+1)%btns.length;else if(e.key==='ArrowLeft')n=(cur-1+btns.length)%btns.length;
+  else if(/^[1-6]$/.test(e.key))n=+e.key-1;else return;
+  if(n!==cur){e.preventDefault();go(btns[n].dataset.t)}});
+ var h=location.hash.slice(1);if(h&&document.getElementById(h))go(h,true);
+
+ /* ---------- company accordions ---------- */
+ document.querySelectorAll('.co-h').forEach(function(b){b.addEventListener('click',function(){
+  var co=b.parentNode,o=!co.classList.contains('open');co.classList.toggle('open',o);b.setAttribute('aria-expanded',o)})});
+
+ /* ---------- counters ---------- */
+ function counters(){document.querySelectorAll('[data-n]').forEach(function(el){var t=+el.dataset.n,s=null;
+  function step(ts){if(!s)s=ts;var p=Math.min((ts-s)/900,1);el.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)})}
+
+ /* ---------- mascot: head and eyes follow the cursor ---------- */
+ var mc=document.getElementById('mascot'),hd=document.getElementById('head'),pl=document.getElementById('pl'),pr=document.getElementById('pr'),tx=0,ty=0,cx=0,cy=0;
+ function look(x,y){var r=mc.getBoundingClientRect(),dx=x-(r.left+r.width/2),dy=y-(r.top+r.height/2),d=Math.hypot(dx,dy)||1,k=Math.min(1,d/240);tx=dx/d*k;ty=dy/d*k}
+ if(!reduce){
+  addEventListener('pointermove',function(e){look(e.clientX,e.clientY)});
+  (function tick(){cx+=(tx-cx)*.16;cy+=(ty-cy)*.16;
+   hd.setAttribute('transform','translate('+(cx*3).toFixed(2)+' '+(cy*2.5).toFixed(2)+') rotate('+(cx*9).toFixed(2)+' 50 70)');
+   var p='translate('+(cx*3.6).toFixed(2)+' '+(cy*3).toFixed(2)+')';pl.setAttribute('transform',p);pr.setAttribute('transform',p);
+   requestAnimationFrame(tick)})();
+  (function blink(){setTimeout(function(){mc.classList.add('blink');setTimeout(function(){mc.classList.remove('blink');blink()},120)},2400+Math.random()*3200)})();
+ }
+ mc.addEventListener('click',function(){mc.classList.add('wink','pop');S.tog();setTimeout(function(){mc.classList.remove('wink','pop')},520)});
+})();
+</script>
+</body>
+</html>
