@@ -16,10 +16,7 @@ body{background:var(--bg);color:var(--ink);font:400 16px/1.6 'Barlow',system-ui,
 h1,h2,h3,h4,.btn,.nav button,.role,.nm,.sec{font-family:'Rajdhani',system-ui,sans-serif;text-transform:uppercase}
 a{color:inherit;text-decoration:none}
 /* ---------- background ---------- */
-.scene{position:fixed;inset:0;z-index:0;background:
- radial-gradient(55% 45% at 85% 5%,#1fb6ff30,transparent 62%),
- radial-gradient(45% 40% at 0% 40%,#4a3cff26,transparent 62%),
- radial-gradient(40% 35% at 55% 110%,#ffb93820,transparent 62%),var(--bg)}
+.scene{position:fixed;inset:0;z-index:0;background:var(--bg)}
 .scene::before{content:"";position:absolute;inset:0;background:linear-gradient(#ffffff07 1px,transparent 1px),linear-gradient(90deg,#ffffff07 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000,transparent 75%);mask-image:radial-gradient(ellipse at 50% 30%,#000,transparent 75%)}
 #gl{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 .fx{position:fixed;inset:0;z-index:3;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 45%,#000000b0 100%),repeating-linear-gradient(0deg,#0000 0 2px,#00000020 2px 3px)}
@@ -69,18 +66,33 @@ a{color:inherit;text-decoration:none}
 .hel::after{inset:2px;background:radial-gradient(circle at 50% 35%,#16253d,#070c16)}
 .hel svg{position:absolute;inset:9px;width:calc(100% - 18px);height:calc(100% - 18px);z-index:1;overflow:visible;will-change:transform}
 .hel:hover::before{filter:brightness(1.3)}
-.hel.pop{animation:pop .4s}
-@keyframes pop{40%{transform:scale(1.12)}}
-.hel.flash #vis{filter:brightness(1.8)}
+.hel.pop{animation:pop .45s}
+@keyframes pop{40%{transform:scale(1.14)}}
+.hel.flash #vis{filter:brightness(1.9) drop-shadow(0 0 6px #ffd36b)}
+/* page-wide spell */
+.shock{position:fixed;z-index:45;width:100px;height:100px;margin:-50px 0 0 -50px;border-radius:50%;pointer-events:none;mix-blend-mode:screen;background:radial-gradient(circle,transparent 52%,#ffe7a8aa 58%,#ffb93844 66%,transparent 74%);animation:shock 1.6s cubic-bezier(.12,.6,.25,1) forwards}
+@keyframes shock{from{transform:scale(.2);opacity:1}to{transform:scale(36);opacity:0}}
+.sweep{position:fixed;inset:0;z-index:44;pointer-events:none;mix-blend-mode:screen;transform:translateX(-100%);background:linear-gradient(105deg,transparent 38%,#ffe7a81f 47%,#ffffff33 50%,#ffe7a81f 53%,transparent 62%);animation:sweep 1.3s .1s ease-in forwards}
+@keyframes sweep{to{transform:translateX(100%)}}
+body.dawn .ttl{text-shadow:0 0 26px #ffb93888}
+body.dawn .name{filter:drop-shadow(0 0 22px #ffb93855)}
+@property --g1{syntax:'<color>';inherits:true;initial-value:#1fb6ff30}
+@property --g2{syntax:'<color>';inherits:true;initial-value:#4a3cff26}
+@property --g3{syntax:'<color>';inherits:true;initial-value:#ffb93820}
+.scene{--g1:#1fb6ff30;--g2:#4a3cff26;--g3:#ffb93820;transition:--g1 1.6s,--g2 1.6s,--g3 1.6s;background:radial-gradient(55% 45% at 85% 5%,var(--g1),transparent 62%),radial-gradient(45% 40% at 0% 40%,var(--g2),transparent 62%),radial-gradient(40% 35% at 55% 110%,var(--g3),transparent 62%),var(--bg)}
+body.dawn .scene{--g1:#ffb93860;--g2:#ff5a3c3c;--g3:#ffd36b48}
+@media(max-width:980px){
+ .hero>div:first-child,.beat>.rv,.cr{background:rgba(4,8,15,.6);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);border:1px solid #ffffff14;padding:20px 18px;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)}
+}
 /* ---------- panes ---------- */
 .main{flex:1;min-height:0;overflow-y:auto;padding:36px 32px 120px;scrollbar-width:thin;scrollbar-color:#39d0ff55 transparent}
-.pane{display:none;max-width:1120px;margin:0 auto}
+.pane{display:block;max-width:1120px;margin:0 auto 110px}
 .pane.on{display:block}
 .rv{opacity:0;transform:translateY(26px);filter:blur(6px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1),filter .8s;transition-delay:calc(var(--i,0)*90ms)}
 .rv.in{opacity:1;transform:none;filter:none}
 .ttl{font-size:clamp(34px,6vw,64px);font-weight:700;letter-spacing:.22em;text-align:center;line-height:1;text-shadow:0 0 26px #39d0ff66;margin-bottom:10px}
 .ttl::after{content:"_";color:var(--am);margin-left:.06em;animation:bl .9s steps(1) infinite}
-.pane.on .ttl{animation:flick 1s steps(1) 1}
+.ttl.in{animation:flick 1s steps(1) 1}
 .tsub{text-align:center;color:var(--mute);letter-spacing:.3em;font-size:12px;text-transform:uppercase;margin-bottom:46px}
 /* credits typography */
 .cr{text-align:center;margin:0 auto 46px;max-width:780px}
@@ -146,13 +158,25 @@ a{color:inherit;text-decoration:none}
 .sk:hover{transform:translateY(-3px);border-color:var(--am);box-shadow:0 10px 30px #ffb93814}
 .sk b{display:block;font:700 18px 'Rajdhani';letter-spacing:.1em;text-transform:uppercase}
 .sk span{display:block;font-size:13px;color:var(--mute);margin-top:4px;line-height:1.45}
+.hud{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:18px;padding:7px 20px;font:600 12px 'Rajdhani';letter-spacing:.22em;text-transform:uppercase;color:var(--mute);background:#04070dcc;border:1px solid var(--line);backdrop-filter:blur(8px);clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);white-space:nowrap}
+.hud b{color:var(--cy);font-weight:700}
+.hud i{display:block;position:relative;width:90px;height:3px;background:#ffffff20;overflow:hidden}
+.hud u{position:absolute;inset:0;width:0;background:linear-gradient(90deg,var(--cy),var(--am));text-decoration:none}
+.beat{min-height:62vh;display:grid;place-items:center;text-align:center;padding:30px 0}
+.bt2{font-weight:700;font-size:clamp(34px,6vw,72px);line-height:1.02;letter-spacing:.06em;text-shadow:0 0 30px #39d0ff55;margin:8px 0 14px}
+.tip{position:fixed;left:12px;right:12px;bottom:calc(58px + env(safe-area-inset-bottom));z-index:55;display:flex;align-items:center;gap:12px;padding:12px 14px;font-size:13px;line-height:1.4;color:var(--ink);background:rgba(6,11,20,.88);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid #ffb93855;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .4s,transform .4s}
+.tip.show{opacity:1;transform:none;pointer-events:auto}
+.tip b{color:var(--am)}
+.tip .btn{flex:none}
+@media(min-width:821px){.tip{display:none}}
 :focus-visible{outline:2px solid var(--am);outline-offset:2px}
 /* ---------- responsive ---------- */
 @media(max-width:980px){.hero{grid-template-columns:1fr;gap:34px}.pf{order:-1;max-width:320px}.stats{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){
+ .hud .ha,.hud .hr{display:none}.hud{gap:12px;padding:6px 14px;font-size:11px;letter-spacing:.16em}#snd{left:auto;right:12px}
  .top{padding:4px 6px 0}
  .nav button{padding:16px 10px;font-size:15px;letter-spacing:.08em}
- .hel{width:62px;height:62px;margin:0 8px}
+ .hel{width:60px;height:60px;margin:0 6px}
  .main{padding:26px 14px 110px}
  .grid2{grid-template-columns:1fr}
  .co-h{padding:22px 14px 16px}.co-p{padding:0 12px 24px}
@@ -165,6 +189,7 @@ a{color:inherit;text-decoration:none}
 <div class="scene"></div>
 <canvas id="gl"></canvas>
 <div class="fx"></div>
+<canvas id="fx2" style="position:fixed;inset:0;z-index:46;pointer-events:none"></canvas>
 
 <div id="boot"><div class="boot-in">
  <h1>Parth<b>Panchal</b></h1>
@@ -179,7 +204,7 @@ a{color:inherit;text-decoration:none}
    <button data-t="profile" class="on">Home</button>
    <button data-t="missions">Missions</button>
    <button data-t="quests">Side Quests</button>
-   <button class="hel" id="hel" aria-label="Spartan-style helmet that follows the cursor">
+   <button class="hel" id="hel" aria-label="Helmet: click for a surprise">
     <svg id="hsvg" viewBox="0 0 100 100" aria-hidden="true">
      <defs>
       <linearGradient id="ar" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b7394"/><stop offset=".55" stop-color="#26344d"/><stop offset="1" stop-color="#121a2b"/></linearGradient>
@@ -222,9 +247,12 @@ a{color:inherit;text-decoration:none}
    <div class="stats">
     <div class="stat"><b data-n="3">0</b><span>Odoo implementations delivered</span></div>
     <div class="stat"><b data-n="9">0</b><span>Custom modules built at Areterix</span></div>
-    <div class="stat"><b data-n="7">0</b><span>Reports merged into one suite</span></div>
+    <div class="stat"><b data-n="3">0</b><span>Major projects delivered</span></div>
     <div class="stat"><b data-n="2">0</b><span>Odoo versions delivered: 17 and 19</span></div>
    </div>
+   <div class="beat"><div class="rv"><div class="role">Zone 01 · Reporting</div><h2 class="bt2">Reporting<br>that scales.</h2><p class="ln">Unified accounting and statutory reports for Odoo Community.</p></div></div>
+   <div class="beat"><div class="rv"><div class="role">Zone 02 · Warehouse</div><h2 class="bt2">Scanning<br>built for speed.</h2><p class="ln">A barcode application for receiving, picking and delivery.</p></div></div>
+   <div class="beat"><div class="rv"><div class="role">Zone 03 · Integration</div><h2 class="bt2">Systems<br>that talk.</h2><p class="ln">Integrations that keep Odoo and accounting software in sync.</p><div style="margin-top:26px"><span class="glow"><button class="btn" data-go="missions">Open mission log</button></span></div></div></div>
   </section>
 
   <section class="pane" id="missions">
@@ -232,43 +260,38 @@ a{color:inherit;text-decoration:none}
    <p class="tsub rv">Career log · newest first</p>
 
    <article class="co open rv">
-    <button class="co-h" aria-expanded="true"><div class="role">Software Developer · Present</div><h3 class="nm">Areterix Technologies</h3><div class="dt">Custom Odoo modules · Odoo 17 and 19</div><span class="hint"></span></button>
+    <button class="co-h" aria-expanded="true"><div class="role">Software Developer · Present</div><h3 class="nm">Areterix Technologies</h3><div class="dt">Custom Odoo modules · Accounting, inventory and integrations</div><span class="hint"></span></button>
     <div class="co-b"><div class="co-i"><div class="co-p">
-     <div class="sec rv">Major operations</div>
+     <div class="sec rv">Major projects</div>
      <div class="proj major rv">
       <span class="mt">Major</span>
       <h4>Barcode Scanner App</h4>
-      <div class="dt">Odoo 19 Community</div>
-      <p class="ln">A warehouse scanning application that brings the Enterprise barcode experience to Community Edition, with no Enterprise dependency.</p>
-      <p class="ln">Operations home, picking lists, picking detail with edit and validate, backorders, global barcode resolver, product locate, lot, serial and package scanning, and a camera scanner.</p>
-      <p class="ln">Delivery flow where a product scan followed by a lot scan registers the whole lot in one step, with pending products grouped by lot location.</p>
-      <p class="ln">Per-line DYMO lot-label printing on purchase receipts.</p>
-      <div class="tags"><span class="tg">Odoo 19 CE</span><span class="tg">Owl</span><span class="tg">JavaScript</span><span class="tg">Python</span><span class="tg">QWeb</span><span class="tg">DYMO</span></div>
+      <div class="dt">Odoo Community</div>
+      <p class="ln">A warehouse barcode scanning application for receiving, picking and delivery.</p>
+      <div class="tags"><span class="tg">Odoo</span><span class="tg">Owl</span><span class="tg">Python</span></div>
      </div>
      <div class="proj major rv">
       <span class="mt">Major</span>
       <h4>Accounting Reports Suite</h4>
-      <div class="dt">Odoo Community · 17 and 19</div>
-      <p class="ln">General Ledger, Partner Ledger, Aged Receivable, Aged Payable, Profit and Loss, Balance Sheet and GSTR-1, consolidated from seven modules into one.</p>
-      <p class="ln">Owl interface with date and comparison filters, ledger drill-down, and PDF and XLSX export. Ported from Odoo 19 to 17 for a client handover.</p>
-      <div class="tags"><span class="tg">Owl</span><span class="tg">QWeb PDF</span><span class="tg">XLSX</span><span class="tg">GST</span><span class="tg">Python</span></div>
+      <div class="dt">Odoo Community</div>
+      <p class="ln">A unified set of financial and statutory reports with export options.</p>
+      <div class="tags"><span class="tg">Odoo</span><span class="tg">Owl</span><span class="tg">Python</span></div>
      </div>
      <div class="proj major rv">
       <span class="mt">Major</span>
       <h4>Odoo to TallyPrime Integration</h4>
-      <div class="dt">Odoo 19 · TallyPrime</div>
-      <p class="ln">Customers, vendors and products synchronized to Tally, with sync status on list views.</p>
-      <p class="ln">Customer invoices and vendor bills posted as vouchers through TallyPrime’s HTTP and XML interface, with voucher types mapped per journal.</p>
-      <div class="tags"><span class="tg">Python</span><span class="tg">REST / XML</span><span class="tg">TallyPrime</span><span class="tg">AWS Linux</span></div>
+      <div class="dt">Odoo · TallyPrime</div>
+      <p class="ln">An integration that keeps accounting data in sync between Odoo and TallyPrime.</p>
+      <div class="tags"><span class="tg">Odoo</span><span class="tg">Python</span><span class="tg">Integration</span></div>
      </div>
-     <div class="sec rv">Supporting operations</div>
+     <div class="sec rv">Supporting projects</div>
      <div class="minors">
-      <div class="proj rv"><h4>Auto-reconcile</h4><p class="ln">Reconciles a partner’s open receivable and payable items on posting and bank matching, oldest invoice first.</p></div>
-      <div class="proj rv"><h4>Outstanding Reports</h4><p class="ln">Partner-wise Aged Receivable and Payable XLSX wizards with cumulative balance.</p></div>
-      <div class="proj rv"><h4>Self Service Portal</h4><p class="ln">Time off, leave allocation requests and attendance for portal users.</p></div>
-      <div class="proj rv"><h4>Picking Operations v2</h4><p class="ln">Custom picking PDF, hidden prices on product labels and DYMO lot labels.</p></div>
-      <div class="proj rv"><h4>SQM to PCS</h4><p class="ln">Server-side area-to-piece quantity conversion for polycarbonate sheet sales.</p></div>
-      <div class="proj rv"><h4>Bank Matching Balance</h4><p class="ln">Shows a partner’s Cr/Dr balance in the bank matching quick-create row.</p></div>
+      <div class="proj rv"><h4>Auto-reconcile</h4><p class="ln">Automated reconciliation of open partner balances.</p></div>
+      <div class="proj rv"><h4>Outstanding Reports</h4><p class="ln">Partner-wise outstanding reports in spreadsheet form.</p></div>
+      <div class="proj rv"><h4>Self Service Portal</h4><p class="ln">An employee portal for time off and attendance.</p></div>
+      <div class="proj rv"><h4>Warehouse Documents</h4><p class="ln">Improved picking documents and product labels.</p></div>
+      <div class="proj rv"><h4>Area-based Sales</h4><p class="ln">Quantity conversion for area-based product sales.</p></div>
+      <div class="proj rv"><h4>Bank Matching Insight</h4><p class="ln">Partner balance visibility inside bank matching.</p></div>
      </div>
     </div></div></div>
    </article>
@@ -294,54 +317,52 @@ a{color:inherit;text-decoration:none}
   <section class="pane" id="quests">
    <h2 class="ttl rv">Side Quests</h2>
    <p class="tsub rv">Independent and academic work</p>
-   <div class="cr rv"><div class="role">Odoo 18</div><h3 class="nm">Milk Production</h3><p class="ln">Tracks animals, milk output and health records on the mail, stock, product and report modules.</p><p class="ln">Date-wizard PDF and XLSX milk reports. Role-based access: farm workers record data, administrators keep full control.</p><div class="tags"><span class="tg">Wizards</span><span class="tg">Access rights</span><span class="tg">Reports</span></div></div>
+   <div class="cr rv"><div class="role">Odoo 18</div><h3 class="nm">Milk Production</h3><p class="ln">Farm milk production, stock and health tracking.</p><div class="tags"><span class="tg">Odoo</span><span class="tg">Reports</span></div></div>
    <div class="sep rv"></div>
-   <div class="cr rv"><div class="role">Odoo 18</div><h3 class="nm">Gym Management</h3><p class="ln">Membership schemes linked to products, with automatic calculations on sales orders.</p><p class="ln">Staff manage members while trainers see only their assigned members. Telegram Bot API sends a notification for every new registration.</p><div class="tags"><span class="tg">PostgreSQL</span><span class="tg">Telegram API</span><span class="tg">Access rights</span></div></div>
+   <div class="cr rv"><div class="role">Odoo 18</div><h3 class="nm">Gym Management</h3><p class="ln">Membership management with automated notifications.</p><div class="tags"><span class="tg">Odoo</span><span class="tg">PostgreSQL</span></div></div>
    <div class="sep rv"></div>
-   <div class="cr rv"><div class="role">Machine Learning</div><h3 class="nm">Athlete Clustering</h3><p class="ln">Clusters athletes by performance attributes and visualizes the result.</p><div class="tags"><span class="tg">Python</span><span class="tg">Pandas</span><span class="tg">NumPy</span><span class="tg">Scikit-learn</span></div></div>
+   <div class="cr rv"><div class="role">Machine Learning</div><h3 class="nm">Athlete Clustering</h3><p class="ln">Groups athletes by performance attributes and visualizes the result.</p><div class="tags"><span class="tg">Python</span><span class="tg">Scikit-learn</span></div></div>
    <div class="sep rv"></div>
-   <div class="cr rv"><div class="role">Web</div><h3 class="nm">Culturea</h3><p class="ln">Heritage showcase website with multimedia content and an interactive interface.</p><div class="tags"><span class="tg">HTML</span><span class="tg">CSS</span><span class="tg">JavaScript</span></div></div>
+   <div class="cr rv"><div class="role">Web</div><h3 class="nm">Culturea</h3><p class="ln">A heritage showcase website with an interactive interface.</p><div class="tags"><span class="tg">HTML</span><span class="tg">CSS</span><span class="tg">JavaScript</span></div></div>
    <div class="sep rv"></div>
-   <div class="cr rv"><div class="role">Web</div><h3 class="nm">GrowPharma</h3><p class="ln">Online pharmacy store with product catalog, cart, secure checkout and user accounts.</p><div class="tags"><span class="tg">E-commerce</span><span class="tg">Web</span></div></div>
+   <div class="cr rv"><div class="role">Web</div><h3 class="nm">GrowPharma</h3><p class="ln">An online pharmacy store with catalog, cart and checkout.</p><div class="tags"><span class="tg">E-commerce</span><span class="tg">Web</span></div></div>
   </section>
 
   <section class="pane" id="loadout">
    <h2 class="ttl rv">Loadout</h2>
-   <p class="tsub rv">Technologies and where they were used</p>
+   <p class="tsub rv">Technologies I work with</p>
    <div class="sec rv">Backend and ERP</div>
    <div class="skills">
-    <div class="sk rv"><b>Python</b><span>Odoo modules, the Tally connector, clustering projects</span></div>
-    <div class="sk rv"><b>Odoo ORM and models</b><span>All custom modules, Odoo 17, 18 and 19, Community and Enterprise compatibility</span></div>
-    <div class="sk rv"><b>Wizards and report actions</b><span>Outstanding reports, milk production reports</span></div>
-    <div class="sk rv"><b>Access rights and groups</b><span>Gym Management, Milk Production</span></div>
-    <div class="sk rv"><b>PostgreSQL and SQL</b><span>Gym Management and report modules</span></div>
+    <div class="sk rv"><b>Python</b><span>Backend development and automation</span></div>
+    <div class="sk rv"><b>Odoo ORM and models</b><span>Custom modules on Odoo 17, 18 and 19</span></div>
+    <div class="sk rv"><b>Wizards and reports</b><span>Business workflows and document output</span></div>
+    <div class="sk rv"><b>Access rights</b><span>Role-based security design</span></div>
+    <div class="sk rv"><b>PostgreSQL and SQL</b><span>Data modeling and queries</span></div>
    </div>
    <div class="sec rv">Frontend</div>
    <div class="skills">
-    <div class="sk rv"><b>JavaScript and Owl</b><span>Barcode Scanner App, Accounting Reports Suite</span></div>
-    <div class="sk rv"><b>QWeb templates</b><span>PDF reports, portal pages, picking documents</span></div>
-    <div class="sk rv"><b>Camera scanning UI</b><span>Barcode Scanner App</span></div>
-    <div class="sk rv"><b>HTML and CSS</b><span>Culturea, GrowPharma, report styling</span></div>
+    <div class="sk rv"><b>JavaScript and Owl</b><span>Interactive Odoo interfaces</span></div>
+    <div class="sk rv"><b>QWeb templates</b><span>PDF reports and portal pages</span></div>
+    <div class="sk rv"><b>HTML and CSS</b><span>Responsive layouts and styling</span></div>
    </div>
    <div class="sec rv">Reporting and domain</div>
    <div class="skills">
-    <div class="sk rv"><b>PDF and XLSX output</b><span>Accounting Reports Suite, Outstanding Reports</span></div>
-    <div class="sk rv"><b>Accounting workflows</b><span>Ledgers, financial statements, reconciliation</span></div>
-    <div class="sk rv"><b>GST reporting</b><span>GSTR-1 in the Accounting Reports Suite</span></div>
-    <div class="sk rv"><b>Inventory tracking</b><span>Lots, serials and packages in the Barcode Scanner App</span></div>
+    <div class="sk rv"><b>PDF and XLSX output</b><span>Business reporting and exports</span></div>
+    <div class="sk rv"><b>Accounting workflows</b><span>Ledgers, statements and reconciliation</span></div>
+    <div class="sk rv"><b>Inventory and warehouse</b><span>Stock operations and tracking</span></div>
+    <div class="sk rv"><b>GST reporting</b><span>Indian statutory reporting</span></div>
    </div>
    <div class="sec rv">Integrations and platforms</div>
    <div class="skills">
-    <div class="sk rv"><b>TallyPrime integration</b><span>HTTP and XML voucher sync from Odoo</span></div>
-    <div class="sk rv"><b>Telegram Bot API</b><span>REST notifications in Gym Management</span></div>
-    <div class="sk rv"><b>DYMO label printing</b><span>Barcode Scanner App, Picking Operations v2</span></div>
-    <div class="sk rv"><b>Version migration</b><span>Reporting suite ported from Odoo 19 to 17</span></div>
-    <div class="sk rv"><b>Linux and AWS hosting</b><span>Integration testing environment for the Tally sync</span></div>
+    <div class="sk rv"><b>API integrations</b><span>REST services and third-party systems</span></div>
+    <div class="sk rv"><b>Accounting software sync</b><span>Data exchange between systems</span></div>
+    <div class="sk rv"><b>Version migration</b><span>Moving modules across Odoo versions</span></div>
+    <div class="sk rv"><b>Linux hosting</b><span>Deployment and testing environments</span></div>
    </div>
    <div class="sec rv">Data and tools</div>
    <div class="skills">
-    <div class="sk rv"><b>Pandas, NumPy, Scikit-learn</b><span>Athlete Clustering, Infividhya internship</span></div>
-    <div class="sk rv"><b>Git</b><span>Version control across projects</span></div>
+    <div class="sk rv"><b>Pandas, NumPy, Scikit-learn</b><span>Data analysis and clustering</span></div>
+    <div class="sk rv"><b>Git</b><span>Version control</span></div>
     <div class="sk rv"><b>PyCharm, VS Code, XAMPP</b><span>Development environment</span></div>
    </div>
   </section>
@@ -363,6 +384,8 @@ a{color:inherit;text-decoration:none}
   </section>
  </main>
 </div>
+<div class="hud" id="hud"><span class="hzs">Zone <b id="hz">1</b>/6</span><span class="ha">Alt <b id="ha">95</b> m</span><span class="hr">Safe zone <b id="hr">180</b> m</span><i><u id="hb"></u></i></div>
+<div class="tip" id="tip" role="status"><span><b>Better on a PC.</b> For the best experience, open this site on a computer or switch your browser to desktop mode.</span><button class="btn ghost mini" id="tipx">Got it</button></div>
 <button class="btn ghost mini" id="snd">Sound: on</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -385,48 +408,57 @@ a{color:inherit;text-decoration:none}
  function nz(ft,f0,f1,q,t,d,v){var s=A.currentTime+t,b=A.createBufferSource(),f=A.createBiquadFilter(),g=A.createGain();b.buffer=NB;f.type=ft;f.Q.value=q;
   f.frequency.setValueAtTime(f0,s);if(f1)f.frequency.exponentialRampToValueAtTime(f1,s+d);g.gain.setValueAtTime(.0001,s);
   g.gain.exponentialRampToValueAtTime(v,s+.006);g.gain.exponentialRampToValueAtTime(.0001,s+d);b.connect(f);f.connect(g);g.connect(M);b.start(s);b.stop(s+d+.02)}
+ function ch(f,t,d,v){osc('sine',f,0,t,d,v);osc('sine',f*2.01,0,t,d*.6,v*.35)}
  var S={
-  hover:function(){if(!ready())return;nz('bandpass',2500,7000,3,0,.09,.07);osc('sine',1900,2600,0,.07,.025)},
-  click:function(){if(!ready())return;osc('sine',170,48,0,.16,.28);nz('highpass',2200,0,.7,0,.04,.16);osc('square',1180,0,.012,.05,.03);osc('square',1770,0,.05,.07,.025)},
-  go:function(){if(!ready())return;nz('bandpass',350,4200,1.2,0,.26,.12);osc('sine',220,520,0,.2,.06);osc('sine',150,50,0,.12,.2);osc('triangle',1320,0,.12,.14,.03)},
-  confirm:function(){if(!ready())return;osc('sine',150,40,0,.22,.34);nz('highpass',1800,0,.7,0,.05,.18);
-   [392,523,659,784].forEach(function(f,i){osc('triangle',f,0,.05+i*.07,.28,.07);osc('square',f*2,0,.05+i*.07,.1,.015)});nz('bandpass',500,5000,1,0,.3,.07)},
-  boot:function(){if(!ready())return;osc('sawtooth',60,240,0,.8,.045);nz('bandpass',200,6000,1,0,.7,.1);osc('sine',140,35,0,.5,.4);
-   [523,784,1047].forEach(function(f,i){osc('triangle',f,0,.35+i*.12,.5,.06)})},
-  tog:function(){if(!ready())return;osc('triangle',660,0,0,.1,.06);osc('triangle',990,0,.08,.16,.06)}
+  hover:function(){if(!ready())return;osc('sine',2600,3300,0,.06,.02);nz('bandpass',5000,8000,2,0,.06,.012)},
+  click:function(){if(!ready())return;osc('sine',480,300,0,.07,.12);ch(1760,.01,.35,.035);ch(2349,.05,.3,.02)},
+  go:function(){if(!ready())return;nz('bandpass',500,2600,.8,0,.32,.05);ch(880,.04,.5,.04);ch(1320,.14,.6,.035)},
+  confirm:function(){if(!ready())return;osc('sine',200,110,0,.12,.14);[523,659,784,1047].forEach(function(f,i){ch(f,.03+i*.08,.7,.045)})},
+  boot:function(){if(!ready())return;osc('sine',110,220,0,1.1,.07);osc('sine',165,330,0,1.1,.045);nz('bandpass',300,3000,.7,0,.9,.04);[784,1047,1568].forEach(function(f,i){ch(f,.5+i*.14,1,.04)})},
+  tog:function(){if(!ready())return;ch(1320,0,.5,.045)},
+  gem:function(){if(!ready())return;[1568,2093,2637].forEach(function(f,i){ch(f,i*.07,.9,.04)})}
  };
  /* hover sound plays once per entry: mouseover bubbles from children, so moves that start inside the same control are ignored */
  var SEL='.nav button,.btn,.co-h';
  if(canHover)document.addEventListener('mouseover',function(e){var el=e.target.closest(SEL);
   if(!el||(e.relatedTarget&&el.contains(e.relatedTarget)))return;S.hover()});
- document.addEventListener('pointerdown',function(e){var el=e.target.closest(SEL);if(!el||el.id==='bootbtn'||el.closest('.nav'))return;
+ document.addEventListener('click',function(e){var el=e.target.closest(SEL);if(!el||el.id==='bootbtn'||el.id==='snd'||el.closest('.nav'))return;
   if(el.classList.contains('btn')&&!el.classList.contains('ghost'))S.confirm();else S.click()});
  var sb=document.getElementById('snd');
  function paint(){sb.textContent='Sound: '+(on?'on':'off')}paint();
  sb.addEventListener('click',function(){on=!on;try{localStorage.setItem('snd',on?'on':'off')}catch(e){}paint();S.tog()});
 
+
+ /* ---------- phone notice ---------- */
+ (function(){var tip=document.getElementById('tip'),mob=innerWidth<=820||matchMedia('(pointer:coarse)').matches,seen=false;
+  try{seen=sessionStorage.getItem('tip')==='1'}catch(e){}
+  function hide(){tip.classList.remove('show');try{sessionStorage.setItem('tip','1')}catch(e){}}
+  document.getElementById('tipx').addEventListener('click',hide);
+  window.__tip=function(){if(!mob||seen)return;setTimeout(function(){tip.classList.add('show');setTimeout(hide,12000)},900)};
+ })();
  /* ---------- boot ---------- */
  var msgs=['Connecting to server...','Loading assets...','Preparing mission log...','Ready'],bar=document.getElementById('bootbar'),bm=document.getElementById('bootmsg'),bb=document.getElementById('bootbtn'),i=0;
  bar.style.width='12%';
  var iv=setInterval(function(){i++;bar.style.width=Math.min(i*33,100)+'%';bm.textContent=msgs[Math.min(i,3)];
   if(i>=3){clearInterval(iv);bb.classList.add('show');bb.focus({preventScroll:true})}},400);
- bb.addEventListener('click',function(){init();S.boot();document.getElementById('boot').classList.add('gone');counters();arm(document.getElementById('profile'))});
+ bb.addEventListener('click',function(){init();S.boot();document.getElementById('boot').classList.add('gone');counters();if(window.__tip)window.__tip()});
 
  /* ---------- credits-style reveal ---------- */
  var main=document.getElementById('main'),io=null;
  if('IntersectionObserver' in window)io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{root:main,threshold:.12});
  function arm(p){var k=0;p.querySelectorAll('.rv').forEach(function(el){el.classList.remove('in');el.style.setProperty('--i',(k++)%5);if(io)io.observe(el);else el.classList.add('in')})}
- arm(document.getElementById('missions'));
+ document.querySelectorAll('.pane').forEach(arm);
 
  /* ---------- tabs ---------- */
  var btns=[].slice.call(document.querySelectorAll('#menu button[data-t]'));
- function go(id,quiet){var cur=btns.filter(function(b){return b.classList.contains('on')})[0];if(cur&&cur.dataset.t===id)return;
-  if(!quiet)S.go();
-  btns.forEach(function(b){b.classList.toggle('on',b.dataset.t===id)});
-  var p=document.getElementById(id);
-  document.querySelectorAll('.pane').forEach(function(q){q.classList.toggle('on',q===p)});
-  main.scrollTop=0;if(id==='profile')counters();arm(p);if(window.__kick)window.__kick();
-  try{history.replaceState(null,'','#'+id)}catch(e){}}
+ var panes=btns.map(function(b){return document.getElementById(b.dataset.t)}),spy=-1;
+ function ptop(p){return p.getBoundingClientRect().top-main.getBoundingClientRect().top+main.scrollTop}
+ function go(id,quiet,instant){var p=document.getElementById(id);if(!p)return;if(!quiet)S.go();
+  main.scrollTo({top:id==='profile'?0:Math.max(0,ptop(p)-14),behavior:(reduce||instant)?'auto':'smooth'});if(window.__kick)window.__kick()}
+ function spyNow(){var y=main.scrollTop+main.clientHeight*.35,n=0,k;for(k=0;k<panes.length;k++)if(ptop(panes[k])<=y)n=k;
+  if(main.scrollTop>=main.scrollHeight-main.clientHeight-4)n=panes.length-1;
+  if(n!==spy){spy=n;btns.forEach(function(b,i){b.classList.toggle('on',i===n)});try{history.replaceState(null,'','#'+btns[n].dataset.t)}catch(e){}}}
+ main.addEventListener('scroll',spyNow,{passive:true});spyNow();
  btns.forEach(function(b){b.addEventListener('click',function(){go(b.dataset.t)})});
  document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.go,true);S.go()})});
  document.addEventListener('keydown',function(e){if(document.getElementById('boot').className.indexOf('gone')<0)return;
@@ -434,7 +466,7 @@ a{color:inherit;text-decoration:none}
   if(e.key==='ArrowRight')n=(cur+1)%btns.length;else if(e.key==='ArrowLeft')n=(cur-1+btns.length)%btns.length;
   else if(/^[1-6]$/.test(e.key))n=+e.key-1;else return;
   if(n!==cur){e.preventDefault();go(btns[n].dataset.t)}});
- var h=location.hash.slice(1);if(h&&document.getElementById(h)&&document.querySelector('[data-t="'+h+'"]'))go(h,true);
+ var h=location.hash.slice(1);if(h&&document.getElementById(h)&&document.querySelector('[data-t="'+h+'"]'))setTimeout(function(){go(h,true,true)},60);
 
  /* ---------- company logs ---------- */
  document.querySelectorAll('.co-h').forEach(function(b){b.addEventListener('click',function(){
@@ -444,57 +476,248 @@ a{color:inherit;text-decoration:none}
  function counters(){document.querySelectorAll('[data-n]').forEach(function(el){var t=+el.dataset.n,s=null;
   function step(ts){if(!s)s=ts;var p=Math.min((ts-s)/900,1);el.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)})}
 
- /* ---------- helmet emblem: head turns toward the cursor ---------- */
- var hel=document.getElementById('hel'),hs=document.getElementById('hsvg'),g2=document.getElementById('gl2'),tx=0,ty=0,cx=0,cy=0;
+ /* ---------- helmet emblem: head turns toward the cursor, click casts a page-wide spell ---------- */
+ var hel=document.getElementById('hel'),hs=document.getElementById('hsvg'),g2=document.getElementById('gl2'),tx=0,ty=0,cx=0,cy=0,dawn=0,
+  gemKick=function(){hel.classList.add('flash');setTimeout(function(){hel.classList.remove('flash')},300)};
  if(!reduce){
   addEventListener('pointermove',function(e){var r=hel.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2),d=Math.hypot(dx,dy)||1,k=Math.min(1,d/300);tx=dx/d*k;ty=dy/d*k});
   (function tick(){cx+=(tx-cx)*.14;cy+=(ty-cy)*.14;
    hs.style.transform='perspective(280px) rotateY('+(cx*30).toFixed(2)+'deg) rotateX('+(-cy*20).toFixed(2)+'deg)';
    g2.setAttribute('transform','translate('+(cx*16).toFixed(2)+' 0)');requestAnimationFrame(tick)})();
  }
- hel.addEventListener('click',function(){hel.classList.add('pop','flash');S.tog();setTimeout(function(){hel.classList.remove('pop','flash')},420)});
+ var fc=document.getElementById('fx2'),fx=fc.getContext('2d'),dp=[],fr=0;
+ function fsz(){fc.width=innerWidth;fc.height=innerHeight}fsz();addEventListener('resize',fsz);
+ function fdraw(){fx.clearRect(0,0,fc.width,fc.height);fx.globalCompositeOperation='lighter';
+  for(var i=dp.length-1;i>=0;i--){var p=dp[i];p.vx*=.972;p.vy=p.vy*.972-.012;p.x+=p.vx;p.y+=p.vy;p.l-=p.d;
+   if(p.l<=0){dp.splice(i,1);continue}
+   fx.fillStyle='rgba('+p.c+','+(p.l*.9).toFixed(2)+')';fx.beginPath();fx.arc(p.x,p.y,p.r*(.5+p.l),0,6.283);fx.fill()}
+  if(dp.length)fr=requestAnimationFrame(fdraw);else{fr=0;fx.clearRect(0,0,fc.width,fc.height)}}
+ function burst(x,y){for(var i=0;i<150;i++){var a=Math.random()*6.283,s=Math.random()*9+2,q=Math.random();
+   dp.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:1,d:.006+Math.random()*.01,r:Math.random()*2.4+.6,c:q<.55?'255,214,120':(q<.8?'255,255,255':'120,225,255')})}
+  if(!fr)fr=requestAnimationFrame(fdraw)}
+ hel.addEventListener('click',function(){
+  dawn=dawn?0:1;S.gem();
+  hel.classList.add('pop','flash');setTimeout(function(){hel.classList.remove('pop','flash')},450);
+  var r=hel.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
+  ['shock','sweep'].forEach(function(c){var d=document.createElement('div');d.className=c;if(c==='shock'){d.style.left=x+'px';d.style.top=y+'px'}document.body.appendChild(d);setTimeout(function(){d.remove()},1800)});
+  document.body.classList.toggle('dawn',!!dawn);
+  if(window.__magic)window.__magic(dawn);
+  if(!reduce)burst(x,y)});
 
- /* ---------- 3D background: orbital ring megastructure (Three.js) ---------- */
- (function gl(){
-  if(!window.THREE||reduce)return;
-  var cv=document.getElementById('gl'),R,k;
-  try{R=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true})}catch(e){return}
-  R.setPixelRatio(Math.min(devicePixelRatio||1,1.75));
-  var S3=new THREE.Scene(),C=new THREE.PerspectiveCamera(50,1,.1,400),R0=8;
-  S3.add(new THREE.AmbientLight(0x7090b8,.75));
-  var dl=new THREE.DirectionalLight(0xbfe6ff,1.2);dl.position.set(6,9,10);S3.add(dl);
-  var pt=new THREE.PointLight(0xffb938,1.8,70);pt.position.set(-10,-2,4);S3.add(pt);
-  var T=new THREE.Group(),G=new THREE.Group();T.add(G);
-  var band=new THREE.Mesh(new THREE.CylinderGeometry(R0,R0,2.4,160,1,true),new THREE.MeshStandardMaterial({color:0x16233a,metalness:.7,roughness:.4,side:THREE.DoubleSide,emissive:0x07101c}));
-  var bw=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.CylinderGeometry(R0+.03,R0+.03,2.4,72,3,true)),new THREE.LineBasicMaterial({color:0x39d0ff,transparent:true,opacity:.3}));
-  G.add(band,bw);
-  [-1,1].forEach(function(s){var r=new THREE.Mesh(new THREE.TorusGeometry(R0,.15,8,160),new THREE.MeshStandardMaterial({color:0x2c4468,metalness:.9,roughness:.3,emissive:0x0c1a2e}));r.rotation.x=Math.PI/2;r.position.y=s*1.2;G.add(r)});
-  var bp=[],a;for(k=0;k<72;k++){a=k/72*Math.PI*2;bp.push(Math.cos(a)*(R0+.25),1.2,Math.sin(a)*(R0+.25))}
-  var bg=new THREE.BufferGeometry();bg.setAttribute('position',new THREE.Float32BufferAttribute(bp,3));
-  G.add(new THREE.Points(bg,new THREE.PointsMaterial({color:0xffb938,size:.24,transparent:true,opacity:.95})));
-  S3.add(T);
-  var sun=new THREE.Mesh(new THREE.IcosahedronGeometry(2.4,2),new THREE.MeshBasicMaterial({color:0xffb938,wireframe:true,transparent:true,opacity:.4}));
-  sun.position.set(-10,5,-30);S3.add(sun);
-  var sp=[],u,v,rr;for(k=0;k<900;k++){u=Math.random()*Math.PI*2;v=Math.acos(2*Math.random()-1);rr=70+Math.random()*90;sp.push(rr*Math.sin(v)*Math.cos(u),rr*Math.sin(v)*Math.sin(u),rr*Math.cos(v)-50)}
-  var sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.Float32BufferAttribute(sp,3));
-  var stars=new THREE.Points(sg,new THREE.PointsMaterial({color:0xcfe9ff,size:.4,transparent:true,opacity:.7}));S3.add(stars);
-  var sc=0,sv=0,mx=0,my=0,kick=0,last=0,ry=0,py=0,pz=16,cxp=0,cyp=0;
-  function clampv(){sv=Math.max(-160,Math.min(160,sv))}
-  main.addEventListener('scroll',function(){var t=main.scrollTop;sv+=t-last;last=t;sc=t;clampv()},{passive:true});
-  addEventListener('wheel',function(e){sv+=e.deltaY*.25;clampv()},{passive:true});
-  addEventListener('pointermove',function(e){mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1});
-  window.__kick=function(){kick=1};
-  function size(){var w=innerWidth,h=innerHeight;R.setSize(w,h,false);C.aspect=w/h;C.updateProjectionMatrix();T.position.x=w<900?1.5:3.5}
+ 
+/* ---------- calm background: drifting dust and soft light ---------- */
+ function dust(){
+  var cv=document.getElementById('gl'),x=cv.getContext('2d'),W,H,P=[],B=[],k,sv=0,last=0,sc=0,mx=0,my=0,t=0;
+  function size(){var d=Math.min(devicePixelRatio||1,1.5);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0)}
   size();addEventListener('resize',size);
+  for(k=0;k<110;k++)P.push({x:Math.random(),y:Math.random(),z:Math.random()*.85+.15,p:Math.random()*6.28});
+  for(k=0;k<6;k++)B.push({x:Math.random(),y:Math.random(),r:90+Math.random()*130,c:k%2?'255,185,56':'57,208,255',a:.035+Math.random()*.03,z:.3+Math.random()*.5});
+  main.addEventListener('scroll',function(){var s=main.scrollTop;sv+=s-last;last=s;sc=s},{passive:true});
+  addEventListener('wheel',function(e){sv+=e.deltaY*.2},{passive:true});
+  addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+  window.__kick=function(){sv+=40;gemKick()};
+  function draw(){
+   x.clearRect(0,0,W,H);sv=Math.max(-120,Math.min(120,sv))*.94;t+=.01;
+   B.forEach(function(b){var px=b.x*W-mx*40*b.z,py=((b.y*H-sc*.06*b.z)%H+H)%H,g=x.createRadialGradient(px,py,0,px,py,b.r);
+    g.addColorStop(0,'rgba('+b.c+','+b.a+')');g.addColorStop(1,'rgba('+b.c+',0)');x.fillStyle=g;x.fillRect(px-b.r,py-b.r,b.r*2,b.r*2)});
+   P.forEach(function(p){p.y-=.00004*p.z+sv*.000035*p.z;if(p.y<0)p.y+=1;else if(p.y>1)p.y-=1;
+    var px=p.x*W+Math.sin(t+p.p)*6*p.z-mx*30*p.z,py=p.y*H-my*20*p.z,a=(.14+.22*(.5+.5*Math.sin(t*2+p.p)))*p.z;
+    x.fillStyle='rgba(215,236,255,'+a.toFixed(3)+')';x.fillRect(px,py,.8+p.z*1.3,.8+p.z*1.3)})}
+  if(reduce){draw();return}
+  (function loop(){draw();requestAnimationFrame(loop)})();
+ }
+ 
+
+ /* ---------- scroll-driven game world (Three.js) ---------- */
+ (function world(){
+  if(!window.THREE){dust();return}
+  var cv=document.getElementById('gl'),R,i;
+  try{R=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:false})}catch(e){dust();return}
+  var lite=innerWidth<820||matchMedia('(pointer:coarse)').matches;R.setPixelRatio(Math.min(devicePixelRatio||1,lite?1.2:1.5));
+  var S3=new THREE.Scene(),FN=new THREE.Color(0x060b14),FD=new THREE.Color(0x3a2631),seed=7,dm=new THREE.Object3D(),col=new THREE.Color();
+  S3.fog=new THREE.FogExp2(0x060b14,.0068);
+  var C=new THREE.PerspectiveCamera(58,1,.5,900);
+  function rnd(){seed=(seed*16807)%2147483647;return (seed-1)/2147483646}
+  function soft(c0,c1){var cn=document.createElement('canvas');cn.width=cn.height=128;var x=cn.getContext('2d'),g=x.createRadialGradient(64,64,0,64,64,64);g.addColorStop(0,c0);g.addColorStop(1,c1);x.fillStyle=g;x.fillRect(0,0,128,128);return new THREE.CanvasTexture(cn)}
+  /* terrain with flattened village sites */
+  var VIL=[[-26,-4],[38,-44],[-6,-84],[52,-104],[-72,34],[34,46]];
+  function raw(x,z){var d=Math.sqrt(x*x+z*z),isl=Math.max(0,Math.min(1,(210-d)/90));
+   var h=13*Math.sin(x*.032+1)*Math.cos(z*.028)+7*Math.sin(x*.07+z*.05)+3.5*Math.sin(z*.12-x*.09)+2*Math.sin(x*.21+z*.17);
+   return (h+9)*isl-12*(1-isl)}
+  var vh=VIL.map(function(v){return Math.max(raw(v[0],v[1]),3)});
+  function H(x,z){var h=raw(x,z),d,w,q;for(q=0;q<VIL.length;q++){d=Math.hypot(x-VIL[q][0],z-VIL[q][1]);if(d<32){w=1-Math.max(0,Math.min(1,(d-12)/20));w=w*w*(3-2*w);h+=(vh[q]-h)*w}}return h}
+  var tg=new THREE.PlaneGeometry(440,440,lite?72:110,lite?72:110);tg.rotateX(-Math.PI/2);
+  var pa=tg.attributes.position,cols=new Float32Array(pa.count*3),y,t,r0,g0,b0,jn;
+  for(i=0;i<pa.count;i++){y=H(pa.getX(i),pa.getZ(i));pa.setY(i,y);jn=Math.sin(pa.getX(i)*.9)*Math.cos(pa.getZ(i)*.8)*.02;
+   if(y<1.6){r0=.26;g0=.23;b0=.17}else if(y<17){t=(y-1.6)/15.4;r0=.04+t*.04;g0=.19-t*.03;b0=.15+t*.02}else{t=Math.min(1,(y-17)/14);r0=.12+t*.3;g0=.15+t*.32;b0=.2+t*.4}
+   cols[i*3]=r0+jn;cols[i*3+1]=g0+jn;cols[i*3+2]=b0+jn}
+  tg.setAttribute('color',new THREE.BufferAttribute(cols,3));tg.computeVertexNormals();
+  S3.add(new THREE.Mesh(tg,new THREE.MeshStandardMaterial({vertexColors:true,flatShading:true,roughness:.95,metalness:0})));
+  var wire=new THREE.Mesh(tg,new THREE.MeshBasicMaterial({color:0x39d0ff,wireframe:true,transparent:true,opacity:.07,depthWrite:false}));wire.position.y=.06;if(!lite)S3.add(wire);
+  var sea=new THREE.Mesh(new THREE.PlaneGeometry(1800,1800),new THREE.MeshStandardMaterial({color:0x0a2742,metalness:.5,roughness:.35,transparent:true,opacity:.93}));
+  sea.rotation.x=-Math.PI/2;sea.position.y=-3;S3.add(sea);
+  var amb=new THREE.AmbientLight(0x6f8fb8,1),dl=new THREE.DirectionalLight(0x9fd8ff,1.1);dl.position.set(-60,90,40);S3.add(amb,dl);
+  /* pine forest */
+  var TN=lite?420:1100,cone1=new THREE.InstancedMesh(new THREE.ConeGeometry(1.7,5.2,7),new THREE.MeshStandardMaterial({flatShading:true,roughness:.9}),TN),
+   cone2=new THREE.InstancedMesh(new THREE.ConeGeometry(1.25,4,7),new THREE.MeshStandardMaterial({flatShading:true,roughness:.9}),TN),
+   trunk=new THREE.InstancedMesh(new THREE.CylinderGeometry(.22,.3,1.6,5),new THREE.MeshStandardMaterial({color:0x3a2a22,roughness:1}),TN),tc=0,px,pz,py,s,tr,near,q2;
+  for(tr=0;tr<4200&&tc<TN;tr++){px=(rnd()-.5)*320;pz=(rnd()-.5)*320;py=H(px,pz);if(py<2.2||py>26)continue;
+   near=false;for(q2=0;q2<VIL.length;q2++)if(Math.hypot(px-VIL[q2][0],pz-VIL[q2][1])<19){near=true;break}if(near)continue;
+   if(Math.sin(px*.045+2)*Math.cos(pz*.05)+Math.sin(px*.11+pz*.09)*.5<-.1)continue;
+   s=.8+rnd()*.9;dm.rotation.set(0,rnd()*6.28,0);dm.scale.set(s,s,s);
+   dm.position.set(px,py+.8*s,pz);dm.updateMatrix();trunk.setMatrixAt(tc,dm.matrix);
+   dm.position.set(px,py+4.2*s,pz);dm.updateMatrix();cone1.setMatrixAt(tc,dm.matrix);
+   col.setHSL(.42+rnd()*.06,.45,.13+rnd()*.07);cone1.setColorAt(tc,col);cone2.setColorAt(tc,col);
+   dm.position.set(px,py+6.8*s,pz);dm.scale.set(s*.8,s*.8,s*.8);dm.updateMatrix();cone2.setMatrixAt(tc,dm.matrix);tc++}
+  [cone1,cone2,trunk].forEach(function(m){m.count=tc;m.frustumCulled=false;S3.add(m)});
+  /* villages: houses with warm windows */
+  var HN=VIL.length*7,rg=new THREE.ConeGeometry(3.1,2.2,4);rg.rotateY(Math.PI/4);
+  var walls=new THREE.InstancedMesh(new THREE.BoxGeometry(4,2.6,4),new THREE.MeshStandardMaterial({color:0x2a3a52,flatShading:true,roughness:.8}),HN),
+   roofs=new THREE.InstancedMesh(rg,new THREE.MeshStandardMaterial({color:0x6a3430,flatShading:true,roughness:.8,emissive:0x140808}),HN),
+   wins=new THREE.InstancedMesh(new THREE.PlaneGeometry(.75,.85),new THREE.MeshBasicMaterial({color:0xffc864}),HN*2),hc=0,wc=0;
+  VIL.forEach(function(v,vi){for(var n=0;n<7;n++){var a=n/7*6.283+rnd()*.6,r=4+rnd()*8,hx=v[0]+Math.cos(a)*r,hz=v[1]+Math.sin(a)*r,hy=vh[vi],ha=rnd()*6.283,cs=Math.cos(ha),sn=Math.sin(ha),sc=.9+rnd()*.5;
+    dm.rotation.set(0,ha,0);dm.scale.set(sc,sc,sc);
+    dm.position.set(hx,hy+1.3*sc,hz);dm.updateMatrix();walls.setMatrixAt(hc,dm.matrix);
+    dm.position.set(hx,hy+3.7*sc,hz);dm.updateMatrix();roofs.setMatrixAt(hc,dm.matrix);hc++;
+    [-1,1].forEach(function(sd){dm.position.set(hx+sd*sc*cs+2.02*sc*sn,hy+1.4*sc,hz-sd*sc*sn+2.02*sc*cs);dm.updateMatrix();wins.setMatrixAt(wc++,dm.matrix)})}});
+  [walls,roofs,wins].forEach(function(m){m.frustumCulled=false;S3.add(m)});
+  /* ---------- players, roads and vehicles ---------- */
+  var skin=new THREE.MeshStandardMaterial({color:0xd9b08c,roughness:.8}),gear=new THREE.MeshStandardMaterial({color:0x1e2a38,roughness:.7,flatShading:true}),
+   boxG=new THREE.BoxGeometry(1,1,1),matC={},glowTex=soft('rgba(255,236,176,1)','rgba(255,236,176,0)'),
+   wgeo=new THREE.CylinderGeometry(.48,.48,.4,10),wmat=new THREE.MeshStandardMaterial({color:0x0c1018,roughness:.9}),lensM=new THREE.MeshBasicMaterial({color:0xffe9b0});
+  function mat(c){return matC[c]||(matC[c]=new THREE.MeshStandardMaterial({color:c,flatShading:true,roughness:.7,metalness:.1}))}
+  function bx(w,h,d,m,x,y,z,par){var o=new THREE.Mesh(boxG,m);o.scale.set(w,h,d);o.position.set(x,y,z);par.add(o);return o}
+  function mkPlayer(c){var g=new THREE.Group(),m=mat(c),head=new THREE.Mesh(new THREE.IcosahedronGeometry(.28,0),skin),hm=new THREE.Mesh(new THREE.SphereGeometry(.34,8,5,0,6.283,0,1.6),gear),
+   lL=new THREE.Group(),lR=new THREE.Group(),aL=new THREE.Group(),aR=new THREE.Group();
+   bx(.72,.9,.42,m,0,1.25,0,g);head.position.set(0,1.95,0);hm.position.set(0,2,0);g.add(head,hm);bx(.5,.65,.26,gear,0,1.3,-.34,g);
+   lL.position.set(-.2,.85,0);lR.position.set(.2,.85,0);bx(.3,.85,.3,gear,0,-.42,0,lL);bx(.3,.85,.3,gear,0,-.42,0,lR);
+   aL.position.set(-.48,1.62,0);aR.position.set(.48,1.62,0);bx(.2,.7,.2,m,0,-.32,0,aL);bx(.2,.7,.2,m,0,-.32,0,aR);
+   g.add(lL,lR,aL,aR);bx(.12,.14,1.1,gear,.12,1.3,.55,g);g.userData={lL:lL,lR:lR,aL:aL,aR:aR};g.scale.setScalar(1.7);return g}
+  function pose(g,ph,sp){var u=g.userData;u.lL.rotation.x=Math.sin(ph)*.75*sp;u.lR.rotation.x=-Math.sin(ph)*.75*sp;u.aL.rotation.x=-Math.sin(ph)*.5*sp-.5;u.aR.rotation.x=Math.sin(ph)*.25*sp-1.05}
+  function mkCar(c){var g=new THREE.Group(),m=mat(c),w=[];
+   bx(2.2,.8,4.4,m,0,.85,0,g);bx(1.9,.75,2.2,gear,0,1.6,-.3,g);bx(1.7,.5,.1,mat(0x9fd8ff),0,1.62,.82,g);bx(.45,.25,.1,lensM,-.7,.95,2.22,g);bx(.45,.25,.1,lensM,.7,.95,2.22,g);
+   [[-1.15,.45,1.4],[1.15,.45,1.4],[-1.15,.45,-1.4],[1.15,.45,-1.4]].forEach(function(p){var wh=new THREE.Mesh(wgeo,wmat);wh.rotation.z=Math.PI/2;wh.position.set(p[0],p[1],p[2]);g.add(wh);w.push(wh)});
+   var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,opacity:.65}));sp.scale.set(6,6,1);sp.position.set(0,1,4.2);g.add(sp);
+   g.userData.w=w;g.scale.setScalar(1.5);return g}
+  function canopy(r){var cg=new THREE.SphereGeometry(r,12,6,0,6.283,0,1.5708),pp=cg.attributes.position,cc=new Float32Array(pp.count*3),n,st;
+   for(n=0;n<pp.count;n++){st=Math.floor((Math.atan2(pp.getZ(n),pp.getX(n))+Math.PI)/6.2832*12)%2;cc[n*3]=st?1:.93;cc[n*3+1]=st?.72:.9;cc[n*3+2]=st?.22:.82}
+   cg.setAttribute('color',new THREE.BufferAttribute(cc,3));var m=new THREE.Mesh(cg,new THREE.MeshStandardMaterial({vertexColors:true,side:THREE.DoubleSide,flatShading:true,roughness:.8,emissive:0x1a1208}));m.scale.y=.75;return m}
+  function chain(ix){var pts=[],k,a,b,n,t,dx,dz,j;for(k=0;k<ix.length-1;k++){a=VIL[ix[k]];b=VIL[ix[k+1]];n=Math.ceil(Math.hypot(b[0]-a[0],b[1]-a[1])/7);
+   for(j=(k?1:0);j<=n;j++){t=j/n;dx=a[0]+(b[0]-a[0])*t+Math.sin(t*3.1416)*Math.sin(t*6.283+k)*5;dz=a[1]+(b[1]-a[1])*t;pts.push(new THREE.Vector3(dx,H(dx,dz)+.4,dz))}}
+   return new THREE.CatmullRomCurve3(pts)}
+  function ribbon(cv){var N=Math.ceil(cv.getLength()/3),sp=cv.getSpacedPoints(N),pos=[],idx=[],k,t,nx,nz,l,p;
+   for(k=0;k<=N;k++){p=sp[k];t=cv.getTangentAt(k/N);l=Math.hypot(t.x,t.z)||1;nx=-t.z/l*1.9;nz=t.x/l*1.9;
+    pos.push(p.x+nx,H(p.x+nx,p.z+nz)+.3,p.z+nz,p.x-nx,H(p.x-nx,p.z-nz)+.3,p.z-nz);if(k<N)idx.push(k*2,k*2+1,k*2+2,k*2+1,k*2+3,k*2+2)}
+   var g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();
+   return new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0x2b3548,roughness:1,side:THREE.DoubleSide,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2}))}
+  var RD=[chain([0,1,2,3]),chain([4,0]),chain([5,1])],cars=[],pats=[],jumpers=[];
+  RD.forEach(function(r){var m=ribbon(r);m.frustumCulled=false;S3.add(m)});
+  [[0,0,0xc0392b],[0,.5,0x2b6cb0],[1,.2,0xd69e2e],[2,.35,0x3a8f6b]].forEach(function(q){var c=mkCar(q[2]);S3.add(c);cars.push({g:c,cv:RD[q[0]],sp:(lite?7:9)/RD[q[0]].getLength(),off:q[1],park:false})});
+  VIL.forEach(function(v,vi){var c=mkCar([0x8a2b2b,0x2f4f7a,0x6b6b72,0xb8862f,0x2b7a78,0x4a3a6a][vi]),a=rnd()*6.283,x=v[0]+Math.cos(a)*14,z=v[1]+Math.sin(a)*14;
+   c.position.set(x,H(x,z)+.1,z);c.rotation.y=rnd()*6.283;S3.add(c);
+   for(var n=0;n<(lite?1:2);n++){var p=mkPlayer([0x2b7a78,0xb8862f,0x4a5a78,0xa83a32][(vi+n)%4]);S3.add(p);pats.push({g:p,cx:v[0],cz:v[1],r:16+n*3.5,a:rnd()*6.283,s:(.25+rnd()*.2)*(n?-1:1)})}});
+  [[-22,70,0],[18,60,.33],[-4,45,.66],[30,86,.15]].forEach(function(q,i){var g=new THREE.Group(),pl=mkPlayer([0x2b7a78,0xb8862f,0xa83a32,0x4a5a78][i]),cn=canopy(3.4),lp=[],n,a;
+   cn.position.y=9;for(n=0;n<6;n++){a=n/6*6.283;lp.push(Math.cos(a)*3.3,9,Math.sin(a)*3.3,0,3.4,0)}
+   var lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(lp,3));
+   g.add(pl,cn,new THREE.LineSegments(lg,new THREE.LineBasicMaterial({color:0xd8e2f0,transparent:true,opacity:.6})));pose(pl,0,0);S3.add(g);jumpers.push({g:g,x:q[0],z:q[1],ph:q[2],pl:pl,i:i})});
+  function loot(d){var L=d.lp;if(!L)return;
+   if(d.st!==2||ft-d.land<1.2){L.visible=false;return}
+   var w=Math.min(1,(ft-d.land-1.2)/5.7),px=d.x+d.ox*(.1+.9*(1-w)),pz=d.z+d.oz*(.1+.9*(1-w));
+   L.visible=true;L.position.set(px,H(px,pz),pz);L.rotation.y=Math.atan2(-d.ox,-d.oz);
+   if(w<1)pose(L,ft*7,1);else{pose(L,0,0);L.userData.aL.rotation.x=-1.1+Math.sin(ft*6)*.5;L.userData.aR.rotation.x=-1.1-Math.sin(ft*6)*.5}}
+  function ents(){var x,z,u,p,t;
+   pats.forEach(function(q){q.a+=q.s*.016;x=q.cx+Math.cos(q.a)*q.r;z=q.cz+Math.sin(q.a)*q.r;q.g.position.set(x,H(x,z),z);
+    q.g.rotation.y=Math.atan2(-Math.sin(q.a)*q.s,Math.cos(q.a)*q.s);pose(q.g,ft*5+q.a*9,1)});
+   cars.forEach(function(c){u=(ft*c.sp+c.off)%2;var fw=u<1,uu=fw?u:2-u;p=c.cv.getPointAt(uu);t=c.cv.getTangentAt(uu);if(!fw)t.negate();
+    c.g.position.set(p.x,H(p.x,p.z)+.1,p.z);c.g.rotation.y=Math.atan2(t.x,t.z);c.g.userData.w.forEach(function(w){w.rotation.x+=.22})});
+   jumpers.forEach(function(j){var tt=(ft*.02+j.ph)%1,sc=Math.min(1,tt*15,(1-tt)*15);x=j.x+Math.sin(ft*.5+j.i)*3;
+    j.g.position.set(x,H(j.x,j.z)+3+(1-tt)*150,j.z);j.g.scale.setScalar(Math.max(.001,sc));j.g.rotation.y=ft*.15+j.i;pose(j.pl,ft*3+j.i,.12)})}
+  /* sky: clouds to dive through, stars, moon, patrol plane */
+  var cloudMat=new THREE.SpriteMaterial({map:soft('rgba(255,255,255,.9)','rgba(255,255,255,0)'),color:0xbcd4f0,transparent:true,opacity:.2,depthWrite:false}),clouds=[];
+  for(i=0;i<(lite?18:40);i++){var cl=new THREE.Sprite(cloudMat),cz=60+rnd()*80;cl.scale.set(cz*1.6,cz*.55,1);cl.position.set((rnd()-.5)*340,52+rnd()*34,(rnd()-.5)*340);cl.userData.v=.4+rnd()*.5;S3.add(cl);clouds.push(cl)}
+  var stp=[],u,vv;for(i=0;i<500;i++){u=rnd()*6.283;vv=rnd()*1.2+.1;stp.push(Math.cos(u)*Math.cos(vv)*520,Math.sin(vv)*520,Math.sin(u)*Math.cos(vv)*520)}
+  var stg=new THREE.BufferGeometry();stg.setAttribute('position',new THREE.Float32BufferAttribute(stp,3));
+  var stars=new THREE.Points(stg,new THREE.PointsMaterial({color:0xdbeaff,size:1.7,sizeAttenuation:false,transparent:true,opacity:.8,fog:false,depthWrite:false}));S3.add(stars);
+  var moon=new THREE.Sprite(new THREE.SpriteMaterial({map:soft('rgba(255,244,220,1)','rgba(255,244,220,0)'),transparent:true,fog:false,depthWrite:false,blending:THREE.AdditiveBlending}));
+  moon.scale.set(120,120,1);moon.position.set(-160,190,-420);S3.add(moon);
+  var plane=new THREE.Group(),pm=new THREE.MeshBasicMaterial({color:0x2c4262,fog:false}),
+   fus=new THREE.Mesh(new THREE.CylinderGeometry(.9,.7,10,8),pm),wing=new THREE.Mesh(new THREE.BoxGeometry(2.4,.16,14),pm),tail=new THREE.Mesh(new THREE.BoxGeometry(1.4,.12,5),pm),fin=new THREE.Mesh(new THREE.BoxGeometry(1.4,2.2,.12),pm),
+   lr=new THREE.Mesh(new THREE.SphereGeometry(.4,6,6),new THREE.MeshBasicMaterial({color:0xff3344,fog:false})),lgn=new THREE.Mesh(new THREE.SphereGeometry(.4,6,6),new THREE.MeshBasicMaterial({color:0x44ff88,fog:false}));
+  fus.rotation.z=Math.PI/2;wing.position.x=.5;tail.position.x=-4.4;fin.position.set(-4.4,1.1,0);lr.position.set(.5,0,7);lgn.position.set(.5,0,-7);
+  plane.add(fus,wing,tail,fin,lr,lgn);plane.scale.setScalar(2.4);S3.add(plane);
+  /* safe zone wall */
+  var ZG=new THREE.Group(),zg=new THREE.CylinderGeometry(1,1,170,96,1,true),
+   zm=new THREE.MeshBasicMaterial({color:0x39d0ff,transparent:true,opacity:.07,side:THREE.DoubleSide,depthWrite:false,blending:THREE.AdditiveBlending,fog:false}),
+   zl=new THREE.LineBasicMaterial({color:0x7fe3ff,transparent:true,opacity:.22,fog:false});
+  ZG.add(new THREE.Mesh(zg,zm),new THREE.LineSegments(new THREE.EdgesGeometry(zg),zl));ZG.position.y=40;S3.add(ZG);
+  /* airdrops: parachute, crate, colored smoke flare */
+  var smokeTex=soft('rgba(255,255,255,.8)','rgba(255,255,255,0)'),drops=[],pulse=0;
+  function mkDrop(x,z,trig,smoke){
+   var g=new THREE.Group(),crate=new THREE.Mesh(new THREE.BoxGeometry(3,2.4,3),new THREE.MeshStandardMaterial({color:0x232d3f,metalness:.85,roughness:.35,emissive:0x2a1600})),
+    bm=new THREE.MeshStandardMaterial({color:0xffb938,emissive:0x8a5200,metalness:.6,roughness:.4}),b1=new THREE.Mesh(new THREE.BoxGeometry(3.14,.5,3.14),bm),b2=b1.clone(),n;
+   b1.position.y=.55;b2.position.y=-.6;
+   crate.add(b1,b2,new THREE.LineSegments(new THREE.EdgesGeometry(crate.geometry),new THREE.LineBasicMaterial({color:0xffd36b})));g.add(crate);
+   var chute=new THREE.Group(),cg=new THREE.SphereGeometry(6.5,16,8,0,Math.PI*2,0,Math.PI/2),pp=cg.attributes.position,cc=new Float32Array(pp.count*3),st,an;
+   for(n=0;n<pp.count;n++){an=Math.atan2(pp.getZ(n),pp.getX(n))+Math.PI;st=Math.floor(an/6.2832*16)%2;cc[n*3]=st?1:.93;cc[n*3+1]=st?.72:.9;cc[n*3+2]=st?.22:.82}
+   cg.setAttribute('color',new THREE.BufferAttribute(cc,3));
+   var ch=new THREE.Mesh(cg,new THREE.MeshStandardMaterial({vertexColors:true,side:THREE.DoubleSide,flatShading:true,roughness:.8,emissive:0x1a1208}));ch.position.y=11;ch.scale.y=.75;chute.add(ch);
+   var lp=[],a2;for(n=0;n<8;n++){a2=n/8*6.2832;lp.push(Math.cos(a2)*6.4,11,Math.sin(a2)*6.4,(n%2?1:-1)*1.4,1.2,(n%4<2?1:-1)*1.4)}
+   var lg=new THREE.BufferGeometry();lg.setAttribute('position',new THREE.Float32BufferAttribute(lp,3));
+   chute.add(new THREE.LineSegments(lg,new THREE.LineBasicMaterial({color:0xd8e2f0,transparent:true,opacity:.7})));g.add(chute);
+   var d={g:g,chute:chute,x:x,z:z,gy:H(x,z),trig:trig,st:0,t0:0,land:0,sm:[]};
+   for(n=0;n<16;n++){var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:smokeTex,color:smoke,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:0}));sp.visible=false;S3.add(sp);d.sm.push(sp)}
+   g.visible=false;S3.add(g);drops.push(d)}
+  /* camera path: one waypoint per page, scrolling moves along it */
+  var curve=new THREE.CatmullRomCurve3([[0,95,140],[-34,62,92],[-38,38,50],[-14,22,4],[32,20,-30],[46,22,-72],[8,34,-118]].map(function(a){return new THREE.Vector3(a[0],a[1],a[2])}),false,'catmullrom',.5);
+
+  /* airdrops are triggered by scroll position: each one drops again whenever you reach its mark */
+  [[.1,-1,0xff2a1a],[.3,1,0x39ff6a],[.52,-1,0xff2a1a],[.74,1,0x39ff6a]].forEach(function(q){var c=curve.getPoint(q[0]+.07);mkDrop(c.x+q[1]*15,c.z-4,q[0],q[2]);var dd=drops[drops.length-1];dd.lp=mkPlayer(q[2]===0xff2a1a?0xa83a32:0x2b7a78);dd.lp.visible=false;dd.ox=-q[1]*24;dd.oz=22;S3.add(dd.lp)});
+  function size(){var w=innerWidth,h=innerHeight;R.setSize(w,h,false);C.aspect=w/h;C.updateProjectionMatrix()}
+  size();addEventListener('resize',size);
+  var mx=0,my=0,cur=0,cxp=0,cyp=0,zr=180,ft=0,mood=0,moodT=0,hz=document.getElementById('hz'),ha=document.getElementById('ha'),hr=document.getElementById('hr'),hb=document.getElementById('hb'),lz='',la='',lr2='';
+  addEventListener('pointermove',function(e){mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1});
+  window.__magic=function(m){moodT=m;pulse=1};
+  window.__kick=function(){gemKick()};
   (function loop(){
-   sv*=.9;kick*=.95;
-   ry+=.0016+sv*.0007+kick*.05;G.rotation.y=ry;
-   py+=(-sc*.003-py)*.06;pz+=(16-Math.min(sc*.004,4)-pz)*.06;
-   cxp+=(mx*1.6-cxp)*.05;cyp+=(-my*1-cyp)*.05;
-   T.position.y=-.5+py;T.position.z=-5;T.rotation.x=1.15+Math.sin(sc*.002)*.18+sv*.0008;T.rotation.z=.35;
-   C.position.set(cxp,cyp,pz);C.lookAt(0,0,-4);
-   sun.rotation.y+=.004;stars.rotation.y+=.0003+sv*.00002;
-   R.render(S3,C);requestAnimationFrame(loop)})();
+   var idx=Math.max(0,spy),span=main.scrollHeight-main.clientHeight,tgt=span>20?Math.min(1,Math.max(0,main.scrollTop/span)):0;
+   cur+=(tgt-cur)*(reduce?1:.045);ft+=.016;mood+=(moodT-mood)*.03;pulse*=.95;
+   cxp+=(mx*3.5-cxp)*.05;cyp+=(-my*2-cyp)*.05;
+   var p=curve.getPoint(Math.min(.999,Math.max(0,cur))),gy=H(p.x,p.z)+11;if(p.y<gy)p.y=gy;
+   var lk=curve.getPoint(Math.min(1,cur+.06));lk.y*=.4;
+   C.position.set(p.x+cxp,p.y+cyp,p.z);C.lookAt(lk);C.fov=58+pulse*9;C.updateProjectionMatrix();
+   var ctr=curve.getPoint(Math.min(1,cur+.3)),dx=ctr.x-p.x,dz=ctr.z-p.z,want=Math.max(180-120*cur,Math.sqrt(dx*dx+dz*dz)+24);
+   zr+=(want-zr)*.05;ZG.position.x=ctr.x;ZG.position.z=ctr.z;ZG.scale.set(zr,1,zr);
+   /* mood: night to golden hour, pulse on click */
+   S3.fog.color.copy(FN).lerp(FD,mood);
+   dl.color.setRGB(.62+.38*mood,.85-.07*mood,1-.45*mood);dl.intensity=1.1+.5*mood;
+   amb.color.setRGB(.44+.3*mood,.56+.04*mood,.72-.12*mood);amb.intensity=1+.25*mood;
+   var ar=.22+.78*mood,ag=.82-.2*mood,ab=1-.8*mood;
+   wire.material.color.setRGB(ar,ag,ab);wire.material.opacity=.07+.03*mood+pulse*.2;
+   zm.color.setRGB(ar,ag,ab);zm.opacity=.07+pulse*.14;zl.color.setRGB(.5+.5*mood,.89-.2*mood,1-.7*mood);zl.opacity=.22+pulse*.5;
+   cloudMat.color.setRGB(.74+.26*mood,.83-.08*mood,.94-.3*mood);cloudMat.opacity=.2+.07*mood;
+   stars.material.opacity=.8-.65*mood;
+   moon.material.color.setRGB(1,1-.4*mood,1-.7*mood);moon.scale.set(120+90*mood,120+90*mood,1);moon.position.y=190-70*mood;
+   sea.material.color.setRGB(.04+.14*mood,.15+.1*mood,.26+.1*mood);
+   /* motion */
+   clouds.forEach(function(c){c.position.x+=c.userData.v*.03;if(c.position.x>200)c.position.x=-200});
+   plane.position.set(-460+((ft*26)%1000),112+Math.sin(ft*.3)*3,-70);lr.visible=Math.floor(ft*2)%2===0;lgn.visible=!lr.visible;
+   drops.forEach(function(d,k){var yy,e,w,fall;
+    if(d.st===0&&cur>=d.trig){if(cur<d.trig+.18){d.st=1;d.t0=ft}else{d.st=2;d.land=ft-99}}
+    else if(d.st>0&&cur<d.trig-.03){d.st=0}
+    if(d.st===0){d.g.visible=false;if(d.lp)d.lp.visible=false;d.sm.forEach(function(sp){sp.visible=false});return}
+    if(d.st===1){e=Math.min(1,(ft-d.t0)/7);if(e>=1){d.st=2;d.land=ft}}
+    d.g.visible=true;fall=d.st===1;
+    if(fall){yy=d.gy+2.4+Math.pow(1-e,1.15)*85;d.g.rotation.z=Math.sin(ft*.9+k)*.08*(1-e);d.chute.visible=true;d.chute.scale.set(1,1,1)}
+    else{yy=d.gy+2.4+Math.sin(ft+k)*.03;d.g.rotation.z=0;w=Math.min(1,(ft-d.land)/.9);d.chute.scale.y=Math.max(.02,1-w);d.chute.visible=w<.98}
+    d.g.position.set(d.x,yy,d.z);d.g.rotation.y=ft*.2+k;loot(d);
+    d.sm.forEach(function(sp,n){var uu=(ft*.22+n/16)%1,sz=(fall?3:5)+uu*(fall?9:20);sp.visible=true;
+     sp.position.set(d.x+Math.sin(ft*.6+n)*uu*3,yy+1.5+uu*(fall?22:46),d.z+Math.cos(ft*.5+n)*uu*3);sp.scale.set(sz,sz,1);
+     sp.material.opacity=(1-uu)*Math.min(1,uu*8)*(fall?.3:.55)*(1+pulse)})});
+   ents();
+   R.render(S3,C);
+   var a=String(Math.round(p.y)),r=String(Math.round(zr)),z=String(idx+1);
+   if(z!==lz){hz.textContent=lz=z}if(a!==la){ha.textContent=la=a}if(r!==lr2){hr.textContent=lr2=r}hb.style.width=(cur*100).toFixed(1)+'%';
+   requestAnimationFrame(loop)})();
  })();
 })();
 </script>
